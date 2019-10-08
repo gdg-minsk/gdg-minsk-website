@@ -1,6 +1,5 @@
 module.exports = {
-    extends: ['airbnb', 'prettier', 'prettier/react'],
-    plugins: ['prettier'],
+    extends: ['airbnb', 'plugin:prettier/recommended', 'prettier/react'],
     globals: {
         window: true,
         document: true,

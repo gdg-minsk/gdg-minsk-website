@@ -3,9 +3,14 @@
     "private": true,
     "version": "0.1.0",
     "dependencies": {
+        "@material-ui/core": "^4.5.0",
+        "@material-ui/icons": "^4.4.3",
+        "@material-ui/styles": "^4.5.0",
+        "classnames": "^2.2.6",
         "gatsby": "^2.15.29",
         "gatsby-image": "^2.2.24",
         "gatsby-plugin-manifest": "^2.2.20",
+        "gatsby-plugin-material-ui": "^2.1.6",
         "gatsby-plugin-offline": "^3.0.11",
         "gatsby-plugin-react-helmet": "^3.1.10",
         "gatsby-plugin-sharp": "^2.2.28",
@@ -27,7 +32,11 @@
         "husky": "^3.0.8",
         "lint-staged": "^9.4.1",
         "prettier": "^1.18.2",
-        "pretty-quick": "^1.11.1"
+        "prettier-eslint": "^9.0.0",
+        "prettier-stylelint": "^0.4.2",
+        "pretty-quick": "^1.11.1",
+        "stylelint-config-prettier": "^6.0.0",
+        "stylelint-prettier": "^1.1.1"
     },
     "scripts": {
         "build": "gatsby build",
