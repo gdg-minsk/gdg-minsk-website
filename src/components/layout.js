@@ -5,6 +5,7 @@ import { useStaticQuery, graphql } from 'gatsby';
 import Container from '@material-ui/core/Container';
 
 import Header from './header';
+import Footer from './footer';
 
 const Layout = ({ children }) => {
     const data = useStaticQuery(graphql`
@@ -24,6 +25,8 @@ const Layout = ({ children }) => {
             <Container maxWidth="lg">
                 <main>{children}</main>
             </Container>
+
+            <Footer />
         </>
     );
 };
