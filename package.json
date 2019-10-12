@@ -42,15 +42,7 @@
         "build": "gatsby build",
         "develop": "gatsby develop",
         "start": "npm run develop",
-        "serve": "gatsby serve",
-        "precommit": "lint-staged"
-    },
-    "lint-staged": {
-        "*.{js,jsx}": [
-            "pretty-quick --staged",
-            "eslint src/ --fix",
-            "git add"
-        ]
+        "serve": "gatsby serve"
     },
     "repository": {
         "type": "git",
