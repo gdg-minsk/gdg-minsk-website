@@ -3,6 +3,11 @@ module.exports = {
         title: 'GDG Minsk',
         description: 'GDG Description.',
         author: 'gdg',
+        menuItems: [
+            { path: '/events', title: 'Events' },
+            { path: '/speakers', title: 'Speakers' },
+            { path: '/about', title: 'About' },
+        ],
     },
     plugins: [
         'gatsby-plugin-react-helmet',
