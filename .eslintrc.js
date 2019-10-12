@@ -27,15 +27,6 @@ module.exports = {
                 ignoreRegExpLiterals: true,
             },
         ],
-        'comma-dangle': [
-            'error',
-            {
-                arrays: 'always-multiline',
-                objects: 'always-multiline',
-                imports: 'always-multiline',
-                exports: 'always-multiline',
-                functions: 'always-multiline',
-            },
-        ],
+        'react/jsx-props-no-spreading': 0,
     },
 };

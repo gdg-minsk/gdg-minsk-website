@@ -1,21 +1,19 @@
 import React from 'react';
-import { Link } from 'gatsby';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 
-import Layout from '../components/layout';
-import Image from '../components/image';
-import SEO from '../components/seo';
+import Layout from '../components/shared/layout/layout';
+import Image from '../components/shared/image';
+import SEO from '../components/shared/seo';
 
 import UpcomingEventCard from '../components/upcoming-event-card/upcoming-event-card';
 
 const IndexPage = () => (
     <Layout>
         <SEO title="Home" />
-        <h1>Hi people</h1>
         <Typography gutterBottom variant="h1" component="h1">
             Hi people
         </Typography>
@@ -62,8 +60,6 @@ const IndexPage = () => (
         <Box style={{ maxWidth: `800px`, width: '100%', marginBottom: `1.45rem` }}>
             <Image />
         </Box>
-
-        <Link to="/page-2/">Go to page 2</Link>
     </Layout>
 );
 
