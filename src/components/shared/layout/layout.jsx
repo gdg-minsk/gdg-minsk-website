@@ -10,6 +10,7 @@ import Header from './header/header';
 import DesktopMenu from './header/desktop-menu';
 import MobileMenu from './header/mobile-menu';
 import Footer from './footer/footer';
+import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -37,7 +38,7 @@ const Layout = ({ children }) => {
     `);
 
     return (
-        <div className={classes.root}>
+        <Box className={classes.root}>
             <CssBaseline />
 
             <Header
@@ -51,7 +52,7 @@ const Layout = ({ children }) => {
             </Container>
 
             <Footer organizationName={data.site.siteMetadata.title}/>
-        </div>
+        </Box>
     );
 };
 
