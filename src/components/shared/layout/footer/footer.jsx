@@ -18,19 +18,17 @@ const Footer = ({organizationName}) => {
   const classes = useStyles();
 
   return (
-    <>
-        <footer className={classes.footer}>
-            <Container maxWidth="sm">
-                <Typography variant="body2" color="textSecondary" align="center">
-                    <Link color="inherit" href="./">
-                        {organizationName}
-                    </Link>{' '}
-                    {new Date().getFullYear()}
-                    {'.'}
-                </Typography>
-            </Container>
-        </footer>
-    </>
+    <footer className={classes.footer}>
+        <Container maxWidth="sm">
+            <Typography variant="body2" color="textSecondary" align="center">
+                <Link color="inherit" href="./">
+                    {organizationName}
+                </Link>{' '}
+                {new Date().getFullYear()}
+                {'.'}
+            </Typography>
+        </Container>
+    </footer>
   );
 }
 
