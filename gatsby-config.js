@@ -1,6 +1,6 @@
 module.exports = {
     siteMetadata: {
-        title: 'GDG Minsk',
+        title: 'GDG Minsk Test cache',
         description: 'GDG Description.',
         author: 'gdg',
         menuItems: [
@@ -34,5 +34,6 @@ module.exports = {
         },
         'gatsby-plugin-offline',
         'gatsby-plugin-material-ui',
+        'gatsby-plugin-netlify',
     ],
 };
