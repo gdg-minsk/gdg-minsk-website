@@ -1,6 +1,6 @@
 module.exports = {
     siteMetadata: {
-        title: 'GDG Minsk Test cache',
+        title: 'GDG Minsk',
         description: 'GDG Description.',
         author: 'gdg',
         menuItems: [
