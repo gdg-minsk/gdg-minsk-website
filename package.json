@@ -20,7 +20,8 @@
         "prop-types": "^15.7.2",
         "react": "^16.10.2",
         "react-dom": "^16.10.2",
-        "react-helmet": "^5.2.1"
+        "react-helmet": "^5.2.1",
+        "react-scroll-parallax": "^2.2.0"
     },
     "devDependencies": {
         "eslint": "^6.5.1",
@@ -36,6 +37,7 @@
         "prettier-eslint": "^9.0.0",
         "prettier-stylelint": "^0.4.2",
         "pretty-quick": "^1.11.1",
+        "stylelint": "^11.1.1",
         "stylelint-config-prettier": "^6.0.0",
         "stylelint-prettier": "^1.1.1"
     },
@@ -43,7 +45,15 @@
         "build": "gatsby build",
         "develop": "gatsby develop",
         "start": "npm run develop",
-        "serve": "gatsby serve"
+        "serve": "gatsby serve",
+        "precommit": "lint-staged"
+    },
+    "lint-staged": {
+        "*.{js,jsx}": [
+            "pretty-quick --staged",
+            "eslint --fix",
+            "git add"
+        ]
     },
     "repository": {
         "type": "git",
