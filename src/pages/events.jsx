@@ -7,7 +7,15 @@ import SEO from '../components/shared/seo';
 import Image from '../components/shared/image';
 
 const EventPage = () => (
-    <Layout>
+    <Layout
+        parallaxContent={<h1>test</h1>}
+        bannerImages={[
+            {
+                image: '/img/gdg-stickers.jpg',
+                amount: 0.4,
+            },
+        ]}
+    >
         <SEO title="Events" />
 
         <Typography gutterBottom variant="h1" component="h1">
