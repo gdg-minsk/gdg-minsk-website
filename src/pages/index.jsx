@@ -11,7 +11,7 @@ import Image from '../components/shared/image';
 import SEO from '../components/shared/seo';
 import Link from '../components/shared/link';
 
-import UpcomingEventCard from '../components/upcoming-event-card/upcoming-event-card';
+import EventCard from '../components/shared/event-card/event-card';
 
 const useStyles = makeStyles(theme => ({
     bannerContainer: {
@@ -24,6 +24,7 @@ const useStyles = makeStyles(theme => ({
 
 const IndexPage = () => {
     const classes = useStyles();
+    const speakers = [{ speakerImg: '/img/ilya.jpg' }, { speakerImg: '/img/ilya.jpg' }];
 
     return (
         <Layout
@@ -73,19 +74,49 @@ const IndexPage = () => {
 
             <Grid container spacing={3}>
                 <Grid item>
-                    <UpcomingEventCard />
+                    <EventCard
+                        imageUrl="/img/gdg-cover.png"
+                        speakers={speakers}
+                        eventTitle="A very long name for a next GDG meetup"
+                        eventDescription="Detailed description of the event"
+                        eventDate="10 June"
+                    />
                 </Grid>
                 <Grid item>
-                    <UpcomingEventCard />
+                    <EventCard
+                        imageUrl="/img/gdg-cover.png"
+                        speakers={speakers}
+                        eventTitle="A very long name for a next GDG meetup"
+                        eventDescription="Detailed description of the event"
+                        eventDate="10 June"
+                    />
                 </Grid>
                 <Grid item>
-                    <UpcomingEventCard />
+                    <EventCard
+                        imageUrl="/img/gdg-cover.png"
+                        speakers={speakers}
+                        eventTitle="A very long name for a next GDG meetup"
+                        eventDescription="Detailed description of the event"
+                        eventDate="10 June"
+                    />
                 </Grid>
                 <Grid item>
-                    <UpcomingEventCard />
+                    <EventCard
+                        imageUrl="/img/gdg-cover.png"
+                        speakers={speakers}
+                        eventTitle="A very long name for a next GDG meetup"
+                        eventDescription="Detailed description of the event"
+                        eventDate="10 June"
+                    />
                 </Grid>
                 <Grid item>
-                    <UpcomingEventCard />
+                    <EventCard
+                        imageUrl="/img/gdg-cover.png"
+                        speakers={speakers}
+                        eventTitle="A very long name for a next GDG meetup"
+                        eventDescription="Detailed description of the event"
+                        eventDate="10 June"
+                    />
                 </Grid>
             </Grid>
 

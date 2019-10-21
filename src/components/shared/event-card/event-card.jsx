@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Link } from 'gatsby';
 
@@ -26,8 +27,14 @@ const useStyles = makeStyles({
     },
 });
 
-export default function ImgMediaCard() {
+const EventCard = ({ imageUrl, eventTitle, eventDescription, eventDate, speakers }) => {
     const classes = useStyles();
+    const speakersArray = speakers;
+    const listItems = speakersArray.map(speaker => (
+        <Link to="/speaker">
+            <Avatar alt="Ilya" src={speaker.speakerImg} className={classes.avatar} />
+        </Link>
+    ));
 
     return (
         <Card className={classes.card}>
@@ -35,36 +42,25 @@ export default function ImgMediaCard() {
                 <CardMedia
                     className={classes.cardImg}
                     component="img"
-                    alt="Contemplative Reptile"
+                    alt="Event image"
                     height="140"
-                    image="/img/gdg.png"
-                    title="Contemplative Reptile"
+                    image={imageUrl}
+                    title="Event image"
                 />
             </CardActionArea>
             <CardContent>
                 <Typography gutterBottom variant="h6" component="h3">
-                    A very long name for a next GDG meetup
+                    {eventTitle}
                 </Typography>
                 <Typography gutterBottom variant="body1" color="textSecondary" component="p">
-                    10 June
+                    {eventDate}
                 </Typography>
                 <Typography gutterBottom variant="body2" color="textSecondary" component="p">
-                    Detailed description of the event
+                    {eventDescription}
                 </Typography>
 
                 <CardActions>
-                    <Link to="/speaker">
-                        <Avatar alt="Ilya" src="/img/ilya.jpg" className={classes.avatar} />
-                    </Link>
-                    <Link to="/speaker">
-                        <Avatar alt="Ilya" src="/img/ilya.jpg" className={classes.avatar} />
-                    </Link>
-                    <Link to="/speaker">
-                        <Avatar alt="Ilya" src="/img/ilya.jpg" className={classes.avatar} />
-                    </Link>
-                    <Link to="/speaker">
-                        <Avatar alt="Ilya" src="/img/ilya.jpg" className={classes.avatar} />
-                    </Link>
+                    {listItems}
                     <Button size="small" color="primary">
                         Register
                     </Button>
@@ -72,4 +68,20 @@ export default function ImgMediaCard() {
             </CardContent>
         </Card>
     );
-}
+};
+
+EventCard.propTypes = {
+    imageUrl: PropTypes.string,
+    eventTitle: PropTypes.string.isRequired,
+    eventDescription: PropTypes.string.isRequired,
+    speakers: PropTypes.arrayOf(PropTypes.string),
+    eventDate: PropTypes.string,
+};
+
+EventCard.defaultProps = {
+    imageUrl: '',
+    speakers: [],
+    eventDate: '',
+};
+
+export default EventCard;
