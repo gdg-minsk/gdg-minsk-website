@@ -12,6 +12,7 @@ import SEO from '../components/shared/seo';
 import Link from '../components/shared/link';
 
 import UpcomingEventCard from '../components/upcoming-event-card/upcoming-event-card';
+import RecipeReviewCard from '../components/shared/speaker-card/speaker-card';
 
 const useStyles = makeStyles(theme => ({
     bannerContainer: {
@@ -86,6 +87,27 @@ const IndexPage = () => {
                 </Grid>
                 <Grid item>
                     <UpcomingEventCard />
+                </Grid>
+            </Grid>
+
+            <Grid container spacing={3}>
+                <Grid item>
+                    <RecipeReviewCard />
+                </Grid>
+                <Grid item>
+                    <RecipeReviewCard />
+                </Grid>
+                <Grid item>
+                    <RecipeReviewCard />
+                </Grid>
+                <Grid item>
+                    <RecipeReviewCard />
+                </Grid>
+                <Grid item>
+                    <RecipeReviewCard />
+                </Grid>
+                <Grid item>
+                    <RecipeReviewCard />
                 </Grid>
             </Grid>
 
