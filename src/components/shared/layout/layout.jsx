@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useStaticQuery, graphql } from 'gatsby';
 
@@ -56,11 +56,34 @@ const useStyles = makeStyles(() => ({
         '@media (max-width: 1024px)': {
             maxWidth: '100%',
         },
+        '@media (max-height: 600px)': {
+            maxWidth: '100%',
+        },
     },
 }));
 
-const Layout = ({ children, parallaxContent, changeHeaderStyleHeight, bannerImages }) => {
+const Layout = ({ children, parallaxContent, bannerImages }) => {
     const classes = useStyles();
+
+    const parallaxContentContainerRef = useRef(null);
+    const headerRef = useRef(null);
+
+    const [isTransparentMode, setTransparentMode] = React.useState(!!bannerImages.length);
+
+    if (bannerImages.length) {
+        const transparentModeChange = useCallback(() => {
+            const { y } = parallaxContentContainerRef.current.getBoundingClientRect();
+            setTransparentMode(y > headerRef.current.clientHeight);
+        }, []);
+
+        useEffect(() => {
+            window.addEventListener('scroll', transparentModeChange);
+
+            return () => {
+                window.removeEventListener('scroll', transparentModeChange);
+            };
+        });
+    }
 
     const data = useStaticQuery(graphql`
         query SiteTitleWithMenuQuery {
@@ -84,8 +107,8 @@ const Layout = ({ children, parallaxContent, changeHeaderStyleHeight, bannerImag
                 title={data.site.siteMetadata.title}
                 desktopMenu={<DesktopMenu menuItems={data.site.siteMetadata.menuItems} />}
                 mobileMenu={<MobileMenu menuItems={data.site.siteMetadata.menuItems} />}
-                changeHeaderStyleHeight={changeHeaderStyleHeight}
-                isParallax={!!bannerImages.length}
+                isTransparentMode={!!bannerImages.length && isTransparentMode}
+                ref={headerRef}
             />
 
             {!!bannerImages.length && (
@@ -101,11 +124,10 @@ const Layout = ({ children, parallaxContent, changeHeaderStyleHeight, bannerImag
                                 <Box
                                     display="flex"
                                     flexDirection="column"
-                                    // alignItems="flex-end"
                                     justifyContent="center"
                                     className={classes.parallaxContainer}
                                 >
-                                    {parallaxContent}
+                                    <Box ref={parallaxContentContainerRef}>{parallaxContent}</Box>
                                 </Box>
                             </Container>
                         </>
@@ -133,12 +155,10 @@ Layout.propTypes = {
             amount: PropTypes.number.isRequired,
         }),
     ),
-    changeHeaderStyleHeight: PropTypes.number,
 };
 
 Layout.defaultProps = {
     parallaxContent: null,
-    changeHeaderStyleHeight: 450,
     bannerImages: [],
 };
 

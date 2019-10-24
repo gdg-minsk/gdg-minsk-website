@@ -8,7 +8,14 @@ import Image from '../components/shared/image';
 
 const EventPage = () => (
     <Layout
-        parallaxContent={<h1>test</h1>}
+        parallaxContent={
+            <h1 style={{ color: 'red' }}>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tincidunt feugiat massa, ut ornare
+                tortor suscipit quis. Mauris mollis mauris quis lacus pellentesque, non hendrerit odio consectetur.
+                Vestibulum nec nisi sed urna egestas rhoncus et nec tellus. Praesent sit amet cursus metus. Sed tortor
+                nulla, vehicula eget consequat nec, consectetur et ligula. Sed pretium ex felis, in dapibus nunc
+            </h1>
+        }
         bannerImages={[
             {
                 image: '/img/gdg-stickers.jpg',
