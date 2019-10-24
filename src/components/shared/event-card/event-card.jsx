@@ -12,11 +12,9 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles({
-    card: {
-        width: 330,
-    },
     cardImg: {
         height: 189,
     },
@@ -25,43 +23,46 @@ const useStyles = makeStyles({
         width: 25,
         height: 25,
     },
+    button: {
+        marginLeft: 'auto',
+    },
 });
 
-const EventCard = ({ imageUrl, eventTitle, eventDescription, eventDate, speakers }) => {
+const EventCard = ({ imageUrl, imageTitle, title, description, date, speakers }) => {
     const classes = useStyles();
-    const speakersArray = speakers;
-    const listItems = speakersArray.map(speaker => (
-        <Link to="/speaker">
-            <Avatar alt="Ilya" src={speaker.speakerImg} className={classes.avatar} />
+    const listItems = speakers.map(speaker => (
+        <Link key={speaker.id} to="/speaker">
+            <Tooltip title={speaker.name}>
+                <Avatar alt="Ilya" src={speaker.avatar} className={classes.avatar} />
+            </Tooltip>
         </Link>
     ));
 
     return (
-        <Card className={classes.card}>
+        <Card>
             <CardActionArea>
                 <CardMedia
                     className={classes.cardImg}
                     component="img"
                     alt="Event image"
-                    height="140"
                     image={imageUrl}
-                    title="Event image"
+                    title={imageTitle}
                 />
             </CardActionArea>
             <CardContent>
-                <Typography gutterBottom variant="h6" component="h3">
-                    {eventTitle}
+                <Typography gutterBottom variant="h6" component="h3" noWrap>
+                    {title}
                 </Typography>
                 <Typography gutterBottom variant="body1" color="textSecondary" component="p">
-                    {eventDate}
+                    {date}
                 </Typography>
-                <Typography gutterBottom variant="body2" color="textSecondary" component="p">
-                    {eventDescription}
+                <Typography gutterBottom variant="body2" color="textSecondary" component="p" noWrap>
+                    {description}
                 </Typography>
 
                 <CardActions>
-                    {listItems}
-                    <Button size="small" color="primary">
+                    {speakers ? listItems : <Typography>There are no speakers yet...</Typography>}
+                    <Button className={classes.button} size="small" color="primary">
                         Register
                     </Button>
                 </CardActions>
@@ -72,16 +73,24 @@ const EventCard = ({ imageUrl, eventTitle, eventDescription, eventDate, speakers
 
 EventCard.propTypes = {
     imageUrl: PropTypes.string,
-    eventTitle: PropTypes.string.isRequired,
-    eventDescription: PropTypes.string.isRequired,
-    speakers: PropTypes.arrayOf(PropTypes.string),
-    eventDate: PropTypes.string,
+    imageTitle: PropTypes.string,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    speakers: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number,
+            name: PropTypes.string,
+            avatar: PropTypes.string,
+        }),
+    ),
+    date: PropTypes.string,
 };
 
 EventCard.defaultProps = {
-    imageUrl: '',
+    imageUrl: '/img/gdg-cover.png',
     speakers: [],
-    eventDate: '',
+    imageTitle: 'GDG Event',
+    date: '',
 };
 
 export default EventCard;
