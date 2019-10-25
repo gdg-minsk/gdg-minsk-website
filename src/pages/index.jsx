@@ -14,7 +14,6 @@ import Link from '../components/shared/link';
 import EventCard from '../components/shared/event-card/event-card';
 
 import EVENT_CARD_DATA from '../mock-data/event-card.mock';
-import SPEAKERS_DATA from '../mock-data/speakers.mock';
 
 const useStyles = makeStyles(theme => ({
     bannerContainer: {
@@ -45,7 +44,7 @@ const IndexPage = () => {
             <EventCard
                 imageUrl={eventCard.imageUrl}
                 imageTitle={eventCard.imageTitle}
-                speakers={SPEAKERS_DATA}
+                speakers={eventCard.speakers}
                 title={eventCard.title}
                 description={eventCard.description}
                 date={eventCard.date}
