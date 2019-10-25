@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Link } from 'gatsby';
-
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -14,6 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import Tooltip from '@material-ui/core/Tooltip';
 
+import Link from '../link';
+
 const useStyles = makeStyles({
     cardImg: {
         height: 189,
@@ -22,6 +22,7 @@ const useStyles = makeStyles({
         marginRight: 10,
         width: 25,
         height: 25,
+        fontSize: 13,
     },
     button: {
         marginLeft: 'auto',
@@ -31,9 +32,19 @@ const useStyles = makeStyles({
 const EventCard = ({ imageUrl, imageTitle, title, description, date, speakers }) => {
     const classes = useStyles();
     const listItems = speakers.map(speaker => (
-        <Link key={speaker.id} to="/speaker">
-            <Tooltip title={speaker.name}>
-                <Avatar alt="Ilya" src={speaker.avatar} className={classes.avatar} />
+        <Link key={speaker.id} to="/speaker" underline="none">
+            <Tooltip title={`${speaker.firstName} ${speaker.lastName}`}>
+                {speaker.avatar ? (
+                    <Avatar
+                        alt={`${speaker.firstName} ${speaker.lastName}`}
+                        src={speaker.avatar}
+                        className={classes.avatar}
+                    />
+                ) : (
+                    <Avatar className={classes.avatar}>
+                        {`${speaker.firstName.charAt(0)} ${speaker.lastName.charAt(0)}`}
+                    </Avatar>
+                )}
             </Tooltip>
         </Link>
     ));
@@ -61,7 +72,7 @@ const EventCard = ({ imageUrl, imageTitle, title, description, date, speakers })
                 </Typography>
 
                 <CardActions>
-                    {speakers ? listItems : <Typography>There are no speakers yet...</Typography>}
+                    {speakers.length ? listItems : <Typography>There are no speakers yet...</Typography>}
                     <Button className={classes.button} size="small" color="primary">
                         Register
                     </Button>

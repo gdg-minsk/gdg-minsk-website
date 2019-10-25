@@ -13,6 +13,9 @@ import Link from '../components/shared/link';
 
 import EventCard from '../components/shared/event-card/event-card';
 
+import EVENT_CARD_DATA from '../mock-data/event-card.mock';
+import SPEAKERS_DATA from '../mock-data/speakers.mock';
+
 const useStyles = makeStyles(theme => ({
     bannerContainer: {
         color: 'white',
@@ -23,22 +26,32 @@ const useStyles = makeStyles(theme => ({
     gridItem: {
         width: '33%',
     },
+    '@media (max-width: 960px)': {
+        gridItem: {
+            width: '50%',
+        },
+    },
+    '@media (max-width: 600px)': {
+        gridItem: {
+            width: '100%',
+        },
+    },
 }));
 
 const IndexPage = () => {
     const classes = useStyles();
-    const speakers = [
-        {
-            id: 1,
-            name: 'Ilya',
-            avatar: '/img/ilya.jpg',
-        },
-        {
-            id: 2,
-            name: 'Vadim',
-            avatar: '/img/ilya.jpg',
-        },
-    ];
+    const eventCards = EVENT_CARD_DATA.map(eventCard => (
+        <Grid key={eventCard.id} className={classes.gridItem} item>
+            <EventCard
+                imageUrl={eventCard.imageUrl}
+                imageTitle={eventCard.imageTitle}
+                speakers={SPEAKERS_DATA}
+                title={eventCard.title}
+                description={eventCard.description}
+                date={eventCard.date}
+            />
+        </Grid>
+    ));
 
     return (
         <Layout
@@ -87,52 +100,7 @@ const IndexPage = () => {
             </Box>
 
             <Grid container spacing={3}>
-                <Grid className={classes.gridItem} item>
-                    <EventCard
-                        imageUrl="/img/gdg-cover.png"
-                        imageTitle="Cloud meetup image"
-                        speakers={speakers}
-                        title="A very long name for a next GDG meetup"
-                        description="Detailed description of the event"
-                        date="10 June"
-                    />
-                </Grid>
-                <Grid className={classes.gridItem} item>
-                    <EventCard
-                        imageUrl="/img/gdg-cover.png"
-                        speakers={speakers}
-                        title="A very long name for a next GDG meetup"
-                        description="Detailed description of the event"
-                        date="10 June"
-                    />
-                </Grid>
-                <Grid className={classes.gridItem} item>
-                    <EventCard
-                        imageUrl="/img/gdg-cover.png"
-                        speakers={speakers}
-                        title="A very long name for a next GDG meetup"
-                        description="Detailed description of the event"
-                        date="10 June"
-                    />
-                </Grid>
-                <Grid className={classes.gridItem} item>
-                    <EventCard
-                        imageUrl="/img/gdg-cover.png"
-                        speakers={speakers}
-                        title="A very long name for a next GDG meetup"
-                        description="Detailed description of the event"
-                        date="10 June"
-                    />
-                </Grid>
-                <Grid className={classes.gridItem} item>
-                    <EventCard
-                        imageUrl="/img/gdg-cover.png"
-                        speakers={speakers}
-                        title="A very long name for a next GDG meetup"
-                        description="Detailed description of the event"
-                        date="10 June"
-                    />
-                </Grid>
+                {eventCards}
             </Grid>
 
             <Box display="flex" m={7} justifyContent="center">
