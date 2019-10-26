@@ -90,7 +90,8 @@ EventCard.propTypes = {
     speakers: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.number,
-            name: PropTypes.string,
+            firstName: PropTypes.string,
+            lastName: PropTypes.string,
             avatar: PropTypes.string,
         }),
     ),
