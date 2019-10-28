@@ -11,8 +11,9 @@ import Image from '../components/shared/image';
 import SEO from '../components/shared/seo';
 import Link from '../components/shared/link';
 
-import UpcomingEventCard from '../components/upcoming-event-card/upcoming-event-card';
-import RecipeReviewCard from '../components/shared/speaker-card/speaker-card';
+import EventCard from '../components/shared/event-card/event-card';
+
+import EVENT_CARD_DATA from '../mock-data/event-card.mock';
 
 const useStyles = makeStyles(theme => ({
     bannerContainer: {
@@ -21,10 +22,35 @@ const useStyles = makeStyles(theme => ({
     bannerButton: {
         marginTop: theme.spacing(1),
     },
+    gridItem: {
+        width: '33%',
+    },
+    '@media (max-width: 960px)': {
+        gridItem: {
+            width: '50%',
+        },
+    },
+    '@media (max-width: 600px)': {
+        gridItem: {
+            width: '100%',
+        },
+    },
 }));
 
 const IndexPage = () => {
     const classes = useStyles();
+    const eventCards = EVENT_CARD_DATA.map(eventCard => (
+        <Grid key={eventCard.id} className={classes.gridItem} item>
+            <EventCard
+                imageUrl={eventCard.imageUrl}
+                imageTitle={eventCard.imageTitle}
+                speakers={eventCard.speakers}
+                title={eventCard.title}
+                description={eventCard.description}
+                date={eventCard.date}
+            />
+        </Grid>
+    ));
 
     return (
         <Layout
@@ -73,42 +99,7 @@ const IndexPage = () => {
             </Box>
 
             <Grid container spacing={3}>
-                <Grid item>
-                    <UpcomingEventCard />
-                </Grid>
-                <Grid item>
-                    <UpcomingEventCard />
-                </Grid>
-                <Grid item>
-                    <UpcomingEventCard />
-                </Grid>
-                <Grid item>
-                    <UpcomingEventCard />
-                </Grid>
-                <Grid item>
-                    <UpcomingEventCard />
-                </Grid>
-            </Grid>
-
-            <Grid container spacing={3}>
-                <Grid item>
-                    <RecipeReviewCard />
-                </Grid>
-                <Grid item>
-                    <RecipeReviewCard />
-                </Grid>
-                <Grid item>
-                    <RecipeReviewCard />
-                </Grid>
-                <Grid item>
-                    <RecipeReviewCard />
-                </Grid>
-                <Grid item>
-                    <RecipeReviewCard />
-                </Grid>
-                <Grid item>
-                    <RecipeReviewCard />
-                </Grid>
+                {eventCards}
             </Grid>
 
             <Box display="flex" m={7} justifyContent="center">

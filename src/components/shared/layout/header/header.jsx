@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -19,7 +19,6 @@ const useStyles = makeStyles(() => ({
     transparentAppBar: {
         backgroundColor: 'transparent',
         boxShadow: 'none',
-        marginTop: 10,
         transition: 'all 1s',
     },
     drawerPaper: {
@@ -30,29 +29,14 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const Header = ({ title, desktopMenu, mobileMenu, changeHeaderStyleHeight, isParallax }) => {
+const Header = forwardRef(({ title, desktopMenu, mobileMenu, isTransparentMode }, ref) => {
     const classes = useStyles();
 
-    const [mobileOpen, setMobileOpen] = React.useState(false);
-    const [isTransparentMode, setTransparentMode] = React.useState(true);
+    const [mobileOpen, setMobileOpen] = useState(false);
 
-    const handleDrawerToggle = React.useCallback(() => {
+    const handleDrawerToggle = useCallback(() => {
         setMobileOpen(!mobileOpen);
     }, [mobileOpen]);
-
-    if (isParallax) {
-        const headerColorChange = React.useCallback(() => {
-            setTransparentMode(window.pageYOffset < changeHeaderStyleHeight);
-        }, [changeHeaderStyleHeight]);
-
-        React.useEffect(() => {
-            window.addEventListener('scroll', headerColorChange);
-
-            return () => {
-                window.removeEventListener('scroll', headerColorChange);
-            };
-        });
-    }
 
     const brandComponent = (
         <Link to="/" className={classes.brandLink} underline="none">
@@ -63,11 +47,11 @@ const Header = ({ title, desktopMenu, mobileMenu, changeHeaderStyleHeight, isPar
     );
 
     const appBarClasses = classNames({
-        [classes.transparentAppBar]: isParallax && isTransparentMode,
+        [classes.transparentAppBar]: isTransparentMode,
     });
 
     return (
-        <AppBar position="fixed" className={appBarClasses}>
+        <AppBar ref={ref} position="fixed" className={appBarClasses}>
             <Toolbar>
                 <Container maxWidth="lg">
                     <Box display="flex" alignItems="center">
@@ -102,19 +86,17 @@ const Header = ({ title, desktopMenu, mobileMenu, changeHeaderStyleHeight, isPar
             </Hidden>
         </AppBar>
     );
-};
+});
 
 Header.propTypes = {
     title: PropTypes.string.isRequired,
     desktopMenu: PropTypes.node.isRequired,
     mobileMenu: PropTypes.node.isRequired,
-    changeHeaderStyleHeight: PropTypes.number,
-    isParallax: PropTypes.bool,
+    isTransparentMode: PropTypes.bool,
 };
 
 Header.defaultProps = {
-    changeHeaderStyleHeight: 0,
-    isParallax: false,
+    isTransparentMode: false,
 };
 
 export default Header;
