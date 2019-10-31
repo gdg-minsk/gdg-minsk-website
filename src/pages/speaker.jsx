@@ -10,7 +10,7 @@ import Map from '../components/shared/map';
 
 const useStyles = makeStyles(() => ({
     map: {
-        width: '100$',
+        width: '100%',
         height: '500px',
         position: 'relative',
         marginBottom: 30,
