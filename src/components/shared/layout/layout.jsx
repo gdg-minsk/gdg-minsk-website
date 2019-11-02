@@ -1,5 +1,6 @@
 import React, { useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { useStaticQuery, graphql } from 'gatsby';
 
 import Container from '@material-ui/core/Container';
@@ -43,6 +44,9 @@ const useStyles = makeStyles(() => ({
         zIndex: 3,
         background: 'white',
         position: 'relative',
+    },
+    pageWrapperWithoutBanner: {
+        marginTop: 90,
     },
     pageContentContainer: {
         paddingTop: 50,
@@ -135,7 +139,11 @@ const Layout = ({ children, parallaxContent, bannerImages }) => {
                 </ParallaxProvider>
             )}
 
-            <Box className={classes.pageWrapper}>
+            <Box
+                className={classNames(classes.pageWrapper, {
+                    [classes.pageWrapperWithoutBanner]: !bannerImages.length,
+                })}
+            >
                 <Container maxWidth="lg" className={classes.pageContentContainer}>
                     {children}
                 </Container>
