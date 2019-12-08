@@ -6,7 +6,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
 import Hidden from '@material-ui/core/Hidden';
 import Drawer from '@material-ui/core/Drawer';
 import Menu from '@material-ui/icons/Menu';
@@ -27,6 +26,9 @@ const useStyles = makeStyles(() => ({
     brandLink: {
         color: 'white',
     },
+    headerLogo: {
+        height: 70,
+    },
 }));
 
 const Header = forwardRef(({ title, desktopMenu, mobileMenu, isTransparentMode }, ref) => {
@@ -40,9 +42,7 @@ const Header = forwardRef(({ title, desktopMenu, mobileMenu, isTransparentMode }
 
     const brandComponent = (
         <Link to="/" className={classes.brandLink} underline="none">
-            <Typography variant="h4" component="span">
-                {title}
-            </Typography>
+            <img className={classes.headerLogo} src="/img/gdg-logo.png" alt={title} />
         </Link>
     );
 
