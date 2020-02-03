@@ -8,6 +8,24 @@ module.exports = {
             { path: '/speakers', title: 'Speakers' },
             { path: '/about', title: 'About' },
         ],
+        socialMedias: [
+            {
+                type: 'facebook',
+                url: 'https://www.facebook.com/groups/gdgminsk',
+            },
+            {
+                type: 'twitter',
+                url: 'https://twitter.com/gdgminsk',
+            },
+            {
+                type: 'telegram',
+                url: 'https://t.me/gdgminsk',
+            },
+            {
+                type: 'youtube',
+                url: 'https://www.youtube.com/channel/UColgwjXMyF0mFm7WuPcAXuA',
+            },
+        ],
     },
     plugins: [
         'gatsby-plugin-react-helmet',
@@ -35,5 +53,23 @@ module.exports = {
         'gatsby-plugin-offline',
         'gatsby-plugin-material-ui',
         'gatsby-plugin-netlify',
+        {
+            resolve: 'gatsby-plugin-react-svg',
+            options: {
+                rule: {
+                    include: /svg/,
+                },
+            },
+        },
+        {
+            resolve: `gatsby-plugin-prefetch-google-fonts`,
+            options: {
+                fonts: [
+                    {
+                        family: `Roboto`,
+                    },
+                ],
+            },
+        },
     ],
 };

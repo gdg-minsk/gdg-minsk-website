@@ -10,7 +10,7 @@ import Link from '../../link';
 const useStyles = makeStyles(theme => ({
     link: {
         margin: theme.spacing(1, 1.5),
-        color: 'white',
+        color: '#6D7278',
     },
 }));
 

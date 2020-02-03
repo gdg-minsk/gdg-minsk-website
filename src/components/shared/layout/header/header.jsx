@@ -16,20 +16,19 @@ import Box from '@material-ui/core/Box';
 import Link from '../../link';
 
 const useStyles = makeStyles(() => ({
-    transparentAppBar: {
-        backgroundColor: 'transparent',
+    appBar: {
+        backgroundColor: '#fff',
         boxShadow: 'none',
-        transition: 'all 1s',
     },
     drawerPaper: {
         width: 260,
     },
-    brandLink: {
-        color: 'white',
+    headerLogo: {
+        height: 59,
     },
 }));
 
-const Header = forwardRef(({ title, desktopMenu, mobileMenu, isTransparentMode }, ref) => {
+const Header = ({ title, desktopMenu, mobileMenu }) => {
     const classes = useStyles();
 
     const [mobileOpen, setMobileOpen] = useState(false);
@@ -40,18 +39,12 @@ const Header = forwardRef(({ title, desktopMenu, mobileMenu, isTransparentMode }
 
     const brandComponent = (
         <Link to="/" className={classes.brandLink} underline="none">
-            <Typography variant="h4" component="span">
-                {title}
-            </Typography>
+            <img className={classes.headerLogo} src="/img/gdg-logo.png" alt={title} />
         </Link>
     );
 
-    const appBarClasses = classNames({
-        [classes.transparentAppBar]: isTransparentMode,
-    });
-
     return (
-        <AppBar ref={ref} position="fixed" className={appBarClasses}>
+        <AppBar position="fixed" className={classes.appBar}>
             <Toolbar>
                 <Container maxWidth="lg">
                     <Box display="flex" alignItems="center">
@@ -86,17 +79,12 @@ const Header = forwardRef(({ title, desktopMenu, mobileMenu, isTransparentMode }
             </Hidden>
         </AppBar>
     );
-});
+};
 
 Header.propTypes = {
     title: PropTypes.string.isRequired,
     desktopMenu: PropTypes.node.isRequired,
     mobileMenu: PropTypes.node.isRequired,
-    isTransparentMode: PropTypes.bool,
-};
-
-Header.defaultProps = {
-    isTransparentMode: false,
 };
 
 export default Header;

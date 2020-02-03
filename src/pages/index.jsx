@@ -1,19 +1,70 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
+// import Box from '@material-ui/core/Box';
+// import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
+
+import Carousel, { Modal, ModalGateway } from 'react-images';
+import Gallery from 'react-photo-gallery';
 
 import Layout from '../components/shared/layout/layout';
 import Image from '../components/shared/image';
 import SEO from '../components/shared/seo';
-import Link from '../components/shared/link';
+// import Link from '../components/shared/link';
 
 import EventCard from '../components/shared/event-card/event-card';
 
 import EVENT_CARD_DATA from '../mock-data/event-card.mock';
+
+const photos = [
+    {
+        src: 'https://source.unsplash.com/2ShvY8Lf6l0/800x599',
+        width: 4,
+        height: 3,
+    },
+    {
+        src: 'https://source.unsplash.com/Dm-qxdynoEc/800x799',
+        width: 1,
+        height: 1,
+    },
+    {
+        src: 'https://source.unsplash.com/qDkso9nvCg0/600x799',
+        width: 3,
+        height: 4,
+    },
+    {
+        src: 'https://source.unsplash.com/iecJiKe_RNg/600x799',
+        width: 3,
+        height: 4,
+    },
+    // {
+    //     src: 'https://source.unsplash.com/epcsn8Ed8kY/600x799',
+    //     width: 3,
+    //     height: 4,
+    // },
+    // {
+    //     src: 'https://source.unsplash.com/NQSWvyVRIJk/800x599',
+    //     width: 4,
+    //     height: 3,
+    // },
+    // {
+    //     src: 'https://source.unsplash.com/zh7GEuORbUw/600x799',
+    //     width: 3,
+    //     height: 4,
+    // },
+    // {
+    //     src: 'https://source.unsplash.com/PpOHJezOalU/800x599',
+    //     width: 4,
+    //     height: 3,
+    // },
+    // {
+    //     src: 'https://source.unsplash.com/I1ASdgphUH4/800x599',
+    //     width: 4,
+    //     height: 3,
+    // },
+];
 
 const useStyles = makeStyles(theme => ({
     bannerContainer: {
@@ -23,7 +74,12 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(1),
     },
     gridItem: {
-        width: '33%',
+        width: '50%',
+    },
+    test: {
+        display: 'flex',
+        marginLeft: '-30px' /* gutter size offset */,
+        width: 'auto',
     },
     '@media (max-width: 960px)': {
         gridItem: {
@@ -39,53 +95,60 @@ const useStyles = makeStyles(theme => ({
 
 const IndexPage = () => {
     const classes = useStyles();
-    const eventCards = EVENT_CARD_DATA.map(eventCard => (
-        <Grid key={eventCard.id} className={classes.gridItem} item>
-            <EventCard
-                imageUrl={eventCard.imageUrl}
-                imageTitle={eventCard.imageTitle}
-                speakers={eventCard.speakers}
-                title={eventCard.title}
-                description={eventCard.description}
-                date={eventCard.date}
-            />
-        </Grid>
-    ));
+
+    const [currentImage, setCurrentImage] = useState(0);
+    const [viewerIsOpen, setViewerIsOpen] = useState(false);
+
+    const openLightbox = useCallback((event, { photo, index }) => {
+        setCurrentImage(index);
+        setViewerIsOpen(true);
+    }, []);
+
+    const closeLightbox = () => {
+        setCurrentImage(0);
+        setViewerIsOpen(false);
+    };
 
     return (
-        <Layout
-            parallaxContent={
-                <Box className={classes.bannerContainer}>
-                    <Typography gutterBottom variant="h2" component="h2">
-                        Let’s write code together
-                    </Typography>
-                    <Typography gutterBottom variant="body1" component="h4">
-                        Google Developer Group (GDG) Minsk is a non-profit developers group that was created for people
-                        who&apos;d like to know more about Google technologies and want to share their experience with
-                        others. Our technical directions: Android, Web, Cloud, IoT.
-                    </Typography>
-
-                    <Link to="/about" underline="none">
-                        <Button variant="contained" color="secondary" className={classes.bannerButton}>
-                            Read more about GDG
-                        </Button>
-                    </Link>
-                </Box>
-            }
-            bannerImages={[
-                {
-                    image: '/img/gdg-cover.jpg',
-                    amount: 0.4,
-                },
-            ]}
-        >
+        <Layout>
             <SEO title="Home" />
 
-            <Typography gutterBottom variant="h1" component="h1">
-                Hi people
-            </Typography>
+            <Grid container spacing={3}>
+                <Grid className={classes.gridItem} item>
+                    <Typography variant="h5" component="h3" color="primary" gutterBottom>
+                        You are on the alpha version of the website of the Belarusian Google Developer Group
+                    </Typography>
 
-            <Box display="flex" p={1}>
+                    <Typography variant="body1" component="p">
+                        We provide tools and opportunities to learn new technologies and be connected to the local
+                        community, improving the local ecosystem and the quality of local talent. When you join a Google
+                        Developer Group, you’ll have the opportunity to meet local developers with similar interests in
+                        technology. A GDG meetup event includes talks on a wide range of technical topics where you can
+                        learn new skills through hands-on workshops. The community prides itself on being an inclusive
+                        environment where everyone and anyone interested in tech - from beginner developers to
+                        experienced professionals - all are welcome to join.
+                    </Typography>
+                </Grid>
+                <Grid className={classes.gridItem} item>
+                    <Gallery photos={photos} onClick={openLightbox} columns={2} />
+                    <ModalGateway>
+                        {viewerIsOpen ? (
+                            <Modal onClose={closeLightbox}>
+                                <Carousel
+                                    currentIndex={currentImage}
+                                    views={photos.map(x => ({
+                                        ...x,
+                                        srcset: x.srcSet,
+                                        caption: x.title,
+                                    }))}
+                                />
+                            </Modal>
+                        ) : null}
+                    </ModalGateway>
+                </Grid>
+            </Grid>
+
+            {/* <Box display="flex" p={1}>
                 <Box p={1} flexGrow={1}>
                     <Typography gutterBottom variant="h4" component="h3">
                         Upcoming events
@@ -108,11 +171,7 @@ const IndexPage = () => {
                         All upcoming events
                     </Button>
                 </Box>
-            </Box>
-
-            <Box style={{ maxWidth: `800px`, width: '100%', marginBottom: `1.45rem` }}>
-                <Image />
-            </Box>
+            </Box> */}
         </Layout>
     );
 };
