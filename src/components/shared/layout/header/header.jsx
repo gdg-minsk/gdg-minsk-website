@@ -1,12 +1,15 @@
-import React, { useState, useCallback, forwardRef } from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
+import { useStaticQuery, graphql } from 'gatsby';
+
 import classNames from 'classnames';
+
+import Img from 'gatsby-image';
 
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
 import Hidden from '@material-ui/core/Hidden';
 import Drawer from '@material-ui/core/Drawer';
 import Menu from '@material-ui/icons/Menu';
@@ -23,8 +26,8 @@ const useStyles = makeStyles(() => ({
     drawerPaper: {
         width: 260,
     },
-    headerLogo: {
-        height: 59,
+    logoLink: {
+        display: 'inline-block',
     },
 }));
 
@@ -37,18 +40,32 @@ const Header = ({ title, desktopMenu, mobileMenu }) => {
         setMobileOpen(!mobileOpen);
     }, [mobileOpen]);
 
-    const brandComponent = (
-        <Link to="/" className={classes.brandLink} underline="none">
-            <img className={classes.headerLogo} src="/img/gdg-logo.png" alt={title} />
-        </Link>
-    );
+    const data = useStaticQuery(graphql`
+        query {
+            file(relativePath: { eq: "gdg-logo.png" }) {
+                childImageSharp {
+                    fixed(height: 25) {
+                        ...GatsbyImageSharpFixed
+                    }
+                }
+            }
+        }
+    `);
 
     return (
         <AppBar position="fixed" className={classes.appBar}>
             <Toolbar>
                 <Container maxWidth="lg">
                     <Box display="flex" alignItems="center">
-                        <Box flexGrow={1}>{brandComponent}</Box>
+                        <Box flexGrow={1}>
+                            <Link to="/" className={classes.logoLink} underline="none">
+                                <Img
+                                    className={classes.headerLogo}
+                                    fixed={data.file.childImageSharp.fixed}
+                                    alt={title}
+                                />
+                            </Link>
+                        </Box>
                         <Box>
                             <Hidden smDown implementation="css">
                                 {desktopMenu}
