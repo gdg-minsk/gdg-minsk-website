@@ -1,0 +1,16 @@
+backend:
+  name: github
+  repo: gdg-minsk/gdg-minsk-website
+  branch: new-layout
+
+media_folder: "static/img"
+
+collections:
+  - name: socialNetwork
+    label: Social Network
+    folder: data/social-network
+    create: true
+    identifier_field: type
+    fields:
+      - { name: type, label: Type, widget: "select", options: ["facebook", "twitter", "telegram", "youtube", "instagram", "vk", "other"]}
+      - { name: url, label: URL, widget: "string" }

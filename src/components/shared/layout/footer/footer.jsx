@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { useStaticQuery, graphql } from 'gatsby';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
@@ -34,22 +36,43 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const Footer = ({ socialMedias }) => {
+const Footer = () => {
     const classes = useStyles();
+
+    const data = useStaticQuery(graphql`
+        query SocialNetwork {
+            allMarkdownRemark(filter: { fields: { collection: { eq: "socialNetwork" } } }) {
+                edges {
+                    node {
+                        id
+                        frontmatter {
+                            type
+                            url
+                        }
+                    }
+                }
+            }
+        }
+    `);
 
     return (
         <footer className={classes.footer}>
             <Container maxWidth="lg">
                 <Box display="flex" className={classes.socialIconsContainer}>
-                    {socialMedias.map(({ type, url }) => {
-                        const Icon = getSocialMediaIcon(type);
+                    {data.allMarkdownRemark.edges.map(({ node }) => {
+                        const Icon = getSocialMediaIcon(node.frontmatter.type);
 
                         if (!Icon) {
                             return null;
                         }
 
                         return (
-                            <Link className={classes.socialIcon} href={url} target="blank" key={type}>
+                            <Link
+                                className={classes.socialIcon}
+                                href={node.frontmatter.url}
+                                target="blank"
+                                key={node.frontmatter.type}
+                            >
                                 <Icon />
                             </Link>
                         );
@@ -58,15 +81,6 @@ const Footer = ({ socialMedias }) => {
             </Container>
         </footer>
     );
-};
-
-Footer.propTypes = {
-    socialMedias: PropTypes.arrayOf(
-        PropTypes.shape({
-            type: PropTypes.string,
-            url: PropTypes.string,
-        }),
-    ).isRequired,
 };
 
 export default Footer;
