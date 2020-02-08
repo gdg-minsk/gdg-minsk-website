@@ -43,15 +43,7 @@ module.exports = {
             },
         },
         'gatsby-plugin-offline',
-        {
-            resolve: `gatsby-plugin-material-ui`,
-            options: {
-                stylesProvider: {
-                    injectFirst: true,
-                },
-                pathToStylesProvider: `src/gatsby-theme-material-ui-top-layout/theme`,
-            },
-        },
+        `gatsby-theme-material-ui`,
         'gatsby-plugin-netlify',
         'gatsby-plugin-netlify-cms',
         {
