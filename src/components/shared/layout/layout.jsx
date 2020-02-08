@@ -60,10 +60,6 @@ const Layout = ({ children }) => {
                         title
                         path
                     }
-                    socialMedias {
-                        type
-                        url
-                    }
                 }
             }
         }
@@ -85,7 +81,7 @@ const Layout = ({ children }) => {
                 </Container>
             </Box>
 
-            <Footer socialMedias={data.site.siteMetadata.socialMedias} />
+            <Footer />
         </Box>
     );
 };
