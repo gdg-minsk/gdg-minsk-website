@@ -67,6 +67,9 @@ const photos = [
 ];
 
 const useStyles = makeStyles(theme => ({
+    test: {
+        color: theme.palette.royalBlue,
+    },
     bannerContainer: {
         color: 'white',
     },
@@ -115,7 +118,7 @@ const IndexPage = () => {
 
             <Grid container spacing={3}>
                 <Grid className={classes.gridItem} item>
-                    <Typography variant="h5" component="h3" color="primary" gutterBottom>
+                    <Typography className={classes.test} variant="h5" component="h3" gutterBottom>
                         You are on the alpha version of the website of the Belarusian Google Developer Group
                     </Typography>
 
