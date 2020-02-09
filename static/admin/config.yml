@@ -23,6 +23,7 @@ collections:
        name: "404"
        fields:
          - {label: "Template Key", name: "templateKey", widget: "hidden", default: "not-found"}
+         - {label: PageTitle, name: pageTitle, widget: string}
          - {label: Title, name: title, widget: string}
          - {label: Description, name: description, widget: string}
          - {label: Button Text, name: btnText, widget: string}

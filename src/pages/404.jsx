@@ -1,4 +1,5 @@
 import React from 'react';
+import { useStaticQuery, graphql } from 'gatsby';
 
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
@@ -63,17 +64,36 @@ const useStyles = makeStyles(() => ({
 const NotFoundPage = () => {
     const classes = useStyles();
 
+    const data = useStaticQuery(graphql`
+        query NotFoundData {
+            markdownRemark(frontmatter: { templateKey: { eq: "not-found" } }) {
+                frontmatter {
+                    pageTitle
+                    title
+                    description
+                    btnText
+                }
+            }
+        }
+    `);
+
+    const {
+        markdownRemark: {
+            frontmatter: { pageTitle, title, description, btnText },
+        },
+    } = data;
+
     return (
         <Layout>
-            <SEO title="404: Not found" />
+            <SEO title={pageTitle} />
 
             <Box className={classes.pageContainer}>
-                <h1 className={classes.title}>404</h1>
-                <p className={classes.description}>we are so sorry but somebody hid this page</p>
+                <h1 className={classes.title}>{title}</h1>
+                <p className={classes.description}>{description}</p>
 
                 <Link to="/" className={classes.logoLink} underline="none">
                     <Button className={classes.btn} variant="contained">
-                        Go back to the home page
+                        {btnText}
                     </Button>
                 </Link>
             </Box>

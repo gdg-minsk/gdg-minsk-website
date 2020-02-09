@@ -26,6 +26,13 @@ module.exports = {
             },
         },
         {
+            resolve: 'gatsby-source-filesystem',
+            options: {
+                path: `${__dirname}/data/pages`,
+                name: 'pages',
+            },
+        },
+        {
             resolve: 'gatsby-transformer-remark',
         },
         'gatsby-transformer-sharp',
