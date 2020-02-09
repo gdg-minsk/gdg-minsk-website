@@ -70,19 +70,8 @@ const useStyles = makeStyles(theme => ({
     test1: {
         color: theme.palette.royalBlue,
     },
-    bannerContainer: {
-        color: 'white',
-    },
-    bannerButton: {
-        marginTop: theme.spacing(1),
-    },
     gridItem: {
         width: '50%',
-    },
-    test: {
-        display: 'flex',
-        marginLeft: '-30px' /* gutter size offset */,
-        width: 'auto',
     },
     '@media (max-width: 960px)': {
         gridItem: {

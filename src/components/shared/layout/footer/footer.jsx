@@ -10,9 +10,9 @@ import Link from '@material-ui/core/Link';
 
 import getSocialMediaIcon from '../../../../tools/social-media';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
     footer: {
-        padding: theme.spacing(2),
+        padding: '9px 0',
         marginTop: 'auto',
         zIndex: 2,
     },
@@ -26,9 +26,10 @@ const useStyles = makeStyles(theme => ({
             transform: 'scale(1.5)',
         },
     },
-    '@media (max-width: 550px)': {
+    '@media (max-width: 600px)': {
         footer: {
             backgroundColor: '#fff',
+            borderTop: '1px solid #EFEFEF',
         },
         socialIconsContainer: {
             justifyContent: 'center',

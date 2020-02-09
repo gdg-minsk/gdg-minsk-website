@@ -39,10 +39,10 @@ const useStyles = makeStyles(() => ({
     pageContentContainer: {
         paddingTop: 20,
     },
-    '@media (max-width: 700px)': {
+    '@media (max-width: 600px)': {
         root: {
             '&::after': {
-                backgroundImage: 'url(/svg/layout-polygons.svg)',
+                backgroundImage: 'none',
             },
         },
     },

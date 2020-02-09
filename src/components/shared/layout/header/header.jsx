@@ -15,6 +15,8 @@ import Drawer from '@material-ui/core/Drawer';
 import Menu from '@material-ui/icons/Menu';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
+import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+import Slide from '@material-ui/core/Slide';
 
 import Link from '../../link';
 
@@ -40,6 +42,8 @@ const Header = ({ title, desktopMenu, mobileMenu }) => {
         setMobileOpen(!mobileOpen);
     }, [mobileOpen]);
 
+    const trigger = useScrollTrigger();
+
     const data = useStaticQuery(graphql`
         query {
             file(relativePath: { eq: "gdg-logo.png" }) {
@@ -53,48 +57,50 @@ const Header = ({ title, desktopMenu, mobileMenu }) => {
     `);
 
     return (
-        <AppBar position="fixed" className={classes.appBar}>
-            <Toolbar>
-                <Container maxWidth="lg">
-                    <Box display="flex" alignItems="center">
-                        <Box flexGrow={1}>
-                            <Link to="/" className={classes.logoLink} underline="none">
-                                <Img
-                                    className={classes.headerLogo}
-                                    fixed={data.file.childImageSharp.fixed}
-                                    alt={title}
-                                />
-                            </Link>
+        <Slide appear={false} direction="down" in={!trigger}>
+            <AppBar position="fixed" className={classes.appBar}>
+                <Toolbar disableGutters>
+                    <Container maxWidth="lg">
+                        <Box display="flex" alignItems="center">
+                            <Box flexGrow={1}>
+                                <Link to="/" className={classes.logoLink} underline="none">
+                                    <Img
+                                        className={classes.headerLogo}
+                                        fixed={data.file.childImageSharp.fixed}
+                                        alt={title}
+                                    />
+                                </Link>
+                            </Box>
+                            <Box>
+                                <Hidden xsDown implementation="css">
+                                    {desktopMenu}
+                                </Hidden>
+                            </Box>
+                            <Box>
+                                <Hidden smUp>
+                                    <IconButton aria-label="open drawer" onClick={handleDrawerToggle}>
+                                        <Menu />
+                                    </IconButton>
+                                </Hidden>
+                            </Box>
                         </Box>
-                        <Box>
-                            <Hidden smDown implementation="css">
-                                {desktopMenu}
-                            </Hidden>
-                        </Box>
-                        <Box>
-                            <Hidden mdUp>
-                                <IconButton color="inherit" aria-label="open drawer" onClick={handleDrawerToggle}>
-                                    <Menu />
-                                </IconButton>
-                            </Hidden>
-                        </Box>
-                    </Box>
-                </Container>
-            </Toolbar>
-            <Hidden mdUp implementation="js">
-                <Drawer
-                    variant="temporary"
-                    anchor="right"
-                    open={mobileOpen}
-                    classes={{
-                        paper: classes.drawerPaper,
-                    }}
-                    onClose={handleDrawerToggle}
-                >
-                    {mobileMenu}
-                </Drawer>
-            </Hidden>
-        </AppBar>
+                    </Container>
+                </Toolbar>
+                <Hidden mdUp implementation="js">
+                    <Drawer
+                        variant="temporary"
+                        anchor="right"
+                        open={mobileOpen}
+                        classes={{
+                            paper: classes.drawerPaper,
+                        }}
+                        onClose={handleDrawerToggle}
+                    >
+                        {mobileMenu}
+                    </Drawer>
+                </Hidden>
+            </AppBar>
+        </Slide>
     );
 };
 

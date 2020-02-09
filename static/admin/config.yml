@@ -14,3 +14,15 @@ collections:
     fields:
       - { name: type, label: Type, widget: "select", options: ["facebook", "twitter", "telegram", "youtube", "instagram", "vk", "other"]}
       - { name: url, label: URL, widget: "string" }
+
+  - name: "pages"
+    label: "Pages"
+    files:
+     - file: "data/pages/not-found.md"
+       label: "Not Found Page"
+       name: "404"
+       fields:
+         - {label: Title, name: title, widget: string}
+         - {label: Description, name: description, widget: string}
+         - {label: Button Text, name: btnText, widget: string}
+           
