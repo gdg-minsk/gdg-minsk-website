@@ -1,6 +1,9 @@
 import React, { useState, useCallback } from 'react';
 import classNames from 'classnames';
 
+import Img from 'gatsby-image/withIEPolyfill';
+import { useStaticQuery, graphql } from 'gatsby';
+
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -42,6 +45,11 @@ const useStyles = makeStyles(theme => ({
     },
     gridItem: {
         width: '50%',
+    },
+    photoBoxColumn: {
+        maxHeight: 'calc(100vh - 160px)',
+        top: '50px',
+        position: 'sticky',
     },
     '@media (max-width: 960px)': {
         gridItem: {
@@ -92,6 +100,18 @@ const IndexPage = () => {
         setViewerIsOpen(false);
     };
 
+    const data = useStaticQuery(graphql`
+        query {
+            testImage: file(relativePath: { eq: "testt-img.jpeg" }) {
+                childImageSharp {
+                    fluid(maxWidth: 450) {
+                        ...GatsbyImageSharpFluid
+                    }
+                }
+            }
+        }
+    `);
+
     return (
         <Layout>
             <SEO title="Home" />
@@ -109,27 +129,64 @@ const IndexPage = () => {
                         technology. A GDG meetup event includes talks on a wide range of technical topics where you can
                         learn new skills through hands-on workshops. The community prides itself on being an inclusive
                         environment where everyone and anyone interested in tech - from beginner developers to
-                        experienced professionals - all are welcome to join.
+                        experienced professionals - all are welcome to join. We provide tools and opportunities to learn
+                        new technologies and be connected to the local community, improving the local ecosystem and the
+                        quality of local talent. When you join a Google Developer Group, you’ll have the opportunity to
+                        meet local developers with similar interests in technology. A GDG meetup event includes talks on
+                        a wide range of technical topics where you can learn new skills through hands-on workshops. The
+                        community prides itself on being an inclusive environment where everyone and anyone interested
+                        in tech - from beginner developers to experienced professionals - all are welcome to join. We
+                        provide tools and opportunities to learn new technologies and be connected to the local
+                        community, improving the local ecosystem and the quality of local talent. When you join a Google
+                        Developer Group, you’ll have the opportunity to meet local developers with similar interests in
+                        technology. A GDG meetup event includes talks on a wide range of technical topics where you can
+                        learn new skills through hands-on workshops. The community prides itself on being an inclusive
+                        environment where everyone and anyone interested in tech - from beginner developers to
+                        experienced professionals - all are welcome to join. We provide tools and opportunities to learn
+                        new technologies and be connected to the local community, improving the local ecosystem and the
+                        quality of local talent. When you join a Google Developer Group, you’ll have the opportunity to
+                        meet local developers with similar interests in technology. A GDG meetup event includes talks on
+                        a wide range of technical topics where you can learn new skills through hands-on workshops. The
+                        community prides itself on being an inclusive environment where everyone and anyone interested
+                        in tech - from beginner developers to experienced professionals - all are welcome to join. We
+                        provide tools and opportunities to learn new technologies and be connected to the local
+                        community, improving the local ecosystem and the quality of local talent. When you join a Google
+                        Developer Group, you’ll have the opportunity to meet local developers with similar interests in
+                        technology. A GDG meetup event includes talks on a wide range of technical topics where you can
+                        learn new skills through hands-on workshops. The community prides itself on being an inclusive
+                        environment where everyone and anyone interested in tech - from beginner developers to
+                        experienced professionals - all are welcome to join. We provide tools and opportunities to learn
+                        new technologies and be connected to the local community, improving the local ecosystem and the
+                        quality of local talent. When you join a Google Developer Group, you’ll have the opportunity to
+                        meet local developers with similar interests in technology. A GDG meetup event includes talks on
+                        a wide range of technical topics where you can learn new skills through hands-on workshops. The
+                        community prides itself on being an inclusive environment where everyone and anyone interested
+                        in tech - from beginner developers to experienced professionals - all are welcome to join.
                     </Typography>
                 </Grid>
-                <Grid className={classes.gridItem} item>
+                <Grid className={classNames(classes.gridItem, classes.photoBoxColumn)} item>
                     <div className={classes.photoBoxContainer}>
                         {photos.map((item, index) => {
-                            const t = 5;
+                            const openPhoto = () => {
+                                openLightbox(index);
+                            };
                             return (
-                                <img
-                                    className={classNames(classes.photo, classes[`box${index}`])}
-                                    src={item.src}
-                                    alt={item.src}
-                                    onClick={() => {
-                                        openLightbox(index);
-                                    }}
-                                    role="button"
+                                <div
+                                    className={classes[`box${index}`]}
+                                    onClick={openPhoto}
+                                    onKeyPress={openPhoto}
                                     tabIndex="0"
-                                    onKeyPress={() => {
-                                        openLightbox(index);
-                                    }}
-                                />
+                                    role="button"
+                                >
+                                    <Img
+                                        className={classNames(classes.photo, classes[`box${index}`])}
+                                        fluid={data.testImage.childImageSharp.fluid}
+                                        objectFit="cover"
+                                        objectPosition="50% 50%"
+                                        alt=""
+                                        loading="lazy"
+                                    />
+                                </div>
                             );
                         })}
                     </div>

@@ -27,4 +27,10 @@ collections:
          - {label: Title, name: title, widget: string}
          - {label: Description, name: description, widget: string}
          - {label: Button Text, name: btnText, widget: string}
+     - file: "data/pages/index.md"
+       label: "Landing Page"
+       name: "index"
+       fields:
+         - {label: "Template Key", name: "templateKey", widget: "hidden", default: "index"}
+         - {label: "Photos", name: "photos", widget: "list", fields: [{label: Photo, name: photo, widget: image}]}
            
