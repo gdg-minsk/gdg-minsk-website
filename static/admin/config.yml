@@ -3,7 +3,7 @@ backend:
   repo: gdg-minsk/gdg-minsk-website
   branch: new-layout
 
-media_folder: "static/img"
+media_folder: "static/img/cms"
 
 collections:
   - name: socialNetwork
@@ -32,5 +32,5 @@ collections:
        name: "index"
        fields:
          - {label: "Template Key", name: "templateKey", widget: "hidden", default: "index"}
-         - {label: "Photos", name: "photos", widget: "list", fields: [{label: Photo, name: photo, widget: image}]}
+         - {label: "Photos", name: "photos", widget: "list", fields: [{label: Description, name: description, widget: string, required: false},{label: Photo, name: photo, widget: image}]}
            
