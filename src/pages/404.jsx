@@ -15,7 +15,6 @@ const useStyles = makeStyles(() => ({
         flexDirection: 'column',
         maxWidth: 600,
         textTransform: 'uppercase',
-        height: 'calc(100vh - 160px)',
         justifyContent: 'center',
     },
     title: {

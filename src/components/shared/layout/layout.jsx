@@ -19,6 +19,9 @@ const useStyles = makeStyles(() => ({
         minHeight: '100vh',
         backgroundColor: '#fff',
 
+        display: 'flex',
+        flexDirection: 'column',
+
         '&::after': {
             content: '""',
             backgroundImage: 'url(/svg/stork-with-polygons.svg)',
@@ -35,9 +38,14 @@ const useStyles = makeStyles(() => ({
     pageWrapper: {
         marginTop: 64,
         zIndex: 2,
+        flexGrow: 1,
+        display: 'flex',
     },
     pageContentContainer: {
         paddingTop: 20,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
     },
     '@media (max-width: 600px)': {
         root: {
