@@ -13,29 +13,6 @@ import Carousel, { Modal, ModalGateway } from 'react-images';
 import Layout from '../components/shared/layout/layout';
 import SEO from '../components/shared/seo';
 
-// const photos = [
-//     {
-//         src:
-//             'https://images.unsplash.com/photo-1551739440-5dd934d3a94a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80',
-//     },
-//     {
-//         src:
-//             'https://images.unsplash.com/photo-1572059002053-8cc5ad2f4a38?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80',
-//     },
-//     {
-//         src:
-//             'https://images.unsplash.com/photo-1550716839-7af1a71d6542?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80',
-//     },
-//     {
-//         src:
-//             'https://images.unsplash.com/photo-1496158939048-cf4a51cc1ab6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80',
-//     },
-//     {
-//         src:
-//             'https://images.unsplash.com/photo-1573804633927-bfcbcd909acd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1399&q=80',
-//     },
-// ];
-
 const useStyles = makeStyles(theme => ({
     pageContainer: {
         flexGrow: 1,
