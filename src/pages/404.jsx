@@ -15,7 +15,6 @@ const useStyles = makeStyles(() => ({
         flexDirection: 'column',
         maxWidth: 600,
         textTransform: 'uppercase',
-        height: 'calc(100vh - 160px)',
         justifyContent: 'center',
     },
     title: {
@@ -66,7 +65,7 @@ const NotFoundPage = () => {
 
     const data = useStaticQuery(graphql`
         query NotFoundData {
-            markdownRemark(frontmatter: { templateKey: { eq: "not-found" } }) {
+            markdownRemark(frontmatter: { templateKey: { eq: "not-found-page" } }) {
                 frontmatter {
                     pageTitle
                     title

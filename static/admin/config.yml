@@ -3,7 +3,7 @@ backend:
   repo: gdg-minsk/gdg-minsk-website
   branch: new-layout
 
-media_folder: "static/img"
+media_folder: "static/img/cms"
 
 collections:
   - name: socialNetwork
@@ -18,13 +18,19 @@ collections:
   - name: "pages"
     label: "Pages"
     files:
-     - file: "data/pages/not-found.md"
+     - file: "data/pages/not-found-page.md"
        label: "Not Found Page"
        name: "404"
        fields:
-         - {label: "Template Key", name: "templateKey", widget: "hidden", default: "not-found"}
+         - {label: "Template Key", name: "templateKey", widget: "hidden", default: "not-found-page"}
          - {label: PageTitle, name: pageTitle, widget: string}
          - {label: Title, name: title, widget: string}
          - {label: Description, name: description, widget: string}
          - {label: Button Text, name: btnText, widget: string}
+     - file: "data/pages/index-page.md"
+       label: "Landing Page"
+       name: "index"
+       fields:
+         - {label: "Template Key", name: "templateKey", widget: "hidden", default: "index-page"}
+         - {label: "Photos", name: "photos", widget: "list", fields: [{label: Description, name: description, widget: string, required: false},{label: Photo, name: photo, widget: image}]}
            

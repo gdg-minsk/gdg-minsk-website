@@ -1,74 +1,55 @@
 import React, { useState, useCallback } from 'react';
+import classNames from 'classnames';
+
+import Img from 'gatsby-image/withIEPolyfill';
+import { useStaticQuery, graphql } from 'gatsby';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-// import Box from '@material-ui/core/Box';
-// import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Carousel, { Modal, ModalGateway } from 'react-images';
-import Gallery from 'react-photo-gallery';
 
 import Layout from '../components/shared/layout/layout';
-import Image from '../components/shared/image';
 import SEO from '../components/shared/seo';
-// import Link from '../components/shared/link';
-
-import EventCard from '../components/shared/event-card/event-card';
-
-import EVENT_CARD_DATA from '../mock-data/event-card.mock';
 
 const photos = [
     {
-        src: 'https://source.unsplash.com/2ShvY8Lf6l0/800x599',
-        width: 4,
-        height: 3,
+        src:
+            'https://images.unsplash.com/photo-1551739440-5dd934d3a94a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80',
     },
     {
-        src: 'https://source.unsplash.com/Dm-qxdynoEc/800x799',
-        width: 1,
-        height: 1,
+        src:
+            'https://images.unsplash.com/photo-1572059002053-8cc5ad2f4a38?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80',
     },
     {
-        src: 'https://source.unsplash.com/qDkso9nvCg0/600x799',
-        width: 3,
-        height: 4,
+        src:
+            'https://images.unsplash.com/photo-1550716839-7af1a71d6542?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80',
     },
     {
-        src: 'https://source.unsplash.com/iecJiKe_RNg/600x799',
-        width: 3,
-        height: 4,
+        src:
+            'https://images.unsplash.com/photo-1496158939048-cf4a51cc1ab6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80',
     },
-    // {
-    //     src: 'https://source.unsplash.com/epcsn8Ed8kY/600x799',
-    //     width: 3,
-    //     height: 4,
-    // },
-    // {
-    //     src: 'https://source.unsplash.com/NQSWvyVRIJk/800x599',
-    //     width: 4,
-    //     height: 3,
-    // },
-    // {
-    //     src: 'https://source.unsplash.com/zh7GEuORbUw/600x799',
-    //     width: 3,
-    //     height: 4,
-    // },
-    // {
-    //     src: 'https://source.unsplash.com/PpOHJezOalU/800x599',
-    //     width: 4,
-    //     height: 3,
-    // },
-    // {
-    //     src: 'https://source.unsplash.com/I1ASdgphUH4/800x599',
-    //     width: 4,
-    //     height: 3,
-    // },
+    {
+        src:
+            'https://images.unsplash.com/photo-1573804633927-bfcbcd909acd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1399&q=80',
+    },
 ];
 
 const useStyles = makeStyles(theme => ({
+    pageContainer: {
+        flexGrow: 1,
+    },
+    test1: {
+        color: theme.palette.royalBlue,
+    },
     gridItem: {
         width: '50%',
+    },
+    photoBoxColumn: {
+        maxHeight: 'calc(100vh - 160px)',
+        top: '50px',
+        position: 'sticky',
     },
     '@media (max-width: 960px)': {
         gridItem: {
@@ -80,6 +61,27 @@ const useStyles = makeStyles(theme => ({
             width: '100%',
         },
     },
+    photoBoxContainer: {
+        display: 'grid',
+        width: '100%',
+        height: '100%',
+        gridTemplateColumns: 'repeat(2, 1fr)',
+        gridAutoRows: '14%',
+        gridColumnGap: '17px',
+        gridRowGap: '17px',
+    },
+    photo: {
+        borderRadius: '10px',
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover',
+        cursor: 'pointer',
+    },
+    box0: { gridColumnStart: '1', gridColumnEnd: '2', gridRowStart: '1', gridRowEnd: '4' },
+    box1: { gridColumnStart: '2', gridColumnEnd: '3', gridRowStart: '1', gridRowEnd: '1' },
+    box2: { gridColumnStart: '1', gridColumnEnd: '2', gridRowStart: '4', gridRowEnd: '5' },
+    box3: { gridColumnStart: '2', gridColumnEnd: '3', gridRowStart: '2', gridRowEnd: '5' },
+    box4: { gridColumnStart: '1', gridColumnEnd: '3', gridRowStart: '5', gridRowEnd: '7' },
 }));
 
 const IndexPage = () => {
@@ -88,7 +90,7 @@ const IndexPage = () => {
     const [currentImage, setCurrentImage] = useState(0);
     const [viewerIsOpen, setViewerIsOpen] = useState(false);
 
-    const openLightbox = useCallback((event, { photo, index }) => {
+    const openLightbox = useCallback(index => {
         setCurrentImage(index);
         setViewerIsOpen(true);
     }, []);
@@ -98,11 +100,23 @@ const IndexPage = () => {
         setViewerIsOpen(false);
     };
 
+    const data = useStaticQuery(graphql`
+        query {
+            testImage: file(relativePath: { eq: "testt-img.jpeg" }) {
+                childImageSharp {
+                    fluid(maxWidth: 450) {
+                        ...GatsbyImageSharpFluid
+                    }
+                }
+            }
+        }
+    `);
+
     return (
         <Layout>
             <SEO title="Home" />
 
-            <Grid container spacing={3}>
+            <Grid classes={{ container: classes.pageContainer }} container spacing={3}>
                 <Grid className={classes.gridItem} item>
                     <Typography variant="h5" component="h3" gutterBottom color="primary">
                         You are on the alpha version of the website of the Belarusian Google Developer Group
@@ -115,11 +129,68 @@ const IndexPage = () => {
                         technology. A GDG meetup event includes talks on a wide range of technical topics where you can
                         learn new skills through hands-on workshops. The community prides itself on being an inclusive
                         environment where everyone and anyone interested in tech - from beginner developers to
-                        experienced professionals - all are welcome to join.
+                        experienced professionals - all are welcome to join. We provide tools and opportunities to learn
+                        new technologies and be connected to the local community, improving the local ecosystem and the
+                        quality of local talent. When you join a Google Developer Group, you’ll have the opportunity to
+                        meet local developers with similar interests in technology. A GDG meetup event includes talks on
+                        a wide range of technical topics where you can learn new skills through hands-on workshops. The
+                        community prides itself on being an inclusive environment where everyone and anyone interested
+                        in tech - from beginner developers to experienced professionals - all are welcome to join. We
+                        provide tools and opportunities to learn new technologies and be connected to the local
+                        community, improving the local ecosystem and the quality of local talent. When you join a Google
+                        Developer Group, you’ll have the opportunity to meet local developers with similar interests in
+                        technology. A GDG meetup event includes talks on a wide range of technical topics where you can
+                        learn new skills through hands-on workshops. The community prides itself on being an inclusive
+                        environment where everyone and anyone interested in tech - from beginner developers to
+                        experienced professionals - all are welcome to join. We provide tools and opportunities to learn
+                        new technologies and be connected to the local community, improving the local ecosystem and the
+                        quality of local talent. When you join a Google Developer Group, you’ll have the opportunity to
+                        meet local developers with similar interests in technology. A GDG meetup event includes talks on
+                        a wide range of technical topics where you can learn new skills through hands-on workshops. The
+                        community prides itself on being an inclusive environment where everyone and anyone interested
+                        in tech - from beginner developers to experienced professionals - all are welcome to join. We
+                        provide tools and opportunities to learn new technologies and be connected to the local
+                        community, improving the local ecosystem and the quality of local talent. When you join a Google
+                        Developer Group, you’ll have the opportunity to meet local developers with similar interests in
+                        technology. A GDG meetup event includes talks on a wide range of technical topics where you can
+                        learn new skills through hands-on workshops. The community prides itself on being an inclusive
+                        environment where everyone and anyone interested in tech - from beginner developers to
+                        experienced professionals - all are welcome to join. We provide tools and opportunities to learn
+                        new technologies and be connected to the local community, improving the local ecosystem and the
+                        quality of local talent. When you join a Google Developer Group, you’ll have the opportunity to
+                        meet local developers with similar interests in technology. A GDG meetup event includes talks on
+                        a wide range of technical topics where you can learn new skills through hands-on workshops. The
+                        community prides itself on being an inclusive environment where everyone and anyone interested
+                        in tech - from beginner developers to experienced professionals - all are welcome to join.
                     </Typography>
                 </Grid>
-                <Grid className={classes.gridItem} item>
-                    <Gallery photos={photos} onClick={openLightbox} columns={2} />
+                <Grid className={classNames(classes.gridItem, classes.photoBoxColumn)} item>
+                    <div className={classes.photoBoxContainer}>
+                        {photos.map((item, index) => {
+                            const openPhoto = () => {
+                                openLightbox(index);
+                            };
+                            return (
+                                <div
+                                    className={classes[`box${index}`]}
+                                    onClick={openPhoto}
+                                    onKeyPress={openPhoto}
+                                    tabIndex="0"
+                                    role="button"
+                                >
+                                    <Img
+                                        className={classNames(classes.photo, classes[`box${index}`])}
+                                        fluid={data.testImage.childImageSharp.fluid}
+                                        objectFit="cover"
+                                        objectPosition="50% 50%"
+                                        alt=""
+                                        loading="lazy"
+                                    />
+                                </div>
+                            );
+                        })}
+                    </div>
+
                     <ModalGateway>
                         {viewerIsOpen ? (
                             <Modal onClose={closeLightbox}>
@@ -136,31 +207,6 @@ const IndexPage = () => {
                     </ModalGateway>
                 </Grid>
             </Grid>
-
-            {/* <Box display="flex" p={1}>
-                <Box p={1} flexGrow={1}>
-                    <Typography gutterBottom variant="h4" component="h3">
-                        Upcoming events
-                    </Typography>
-                </Box>
-                <Box>
-                    <Button size="large" color="primary">
-                        All upcoming events
-                    </Button>
-                </Box>
-            </Box>
-
-            <Grid container spacing={3}>
-                {eventCards}
-            </Grid>
-
-            <Box display="flex" m={7} justifyContent="center">
-                <Box>
-                    <Button variant="contained" color="primary" size="large">
-                        All upcoming events
-                    </Button>
-                </Box>
-            </Box> */}
         </Layout>
     );
 };

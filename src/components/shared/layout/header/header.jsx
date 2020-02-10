@@ -49,7 +49,7 @@ const Header = ({ title, desktopMenu, mobileMenu }) => {
             file(relativePath: { eq: "gdg-logo.png" }) {
                 childImageSharp {
                     fixed(height: 25) {
-                        ...GatsbyImageSharpFixed
+                        ...GatsbyImageSharpFixed_tracedSVG
                     }
                 }
             }
