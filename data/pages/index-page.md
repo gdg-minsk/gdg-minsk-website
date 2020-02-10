@@ -10,6 +10,6 @@ photos:
   - description: Description 4
     photo: /static/img/cms/photo-1572059002053-8cc5ad2f4a38.jpeg
   - description: Description 5
-    photo: static/img/cms/photo-1550716839-7af1a71d6542.jpeg
+    photo: /static/img/cms/photo-1573804633927-bfcbcd909acd.jpeg
 ---
 
