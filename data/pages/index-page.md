@@ -2,7 +2,7 @@
 templateKey: index-page
 photos:
   - description: Description 1
-    photo: /static/img/cms/photo-1550716839-7af1a71d6542.jpeg
+    photo: /static/img/cms/Webp.net-resizeimage.jpg
   - description: Description 2
     photo: /static/img/cms/photo-1551739440-5dd934d3a94a.jpeg
   - description: Description 3
