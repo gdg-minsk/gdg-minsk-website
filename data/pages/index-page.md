@@ -1,4 +1,5 @@
 ---
+templateKey: index-page
 photos:
   - description: Description 1
     photo: /static/img/cms/photo-1550716839-7af1a71d6542.jpeg

@@ -19,6 +19,13 @@ module.exports = {
             },
         },
         {
+            resolve: 'gatsby-source-filesystem',
+            options: {
+                name: 'cmsImages',
+                path: `${__dirname}/static/img/cms`,
+            },
+        },
+        {
             resolve: `gatsby-source-filesystem`,
             options: {
                 path: `${__dirname}/data/social-network`,

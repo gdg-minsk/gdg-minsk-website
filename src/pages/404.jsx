@@ -65,7 +65,7 @@ const NotFoundPage = () => {
 
     const data = useStaticQuery(graphql`
         query NotFoundData {
-            markdownRemark(frontmatter: { templateKey: { eq: "not-found" } }) {
+            markdownRemark(frontmatter: { templateKey: { eq: "not-found-page" } }) {
                 frontmatter {
                     pageTitle
                     title
