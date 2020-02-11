@@ -11,5 +11,7 @@ photos:
     photo: /static/img/cms/photo-1572059002053-8cc5ad2f4a38.jpeg
   - description: Description 5
     photo: /static/img/cms/photo-1573804633927-bfcbcd909acd.jpeg
+  - description: Description 6
+    photo: /static/img/cms/output-onlinejpgtools (20).jpg
 ---
 
