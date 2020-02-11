@@ -85,7 +85,7 @@ const IndexPage = () => {
                         description
                         photo {
                             childImageSharp {
-                                fluid(maxWidth: 450) {
+                                fluid(maxWidth: 1920) {
                                     ...GatsbyImageSharpFluid
                                 }
                             }
@@ -187,10 +187,10 @@ const IndexPage = () => {
                             <Modal onClose={closeLightbox}>
                                 <Carousel
                                     currentIndex={currentImage}
-                                    views={photos.map(x => ({
-                                        ...x,
-                                        srcset: x.srcSet,
-                                        caption: x.title,
+                                    views={photos.map(({ photo: { childImageSharp: { fluid } }, description }) => ({
+                                        ...fluid,
+                                        srcset: fluid.srcSet,
+                                        caption: description,
                                     }))}
                                 />
                             </Modal>
