@@ -5,8 +5,13 @@ import Img from 'gatsby-image/withIEPolyfill';
 import { useStaticQuery, graphql } from 'gatsby';
 
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
+
+import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 
 import Carousel, { Modal, ModalGateway } from 'react-images';
 
@@ -43,9 +48,8 @@ const useStyles = makeStyles(theme => ({
         width: '100%',
         height: '100%',
         gridTemplateColumns: 'repeat(2, 1fr)',
-        gridAutoRows: '14%',
+        gridAutoRows: '16.66%',
         gridColumnGap: '17px',
-        gridRowGap: '17px',
     },
     photo: {
         borderRadius: '10px',
@@ -54,11 +58,32 @@ const useStyles = makeStyles(theme => ({
         objectFit: 'cover',
         cursor: 'pointer',
     },
-    box0: { gridColumnStart: '1', gridColumnEnd: '2', gridRowStart: '1', gridRowEnd: '4' },
-    box1: { gridColumnStart: '2', gridColumnEnd: '3', gridRowStart: '1', gridRowEnd: '1' },
-    box2: { gridColumnStart: '1', gridColumnEnd: '2', gridRowStart: '4', gridRowEnd: '5' },
-    box3: { gridColumnStart: '2', gridColumnEnd: '3', gridRowStart: '2', gridRowEnd: '5' },
-    box4: { gridColumnStart: '1', gridColumnEnd: '3', gridRowStart: '5', gridRowEnd: '7' },
+    photoBox: {
+        marginBottom: '17px',
+        '&:last-child': {
+            marginBottom: 0,
+        },
+    },
+    photoBox_0: { gridColumnStart: '1', gridColumnEnd: '2', gridRowStart: '1', gridRowEnd: '4' },
+    photoBox_1: { gridColumnStart: '2', gridColumnEnd: '3', gridRowStart: '1', gridRowEnd: '1' },
+    photoBox_2: { gridColumnStart: '1', gridColumnEnd: '2', gridRowStart: '4', gridRowEnd: '5' },
+    photoBox_3: { gridColumnStart: '2', gridColumnEnd: '3', gridRowStart: '2', gridRowEnd: '5' },
+    photoBox_4: { gridColumnStart: '1', gridColumnEnd: '3', gridRowStart: '5', gridRowEnd: '7' },
+
+    slider: {
+        background: 'linear-gradient(270deg, #187BC0 0%, #0A458C 100%)',
+        boxShadow: '10px 10px 20px #9E9A9A',
+        borderRadius: '25px',
+        fontSize: '16px',
+        lineHeight: '19px',
+        color: '#FFFFFF',
+        textTransform: 'uppercase',
+        position: 'absolute',
+    },
+
+    photosLabel: {
+        margin: '0 27px',
+    },
 }));
 
 const IndexPage = () => {
@@ -156,14 +181,14 @@ const IndexPage = () => {
                 </Grid>
                 <Grid className={classNames(classes.gridItem, classes.photoBoxColumn)} item>
                     <div className={classes.photoBoxContainer}>
-                        {photos.map((photoInfo, index) => {
+                        {photos.slice(0, 5).map((photoInfo, index) => {
                             const openPhoto = () => {
                                 openLightbox(index);
                             };
                             return (
                                 <div
                                     key={index}
-                                    className={classes[`box${index}`]}
+                                    className={classNames(classes.photoBox, classes[`photoBox_${index}`])}
                                     onClick={openPhoto}
                                     onKeyPress={openPhoto}
                                     tabIndex="0"
@@ -181,6 +206,30 @@ const IndexPage = () => {
                             );
                         })}
                     </div>
+
+                    {photos.length > 5 && (
+                        <Box display="flex" alignItems="center" justifyContent="center">
+                            <Box display="flex" alignItems="center" className={classes.slider}>
+                                <IconButton
+                                    color="inherit"
+                                    onClick={() => {
+                                        console.log('Back');
+                                    }}
+                                >
+                                    <NavigateBeforeIcon />
+                                </IconButton>
+                                <span className={classes.photosLabel}>PHOTOS</span>
+                                <IconButton
+                                    color="inherit"
+                                    onClick={() => {
+                                        console.log('Forward');
+                                    }}
+                                >
+                                    <NavigateNextIcon />
+                                </IconButton>
+                            </Box>
+                        </Box>
+                    )}
 
                     <ModalGateway>
                         {viewerIsOpen ? (
