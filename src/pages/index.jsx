@@ -12,6 +12,7 @@ import Carousel, { Modal, ModalGateway } from 'react-images';
 
 import Layout from '../components/shared/layout/layout';
 import SEO from '../components/shared/seo';
+import HomePageWidget from '../components/shared/widgets/home-page-widget/home-page-widget';
 
 const photos = [
     {
@@ -118,6 +119,7 @@ const IndexPage = () => {
 
             <Grid classes={{ container: classes.pageContainer }} container spacing={3}>
                 <Grid className={classes.gridItem} item>
+                    <HomePageWidget />
                     <Typography variant="h5" component="h3" gutterBottom color="primary">
                         You are on the alpha version of the website of the Belarusian Google Developer Group
                     </Typography>
