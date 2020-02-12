@@ -27,6 +27,7 @@
         "gatsby-transformer-sharp": "^2.3.14",
         "google-maps-react": "^2.0.2",
         "lodash": "^4.17.15",
+        "lodash-es": "^4.17.15",
         "moment": "^2.24.0",
         "netlify-cms-app": "^2.11.14",
         "prop-types": "^15.7.2",

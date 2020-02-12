@@ -4,6 +4,8 @@ import classNames from 'classnames';
 import Img from 'gatsby-image/withIEPolyfill';
 import { useStaticQuery, graphql } from 'gatsby';
 
+import chunk from 'lodash-es/chunk';
+
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
@@ -91,6 +93,7 @@ const IndexPage = () => {
 
     const [currentImage, setCurrentImage] = useState(0);
     const [viewerIsOpen, setViewerIsOpen] = useState(false);
+    const [currentPage, setCurrentPage] = useState(0);
 
     const openLightbox = useCallback(index => {
         setCurrentImage(index);
@@ -126,6 +129,8 @@ const IndexPage = () => {
             frontmatter: { photos },
         },
     } = data;
+
+    const photoPages = chunk(photos, 5);
 
     return (
         <Layout>
@@ -181,9 +186,9 @@ const IndexPage = () => {
                 </Grid>
                 <Grid className={classNames(classes.gridItem, classes.photoBoxColumn)} item>
                     <div className={classes.photoBoxContainer}>
-                        {photos.slice(0, 5).map((photoInfo, index) => {
+                        {photoPages[currentPage].map((photoInfo, index) => {
                             const openPhoto = () => {
-                                openLightbox(index);
+                                openLightbox(currentPage * 5 + index);
                             };
                             return (
                                 <div
@@ -212,8 +217,9 @@ const IndexPage = () => {
                             <Box display="flex" alignItems="center" className={classes.slider}>
                                 <IconButton
                                     color="inherit"
+                                    disabled={currentPage === 0}
                                     onClick={() => {
-                                        console.log('Back');
+                                        setCurrentPage(currentPage - 1);
                                     }}
                                 >
                                     <NavigateBeforeIcon />
@@ -221,8 +227,9 @@ const IndexPage = () => {
                                 <span className={classes.photosLabel}>PHOTOS</span>
                                 <IconButton
                                     color="inherit"
+                                    disabled={currentPage === photoPages.length - 1}
                                     onClick={() => {
-                                        console.log('Forward');
+                                        setCurrentPage(currentPage + 1);
                                     }}
                                 >
                                     <NavigateNextIcon />
