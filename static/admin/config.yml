@@ -12,7 +12,7 @@ collections:
     create: true
     identifier_field: type
     fields:
-      - { name: type, label: Type, widget: "select", options: ["facebook", "twitter", "telegram", "youtube", "instagram", "vk", "other"]}
+      - { name: type, label: Type, widget: "select", options: ["facebook", "twitter", "telegram", "youtube", "instagram", "meetup", "vk", "other"]}
       - { name: url, label: URL, widget: "string" }
 
   - name: "pages"

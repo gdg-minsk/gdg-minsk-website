@@ -5,4 +5,5 @@ export default {
     TWITTER: 'twitter',
     VK: 'vk',
     YOUTUBE: 'youtube',
+    MEETUP: 'meetup',
 };
