@@ -1,29 +1,28 @@
 import React from 'react';
+import classNames from 'classnames';
+
+import { useStaticQuery, graphql } from 'gatsby';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Layout from '../components/shared/layout/layout';
-import Image from '../components/shared/image';
 import SEO from '../components/shared/seo';
-import Link from '../components/shared/link';
 
-import EventCard from '../components/shared/event-card/event-card';
+import PhotoGallery from '../components/home/photo-gallery';
 
-import EVENT_CARD_DATA from '../mock-data/event-card.mock';
-
-const useStyles = makeStyles(theme => ({
-    bannerContainer: {
-        color: 'white',
-    },
-    bannerButton: {
-        marginTop: theme.spacing(1),
+const useStyles = makeStyles(() => ({
+    pageContainer: {
+        flexGrow: 1,
     },
     gridItem: {
-        width: '33%',
+        width: '50%',
+    },
+    photoBoxColumn: {
+        maxHeight: 'calc(100vh - 160px)',
+        top: '50px',
+        position: 'sticky',
     },
     '@media (max-width: 960px)': {
         gridItem: {
@@ -39,80 +38,88 @@ const useStyles = makeStyles(theme => ({
 
 const IndexPage = () => {
     const classes = useStyles();
-    const eventCards = EVENT_CARD_DATA.map(eventCard => (
-        <Grid key={eventCard.id} className={classes.gridItem} item>
-            <EventCard
-                imageUrl={eventCard.imageUrl}
-                imageTitle={eventCard.imageTitle}
-                speakers={eventCard.speakers}
-                title={eventCard.title}
-                description={eventCard.description}
-                date={eventCard.date}
-            />
-        </Grid>
-    ));
+
+    const data = useStaticQuery(graphql`
+        query IndexPagePhotos {
+            markdownRemark(frontmatter: { templateKey: { eq: "index-page" } }) {
+                frontmatter {
+                    photos {
+                        description
+                        photo {
+                            childImageSharp {
+                                fluid(maxWidth: 1920) {
+                                    ...GatsbyImageSharpFluid
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    `);
+
+    const {
+        markdownRemark: {
+            frontmatter: { photos },
+        },
+    } = data;
 
     return (
-        <Layout
-            parallaxContent={
-                <Box className={classes.bannerContainer}>
-                    <Typography gutterBottom variant="h2" component="h2">
-                        Let’s write code together
-                    </Typography>
-                    <Typography gutterBottom variant="body1" component="h4">
-                        Google Developer Group (GDG) Minsk is a non-profit developers group that was created for people
-                        who&apos;d like to know more about Google technologies and want to share their experience with
-                        others. Our technical directions: Android, Web, Cloud, IoT.
-                    </Typography>
-
-                    <Link to="/about" underline="none">
-                        <Button variant="contained" color="secondary" className={classes.bannerButton}>
-                            Read more about GDG
-                        </Button>
-                    </Link>
-                </Box>
-            }
-            bannerImages={[
-                {
-                    image: '/img/gdg-cover.jpg',
-                    amount: 0.4,
-                },
-            ]}
-        >
+        <Layout>
             <SEO title="Home" />
 
-            <Typography gutterBottom variant="h1" component="h1">
-                Hi people
-            </Typography>
-
-            <Box display="flex" p={1}>
-                <Box p={1} flexGrow={1}>
-                    <Typography gutterBottom variant="h4" component="h3">
-                        Upcoming events
+            <Grid classes={{ container: classes.pageContainer }} container spacing={3}>
+                <Grid className={classes.gridItem} item>
+                    <Typography variant="h5" component="h3" gutterBottom color="primary">
+                        You are on the alpha version of the website of the Belarusian Google Developer Group
                     </Typography>
-                </Box>
-                <Box>
-                    <Button size="large" color="primary">
-                        All upcoming events
-                    </Button>
-                </Box>
-            </Box>
 
-            <Grid container spacing={3}>
-                {eventCards}
+                    <Typography variant="body1" component="p">
+                        We provide tools and opportunities to learn new technologies and be connected to the local
+                        community, improving the local ecosystem and the quality of local talent. When you join a Google
+                        Developer Group, you’ll have the opportunity to meet local developers with similar interests in
+                        technology. A GDG meetup event includes talks on a wide range of technical topics where you can
+                        learn new skills through hands-on workshops. The community prides itself on being an inclusive
+                        environment where everyone and anyone interested in tech - from beginner developers to
+                        experienced professionals - all are welcome to join. We provide tools and opportunities to learn
+                        new technologies and be connected to the local community, improving the local ecosystem and the
+                        quality of local talent. When you join a Google Developer Group, you’ll have the opportunity to
+                        meet local developers with similar interests in technology. A GDG meetup event includes talks on
+                        a wide range of technical topics where you can learn new skills through hands-on workshops. The
+                        community prides itself on being an inclusive environment where everyone and anyone interested
+                        in tech - from beginner developers to experienced professionals - all are welcome to join. We
+                        provide tools and opportunities to learn new technologies and be connected to the local
+                        community, improving the local ecosystem and the quality of local talent. When you join a Google
+                        Developer Group, you’ll have the opportunity to meet local developers with similar interests in
+                        technology. A GDG meetup event includes talks on a wide range of technical topics where you can
+                        learn new skills through hands-on workshops. The community prides itself on being an inclusive
+                        environment where everyone and anyone interested in tech - from beginner developers to
+                        experienced professionals - all are welcome to join. We provide tools and opportunities to learn
+                        new technologies and be connected to the local community, improving the local ecosystem and the
+                        quality of local talent. When you join a Google Developer Group, you’ll have the opportunity to
+                        meet local developers with similar interests in technology. A GDG meetup event includes talks on
+                        a wide range of technical topics where you can learn new skills through hands-on workshops. The
+                        community prides itself on being an inclusive environment where everyone and anyone interested
+                        in tech - from beginner developers to experienced professionals - all are welcome to join. We
+                        provide tools and opportunities to learn new technologies and be connected to the local
+                        community, improving the local ecosystem and the quality of local talent. When you join a Google
+                        Developer Group, you’ll have the opportunity to meet local developers with similar interests in
+                        technology. A GDG meetup event includes talks on a wide range of technical topics where you can
+                        learn new skills through hands-on workshops. The community prides itself on being an inclusive
+                        environment where everyone and anyone interested in tech - from beginner developers to
+                        experienced professionals - all are welcome to join. We provide tools and opportunities to learn
+                        new technologies and be connected to the local community, improving the local ecosystem and the
+                        quality of local talent. When you join a Google Developer Group, you’ll have the opportunity to
+                        meet local developers with similar interests in technology. A GDG meetup event includes talks on
+                        a wide range of technical topics where you can learn new skills through hands-on workshops. The
+                        community prides itself on being an inclusive environment where everyone and anyone interested
+                        in tech - from beginner developers to experienced professionals - all are welcome to join.
+                    </Typography>
+                </Grid>
+                <Grid className={classNames(classes.gridItem, classes.photoBoxColumn)} item>
+                    <PhotoGallery photos={photos} />
+                </Grid>
             </Grid>
-
-            <Box display="flex" m={7} justifyContent="center">
-                <Box>
-                    <Button variant="contained" color="primary" size="large">
-                        All upcoming events
-                    </Button>
-                </Box>
-            </Box>
-
-            <Box style={{ maxWidth: `800px`, width: '100%', marginBottom: `1.45rem` }}>
-                <Image />
-            </Box>
         </Layout>
     );
 };

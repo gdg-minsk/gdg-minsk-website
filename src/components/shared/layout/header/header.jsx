@@ -1,35 +1,39 @@
-import React, { useState, useCallback, forwardRef } from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
+import { useStaticQuery, graphql } from 'gatsby';
+
 import classNames from 'classnames';
+
+import Img from 'gatsby-image';
 
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
 import Hidden from '@material-ui/core/Hidden';
 import Drawer from '@material-ui/core/Drawer';
 import Menu from '@material-ui/icons/Menu';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
+import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+import Slide from '@material-ui/core/Slide';
 
 import Link from '../../link';
 
 const useStyles = makeStyles(() => ({
-    transparentAppBar: {
-        backgroundColor: 'transparent',
+    appBar: {
+        backgroundColor: '#fff',
         boxShadow: 'none',
-        transition: 'all 1s',
     },
     drawerPaper: {
         width: 260,
     },
-    brandLink: {
-        color: 'white',
+    logoLink: {
+        display: 'inline-block',
     },
 }));
 
-const Header = forwardRef(({ title, desktopMenu, mobileMenu, isTransparentMode }, ref) => {
+const Header = ({ title, desktopMenu, mobileMenu }) => {
     const classes = useStyles();
 
     const [mobileOpen, setMobileOpen] = useState(false);
@@ -38,65 +42,72 @@ const Header = forwardRef(({ title, desktopMenu, mobileMenu, isTransparentMode }
         setMobileOpen(!mobileOpen);
     }, [mobileOpen]);
 
-    const brandComponent = (
-        <Link to="/" className={classes.brandLink} underline="none">
-            <Typography variant="h4" component="span">
-                {title}
-            </Typography>
-        </Link>
-    );
+    const trigger = useScrollTrigger();
 
-    const appBarClasses = classNames({
-        [classes.transparentAppBar]: isTransparentMode,
-    });
+    const data = useStaticQuery(graphql`
+        query {
+            file(relativePath: { eq: "gdg-logo.png" }) {
+                childImageSharp {
+                    fixed(height: 25) {
+                        ...GatsbyImageSharpFixed_tracedSVG
+                    }
+                }
+            }
+        }
+    `);
 
     return (
-        <AppBar ref={ref} position="fixed" className={appBarClasses}>
-            <Toolbar>
-                <Container maxWidth="lg">
-                    <Box display="flex" alignItems="center">
-                        <Box flexGrow={1}>{brandComponent}</Box>
-                        <Box>
-                            <Hidden smDown implementation="css">
-                                {desktopMenu}
-                            </Hidden>
+        <Slide appear={false} direction="down" in={!trigger}>
+            <AppBar position="fixed" className={classes.appBar}>
+                <Toolbar disableGutters>
+                    <Container maxWidth="lg">
+                        <Box display="flex" alignItems="center">
+                            <Box flexGrow={1}>
+                                <Link to="/" className={classes.logoLink} underline="none">
+                                    <Img
+                                        className={classes.headerLogo}
+                                        fixed={data.file.childImageSharp.fixed}
+                                        alt={title}
+                                    />
+                                </Link>
+                            </Box>
+                            <Box>
+                                <Hidden xsDown implementation="css">
+                                    {desktopMenu}
+                                </Hidden>
+                            </Box>
+                            <Box>
+                                <Hidden smUp>
+                                    <IconButton aria-label="open drawer" onClick={handleDrawerToggle}>
+                                        <Menu />
+                                    </IconButton>
+                                </Hidden>
+                            </Box>
                         </Box>
-                        <Box>
-                            <Hidden mdUp>
-                                <IconButton color="inherit" aria-label="open drawer" onClick={handleDrawerToggle}>
-                                    <Menu />
-                                </IconButton>
-                            </Hidden>
-                        </Box>
-                    </Box>
-                </Container>
-            </Toolbar>
-            <Hidden mdUp implementation="js">
-                <Drawer
-                    variant="temporary"
-                    anchor="right"
-                    open={mobileOpen}
-                    classes={{
-                        paper: classes.drawerPaper,
-                    }}
-                    onClose={handleDrawerToggle}
-                >
-                    {mobileMenu}
-                </Drawer>
-            </Hidden>
-        </AppBar>
+                    </Container>
+                </Toolbar>
+                <Hidden mdUp implementation="js">
+                    <Drawer
+                        variant="temporary"
+                        anchor="right"
+                        open={mobileOpen}
+                        classes={{
+                            paper: classes.drawerPaper,
+                        }}
+                        onClose={handleDrawerToggle}
+                    >
+                        {mobileMenu}
+                    </Drawer>
+                </Hidden>
+            </AppBar>
+        </Slide>
     );
-});
+};
 
 Header.propTypes = {
     title: PropTypes.string.isRequired,
     desktopMenu: PropTypes.node.isRequired,
     mobileMenu: PropTypes.node.isRequired,
-    isTransparentMode: PropTypes.bool,
-};
-
-Header.defaultProps = {
-    isTransparentMode: false,
 };
 
 export default Header;

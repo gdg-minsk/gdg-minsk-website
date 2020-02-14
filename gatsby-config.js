@@ -18,6 +18,43 @@ module.exports = {
                 path: `${__dirname}/static/img`,
             },
         },
+        {
+            resolve: 'gatsby-source-filesystem',
+            options: {
+                name: 'cmsImages',
+                path: `${__dirname}/static/img/cms`,
+            },
+        },
+        {
+            resolve: `gatsby-source-filesystem`,
+            options: {
+                path: `${__dirname}/data/social-network`,
+                name: `socialNetwork`,
+            },
+        },
+        {
+            resolve: 'gatsby-source-filesystem',
+            options: {
+                path: `${__dirname}/data/pages`,
+                name: 'pages',
+            },
+        },
+        {
+            resolve: `gatsby-transformer-remark`,
+            options: {
+                plugins: [
+                    {
+                        resolve: `gatsby-remark-relative-images`,
+                    },
+                    {
+                        resolve: `gatsby-remark-images`,
+                        options: {
+                            maxWidth: 2048,
+                        },
+                    },
+                ],
+            },
+        },
         'gatsby-transformer-sharp',
         'gatsby-plugin-sharp',
         {
@@ -33,7 +70,26 @@ module.exports = {
             },
         },
         'gatsby-plugin-offline',
-        'gatsby-plugin-material-ui',
+        `gatsby-theme-material-ui`,
         'gatsby-plugin-netlify',
+        'gatsby-plugin-netlify-cms',
+        {
+            resolve: 'gatsby-plugin-react-svg',
+            options: {
+                rule: {
+                    include: /svg/,
+                },
+            },
+        },
+        {
+            resolve: `gatsby-plugin-prefetch-google-fonts`,
+            options: {
+                fonts: [
+                    {
+                        family: `Roboto`,
+                    },
+                ],
+            },
+        },
     ],
 };

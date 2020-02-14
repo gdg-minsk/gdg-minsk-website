@@ -1,0 +1,36 @@
+backend:
+  name: github
+  repo: gdg-minsk/gdg-minsk-website
+  branch: new-layout
+
+media_folder: "static/img/cms"
+
+collections:
+  - name: socialNetwork
+    label: Social Network
+    folder: data/social-network
+    create: true
+    identifier_field: type
+    fields:
+      - { name: type, label: Type, widget: "select", options: ["facebook", "twitter", "telegram", "youtube", "instagram", "meetup", "vk", "other"]}
+      - { name: url, label: URL, widget: "string" }
+
+  - name: "pages"
+    label: "Pages"
+    files:
+     - file: "data/pages/not-found-page.md"
+       label: "Not Found Page"
+       name: "404"
+       fields:
+         - {label: "Template Key", name: "templateKey", widget: "hidden", default: "not-found-page"}
+         - {label: PageTitle, name: pageTitle, widget: string}
+         - {label: Title, name: title, widget: string}
+         - {label: Description, name: description, widget: string}
+         - {label: Button Text, name: btnText, widget: string}
+     - file: "data/pages/index-page.md"
+       label: "Landing Page"
+       name: "index"
+       fields:
+         - {label: "Template Key", name: "templateKey", widget: "hidden", default: "index-page"}
+         - {label: "Photos", name: "photos", widget: "list", fields: [{label: Description, name: description, widget: string, required: false},{label: Photo, name: photo, widget: image}]}
+           
