@@ -19,6 +19,8 @@ const useStyles = makeStyles(() => ({
         fontFamily: 'Roboto',
     },
     socialIcon: {
+        width: '40px',
+        height: '40px',
         transition: 'transform .2s',
         '&:hover': {
             transform: 'scale(1.5)',
@@ -75,11 +77,29 @@ const SpeakersPage = () => {
     const classes = useStyles();
 
     const data = useStaticQuery(graphql`
-        query {
-            placeholderImage: file(relativePath: { eq: "IlyaZaprutski.jpg" }) {
-                childImageSharp {
-                    fluid(maxWidth: 310) {
-                        ...GatsbyImageSharpFluid
+        query AllSpeakers {
+            allMarkdownRemark(
+                filter: { fields: { collection: { eq: "speakers" } } }
+                sort: { fields: [frontmatter___name], order: ASC }
+            ) {
+                edges {
+                    node {
+                        frontmatter {
+                            name
+                            company
+                            jobTitle
+                            photo {
+                                childImageSharp {
+                                    fluid(maxWidth: 400) {
+                                        ...GatsbyImageSharpFluid
+                                    }
+                                }
+                            }
+                            socialNetworks {
+                                type
+                                url
+                            }
+                        }
                     }
                 }
             }
@@ -91,40 +111,39 @@ const SpeakersPage = () => {
             <SEO title="Speakers" />
 
             <Grid classes={{ container: classes.pageContainer }} container spacing={3}>
-                {[...Array(21).keys()].map((value, index) => (
-                    <Grid key={index} item>
-                        <div className={classes.speakerPhotoContainer}>
-                            <Link to="/speaker">
-                                <Img
-                                    className={classes.speakerPhoto}
-                                    fluid={data.placeholderImage.childImageSharp.fluid}
-                                />
-                            </Link>
-                        </div>
-                        <Box display="flex" flexDirection="column" alignItems="center" m="10px">
-                            <Link className={classes.speakerName} to="/" underline="none">
-                                Илья Запруцкий
-                            </Link>
-                            <span className={classes.companyInfo}>Team Lead @iTechArt</span>
-                            <Box display="flex">
-                                {[...Array(6)].map((x, index2) => {
-                                    const Icon = getSocialMediaIcon('twitter');
+                {data.allMarkdownRemark.edges.map(({ node }) => {
+                    const {
+                        frontmatter: { name, company, jobTitle, socialNetworks, photo },
+                        id,
+                    } = node;
 
-                                    return (
-                                        <Link
-                                            className={classes.socialIcon}
-                                            to="https://www.onliner.by"
-                                            target="blank"
-                                            key={index2}
-                                        >
-                                            <Icon />
-                                        </Link>
-                                    );
-                                })}
+                    return (
+                        <Grid key={id} item>
+                            <div className={classes.speakerPhotoContainer}>
+                                <Link to="/speaker">
+                                    <Img className={classes.speakerPhoto} fluid={photo.childImageSharp.fluid} />
+                                </Link>
+                            </div>
+                            <Box display="flex" flexDirection="column" alignItems="center" m="10px">
+                                <Link className={classes.speakerName} to="/" underline="none">
+                                    {name}
+                                </Link>
+                                <span className={classes.companyInfo}>{`${jobTitle}@${company}`}</span>
+                                <Box display="flex">
+                                    {socialNetworks.map(({ type, url }) => {
+                                        const Icon = getSocialMediaIcon(type);
+
+                                        return (
+                                            <Link className={classes.socialIcon} to={url} target="blank" key={type}>
+                                                <Icon />
+                                            </Link>
+                                        );
+                                    })}
+                                </Box>
                             </Box>
-                        </Box>
-                    </Grid>
-                ))}
+                        </Grid>
+                    );
+                })}
             </Grid>
         </Layout>
     );
