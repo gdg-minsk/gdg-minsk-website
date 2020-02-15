@@ -73,6 +73,18 @@ const useStyles = makeStyles(() => ({
     companyInfo: { fontSize: '15px', lineHeight: '18px', color: '#7F8388', marginTop: '5px' },
 }));
 
+const getCompanyInfo = (jobTitle, companyName) => {
+    if (!jobTitle && !companyName) {
+        return null;
+    }
+
+    if (jobTitle && companyName) {
+        return `${jobTitle}@${companyName}`;
+    }
+
+    return jobTitle || companyName;
+};
+
 const SpeakersPage = () => {
     const classes = useStyles();
 
@@ -117,6 +129,8 @@ const SpeakersPage = () => {
                         id,
                     } = node;
 
+                    const companyInfo = getCompanyInfo(jobTitle, company);
+
                     return (
                         <Grid key={id} item>
                             <div className={classes.speakerPhotoContainer}>
@@ -128,18 +142,21 @@ const SpeakersPage = () => {
                                 <Link className={classes.speakerName} to="/" underline="none">
                                     {name}
                                 </Link>
-                                <span className={classes.companyInfo}>{`${jobTitle}@${company}`}</span>
-                                <Box display="flex">
-                                    {socialNetworks.map(({ type, url }) => {
-                                        const Icon = getSocialMediaIcon(type);
+                                {companyInfo && <span className={classes.companyInfo}>{companyInfo}</span>}
 
-                                        return (
-                                            <Link className={classes.socialIcon} to={url} target="blank" key={type}>
-                                                <Icon />
-                                            </Link>
-                                        );
-                                    })}
-                                </Box>
+                                {socialNetworks && (
+                                    <Box display="flex">
+                                        {socialNetworks.map(({ type, url }) => {
+                                            const Icon = getSocialMediaIcon(type);
+
+                                            return (
+                                                <Link className={classes.socialIcon} to={url} target="blank" key={type}>
+                                                    <Icon />
+                                                </Link>
+                                            );
+                                        })}
+                                    </Box>
+                                )}
                             </Box>
                         </Grid>
                     );
