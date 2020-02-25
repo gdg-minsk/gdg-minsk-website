@@ -5,8 +5,5 @@ export default {
     TWITTER: 'twitter',
     VK: 'vk',
     YOUTUBE: 'youtube',
-<<<<<<< HEAD
-=======
     MEETUP: 'meetup',
->>>>>>> master
 };

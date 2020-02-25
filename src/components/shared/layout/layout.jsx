@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { useStaticQuery, graphql } from 'gatsby';
 
 import Container from '@material-ui/core/Container';
@@ -84,13 +83,9 @@ const Layout = ({ children }) => {
             />
 
             <Box className={classes.pageWrapper}>
-<<<<<<< HEAD
-                <Container className={classes.pageContentContainer}>{children}</Container>
-=======
                 <Container maxWidth="lg" className={classes.pageContentContainer}>
                     {children}
                 </Container>
->>>>>>> master
             </Box>
 
             <Footer />
