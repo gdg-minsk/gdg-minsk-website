@@ -29,6 +29,10 @@ const useStyles = makeStyles(() => ({
         footer: {
             backgroundColor: '#fff',
             borderTop: '1px solid #EFEFEF',
+<<<<<<< HEAD
+=======
+            marginTop: '45px',
+>>>>>>> master
         },
         socialIconsContainer: {
             justifyContent: 'center',

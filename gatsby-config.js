@@ -40,7 +40,20 @@ module.exports = {
             },
         },
         {
-            resolve: 'gatsby-transformer-remark',
+            resolve: `gatsby-transformer-remark`,
+            options: {
+                plugins: [
+                    {
+                        resolve: `gatsby-remark-relative-images`,
+                    },
+                    {
+                        resolve: `gatsby-remark-images`,
+                        options: {
+                            maxWidth: 2048,
+                        },
+                    },
+                ],
+            },
         },
         'gatsby-transformer-sharp',
         'gatsby-plugin-sharp',

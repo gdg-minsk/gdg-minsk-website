@@ -13,7 +13,11 @@ const muiTheme = createMuiTheme({
             main: '#fff',
         },
         background: {
+<<<<<<< HEAD
             default: `#ffffff`,
+=======
+            default: `#ff0000`,
+>>>>>>> master
         },
     },
     typography: {

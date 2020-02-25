@@ -84,7 +84,13 @@ const Layout = ({ children }) => {
             />
 
             <Box className={classes.pageWrapper}>
+<<<<<<< HEAD
                 <Container className={classes.pageContentContainer}>{children}</Container>
+=======
+                <Container maxWidth="lg" className={classes.pageContentContainer}>
+                    {children}
+                </Container>
+>>>>>>> master
             </Box>
 
             <Footer />

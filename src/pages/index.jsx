@@ -1,7 +1,13 @@
+<<<<<<< HEAD
 import React, { useState, useCallback } from 'react';
 import classNames from 'classnames';
 
 import Img from 'gatsby-image/withIEPolyfill';
+=======
+import React from 'react';
+import classNames from 'classnames';
+
+>>>>>>> master
 import { useStaticQuery, graphql } from 'gatsby';
 
 import Grid from '@material-ui/core/Grid';
@@ -12,6 +18,7 @@ import Carousel, { Modal, ModalGateway } from 'react-images';
 
 import Layout from '../components/shared/layout/layout';
 import SEO from '../components/shared/seo';
+<<<<<<< HEAD
 import HomePageWidget from '../components/shared/widgets/home-page-widget/home-page-widget';
 
 const photos = [
@@ -43,6 +50,14 @@ const useStyles = makeStyles(theme => ({
     },
     test1: {
         color: theme.palette.royalBlue,
+=======
+
+import PhotoGallery from '../components/home/photo-gallery';
+
+const useStyles = makeStyles(() => ({
+    pageContainer: {
+        flexGrow: 1,
+>>>>>>> master
     },
     gridItem: {
         width: '50%',
@@ -87,6 +102,7 @@ const useStyles = makeStyles(theme => ({
 
 const IndexPage = () => {
     const classes = useStyles();
+<<<<<<< HEAD
 
     const [currentImage, setCurrentImage] = useState(0);
     const [viewerIsOpen, setViewerIsOpen] = useState(false);
@@ -107,12 +123,29 @@ const IndexPage = () => {
                 childImageSharp {
                     fluid(maxWidth: 450) {
                         ...GatsbyImageSharpFluid
+=======
+
+    const data = useStaticQuery(graphql`
+        query IndexPagePhotos {
+            markdownRemark(frontmatter: { templateKey: { eq: "index-page" } }) {
+                frontmatter {
+                    photos {
+                        description
+                        photo {
+                            childImageSharp {
+                                fluid(maxWidth: 1920) {
+                                    ...GatsbyImageSharpFluid
+                                }
+                            }
+                        }
+>>>>>>> master
                     }
                 }
             }
         }
     `);
 
+<<<<<<< HEAD
     return (
         <Layout>
             <SEO title="Home" />
@@ -207,6 +240,68 @@ const IndexPage = () => {
                             </Modal>
                         ) : null}
                     </ModalGateway>
+=======
+    const {
+        markdownRemark: {
+            frontmatter: { photos },
+        },
+    } = data;
+
+    return (
+        <Layout>
+            <SEO title="Home" />
+
+            <Grid classes={{ container: classes.pageContainer }} container spacing={3}>
+                <Grid className={classes.gridItem} item>
+                    <Typography variant="h5" component="h3" gutterBottom color="primary">
+                        You are on the alpha version of the website of the Belarusian Google Developer Group
+                    </Typography>
+
+                    <Typography variant="body1" component="p">
+                        We provide tools and opportunities to learn new technologies and be connected to the local
+                        community, improving the local ecosystem and the quality of local talent. When you join a Google
+                        Developer Group, you’ll have the opportunity to meet local developers with similar interests in
+                        technology. A GDG meetup event includes talks on a wide range of technical topics where you can
+                        learn new skills through hands-on workshops. The community prides itself on being an inclusive
+                        environment where everyone and anyone interested in tech - from beginner developers to
+                        experienced professionals - all are welcome to join. We provide tools and opportunities to learn
+                        new technologies and be connected to the local community, improving the local ecosystem and the
+                        quality of local talent. When you join a Google Developer Group, you’ll have the opportunity to
+                        meet local developers with similar interests in technology. A GDG meetup event includes talks on
+                        a wide range of technical topics where you can learn new skills through hands-on workshops. The
+                        community prides itself on being an inclusive environment where everyone and anyone interested
+                        in tech - from beginner developers to experienced professionals - all are welcome to join. We
+                        provide tools and opportunities to learn new technologies and be connected to the local
+                        community, improving the local ecosystem and the quality of local talent. When you join a Google
+                        Developer Group, you’ll have the opportunity to meet local developers with similar interests in
+                        technology. A GDG meetup event includes talks on a wide range of technical topics where you can
+                        learn new skills through hands-on workshops. The community prides itself on being an inclusive
+                        environment where everyone and anyone interested in tech - from beginner developers to
+                        experienced professionals - all are welcome to join. We provide tools and opportunities to learn
+                        new technologies and be connected to the local community, improving the local ecosystem and the
+                        quality of local talent. When you join a Google Developer Group, you’ll have the opportunity to
+                        meet local developers with similar interests in technology. A GDG meetup event includes talks on
+                        a wide range of technical topics where you can learn new skills through hands-on workshops. The
+                        community prides itself on being an inclusive environment where everyone and anyone interested
+                        in tech - from beginner developers to experienced professionals - all are welcome to join. We
+                        provide tools and opportunities to learn new technologies and be connected to the local
+                        community, improving the local ecosystem and the quality of local talent. When you join a Google
+                        Developer Group, you’ll have the opportunity to meet local developers with similar interests in
+                        technology. A GDG meetup event includes talks on a wide range of technical topics where you can
+                        learn new skills through hands-on workshops. The community prides itself on being an inclusive
+                        environment where everyone and anyone interested in tech - from beginner developers to
+                        experienced professionals - all are welcome to join. We provide tools and opportunities to learn
+                        new technologies and be connected to the local community, improving the local ecosystem and the
+                        quality of local talent. When you join a Google Developer Group, you’ll have the opportunity to
+                        meet local developers with similar interests in technology. A GDG meetup event includes talks on
+                        a wide range of technical topics where you can learn new skills through hands-on workshops. The
+                        community prides itself on being an inclusive environment where everyone and anyone interested
+                        in tech - from beginner developers to experienced professionals - all are welcome to join.
+                    </Typography>
+                </Grid>
+                <Grid className={classNames(classes.gridItem, classes.photoBoxColumn)} item>
+                    <PhotoGallery photos={photos} />
+>>>>>>> master
                 </Grid>
             </Grid>
         </Layout>

@@ -1,7 +1,11 @@
 const _ = require('lodash');
 
+const { fmImagesToRelative } = require('gatsby-remark-relative-images');
+
 exports.onCreateNode = ({ node, actions, getNode }) => {
     const { createNodeField } = actions;
+
+    fmImagesToRelative(node);
 
     if (_.get(node, 'internal.type') === `MarkdownRemark`) {
         // Get the parent node
