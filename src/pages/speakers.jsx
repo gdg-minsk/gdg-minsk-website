@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 
 import { useStaticQuery, graphql } from 'gatsby';
 import Img from 'gatsby-image/withIEPolyfill';
@@ -6,11 +6,21 @@ import Img from 'gatsby-image/withIEPolyfill';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import SearchIcon from '@material-ui/icons/Search';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+
+import orderBy from 'lodash-es/orderBy';
 
 import Layout from '../components/shared/layout/layout';
 import SEO from '../components/shared/seo';
 import Link from '../components/shared/link';
 import getSocialMediaIcon from '../tools/social-media';
+
+import { SortDirection } from '../constants/sort-options';
 
 const useStyles = makeStyles(() => ({
     pageContainer: {
@@ -70,7 +80,24 @@ const useStyles = makeStyles(() => ({
         color: '#000000',
     },
 
-    companyInfo: { fontSize: '15px', lineHeight: '18px', color: '#7F8388', marginTop: '5px' },
+    companyInfo: {
+        fontSize: '15px',
+        lineHeight: '18px',
+        color: '#7F8388',
+        marginTop: '5px',
+    },
+
+    filterContainer: {
+        boxShadow: '5px 5px 20px #D1D1D1',
+        borderRadius: '10px',
+        marginBottom: '20px',
+        position: 'sticky',
+        top: '70px',
+        width: '100%',
+        zIndex: '10',
+        background: '#fff',
+        padding: '15px 20px',
+    },
 }));
 
 const getCompanyInfo = (jobTitle, companyName) => {
@@ -87,6 +114,10 @@ const getCompanyInfo = (jobTitle, companyName) => {
 
 const SpeakersPage = () => {
     const classes = useStyles();
+
+    const [searchStr, setSearchStr] = useState('');
+    const [sortDirection, setSortDirection] = useState(SortDirection.ASC);
+    const [searchResults, setSearchResults] = React.useState([]);
 
     const data = useStaticQuery(graphql`
         query AllSpeakers {
@@ -118,12 +149,68 @@ const SpeakersPage = () => {
         }
     `);
 
+    const handleSearchStrChange = useCallback(event => {
+        setSearchStr(event.target.value);
+    }, []);
+
+    const handleSortDirectionChange = useCallback(event => {
+        setSortDirection(event.target.value);
+    }, []);
+
+    useEffect(() => {
+        const results = data.allMarkdownRemark.edges.filter(({ node: { frontmatter: { name } } }) =>
+            name.toLowerCase().includes(searchStr.toLowerCase()),
+        );
+
+        setSearchResults(
+            orderBy(
+                results,
+
+                [
+                    ({
+                        node: {
+                            frontmatter: { name },
+                        },
+                    }) => name,
+                ],
+
+                [sortDirection],
+            ),
+        );
+    }, [searchStr, sortDirection]);
+
     return (
         <Layout>
             <SEO title="Speakers" />
 
+            <div className={classes.filterContainer}>
+                <TextField
+                    label="With normal TextField"
+                    onChange={handleSearchStrChange}
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment>
+                                <IconButton>
+                                    <SearchIcon />
+                                </IconButton>
+                            </InputAdornment>
+                        ),
+                    }}
+                />
+
+                <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={sortDirection}
+                    onChange={handleSortDirectionChange}
+                >
+                    <MenuItem value={SortDirection.ASC}>ASC</MenuItem>
+                    <MenuItem value={SortDirection.DESC}>DESC</MenuItem>
+                </Select>
+            </div>
+
             <Grid classes={{ container: classes.pageContainer }} container spacing={3}>
-                {data.allMarkdownRemark.edges.map(({ node }) => {
+                {searchResults.map(({ node }) => {
                     const {
                         frontmatter: { name, company, jobTitle, socialNetworks, photo },
                         id,
