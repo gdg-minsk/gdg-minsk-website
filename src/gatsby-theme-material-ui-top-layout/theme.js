@@ -13,7 +13,7 @@ const muiTheme = createMuiTheme({
             main: '#fff',
         },
         background: {
-            default: `#ff0000`,
+            default: `#fff`,
         },
     },
     typography: {
