@@ -1,3 +1,7 @@
+require('dotenv').config({
+    path: `.env.${process.env.NODE_ENV}`,
+});
+
 module.exports = {
     siteMetadata: {
         title: 'GDG Minsk',
@@ -89,6 +93,16 @@ module.exports = {
                         family: `Roboto`,
                     },
                 ],
+            },
+        },
+        {
+            resolve: `gatsby-plugin-segment-js`,
+            options: {
+                prodKey: process.env.SEGMENT_PRODUCTION_WRITE_KEY,
+                devKey: process.env.SEGMENT_DEV_WRITE_KEY,
+                trackPage: false,
+                delayLoad: false,
+                delayLoadTime: 1000,
             },
         },
     ],
