@@ -2,7 +2,7 @@
 templateKey: index-page
 photos:
   - description: Description 1
-    photo: /static/img/cms/output-onlinejpgtools (5).jpg
+    photo: /static/img/cms/file.jpeg
   - description: Description 2
     photo: /static/img/cms/photo-1551739440-5dd934d3a94a.jpeg
   - description: Description 3
