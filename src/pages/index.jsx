@@ -21,7 +21,7 @@ const useStyles = makeStyles(() => ({
     },
     photoBoxColumn: {
         maxHeight: 'calc(100vh - 160px)',
-        top: '50px',
+        top: '60px',
         position: 'sticky',
     },
     '@media (max-width: 960px)': {
