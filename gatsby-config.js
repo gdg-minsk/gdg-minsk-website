@@ -37,6 +37,13 @@ module.exports = {
             },
         },
         {
+            resolve: `gatsby-source-filesystem`,
+            options: {
+                path: `${__dirname}/data/speakers`,
+                name: `speakers`,
+            },
+        },
+        {
             resolve: 'gatsby-source-filesystem',
             options: {
                 path: `${__dirname}/data/pages`,
