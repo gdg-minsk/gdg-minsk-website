@@ -1,7 +1,7 @@
 backend:
   name: github
   repo: gdg-minsk/gdg-minsk-website
-  branch: speakers-page
+  branch: maste
 
 media_folder: "static/img/cms"
 
