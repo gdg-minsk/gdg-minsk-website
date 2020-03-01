@@ -10,7 +10,7 @@ module.exports = {
         menuItems: [
             { path: '/events', title: 'Events' },
             { path: '/speakers', title: 'Speakers' },
-            { path: '/about', title: 'About' },
+            { path: '/contacts', title: 'Contacts' },
         ],
     },
     plugins: [
