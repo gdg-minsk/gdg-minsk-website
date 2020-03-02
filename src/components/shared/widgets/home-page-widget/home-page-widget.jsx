@@ -4,51 +4,45 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
+import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 const useStyles = makeStyles({
     root: {
-        color: 'white',
-        height: 136,
-        width: '100%',
+        boxShadow: '5px 5px 20px #D1D1D1',
+        marginBottom: 15,
+        borderRadius: 10,
     },
-    CardContent: {
-        display: 'flex',
-        flexDirection: 'row',
-        height: '100%',
-        padding: 0,
-        paddingBottom: '0 !important',
-    },
-    button: {
-        marginLeft: 'auto',
-        height: '100%',
-    },
-    date: {
-        flexGrow: 1,
-        paddingLeft: 14,
-        paddingRight: 30,
-        textAlign: 'center',
-    },
-    day: {
-        fontSize: 65,
-        height: 80,
-        marginTop: 5,
-    },
-    month: {
-        fontSize: 18,
+    CardContent : {
     },
     description: {
-        flexGrow: 2,
+        padding: '5px 5px 15px 5px',
     },
-    adress: {
-        fontSize: 18,
-        paddingTop: 30,
+    eventDesc: {
+        paddingTop: '4%',
+        paddingLeft: 25,
+    },
+    day: {
+        fontSize: 50,
+    },
+    month: {
+        fontSize: 24,
+    },
+    event: {
+        fontSize: 31,
+        fontWeight: 500,
+        color: '#0B478E',
+    },
+    place: {
+        fontSize: 21,
         marginBottom: 10,
     },
-    eventType: {
-        color: '#0B478E',
-        fontSize: 28,
+    date: {
+        paddingLeft: 24,
+    },
+    button: {
+        height: '100%',
     },
     overlay: {
         position: 'absolute',
@@ -57,9 +51,46 @@ const useStyles = makeStyles({
         height: 79,
         cursor: 'pointer',
     },
-    '@media (max-width: 1280px)': {},
-    '@media (max-width: 960px)': {},
-    '@media (max-width: 600px)': {},
+    '@media (max-width: 1280px)': {
+        event: {
+            fontSize: 24
+        },
+        place: {
+            fontSize: 16,
+        },
+    },
+    '@media (max-width: 960px)': {
+        event: {
+            fontSize: 18
+        },
+        place: {
+            fontSize: 12,
+        },
+    },
+    '@media (max-width: 600px)': {
+        button: {
+            display: 'none',
+        },
+        event: {
+            fontSize: 20,
+        },
+        place: {
+            fontSize: 14,
+        },
+        day: {
+            fontSize: 30,
+        },
+        month: {
+            fontSize: 14,
+        },
+        eventDesc: {
+            paddingTop: '2%',
+            paddingLeft: 12,
+        },
+        date: {
+            paddingLeft: 10,
+        },
+    },
     '@media (min-width: 600px)': {
         overlay: {
             display: 'none',
@@ -72,31 +103,27 @@ const HomePageWidget = () => {
 
     return (
         <>
-            <Card className={styles.root}>
-                <CardContent className={styles.CardContent}>
-                    <Typography
-                        className={styles.date}
-                        gutterBottom
-                        variant="body2"
-                        color="textSecondary"
-                        component="div"
-                    >
-                        <Typography className={styles.day}>28</Typography>
-                        <Typography className={styles.month}>January</Typography>
-                    </Typography>
-                    <Typography className={styles.description} gutterBottom variant="body2" component="div">
-                        <Typography className={styles.adress} color="textSecondary">
-                            ул. Октябрьская 16/4 (SPACE)
-                        </Typography>
-                        <Typography className={styles.eventType}>GDG Minsk Cloud Meetup</Typography>
-                    </Typography>
+            <Box display='flex' className={styles.root}>
+                <Box display='flex' flexGrow={1} className={styles.CardContent}>
+                    <Box display='flex' flexGrow={1} className={styles.description}>
+                        <Box className={styles.date}>
+                            <Typography className={styles.day} align='center' color="textSecondary">28</Typography>
+                            <Typography className={styles.month} align='center' color="textSecondary">January</Typography>
+                        </Box>
+                        <Box className={styles.eventDesc} flexGrow={1}>
+                            <Typography className={styles.place} color="textSecondary">
+                                ул. Октябрьская 16/4 (SPACE)
+                            </Typography>
+                            <Typography className={styles.event}>GDG Minsk Cloud Meetup</Typography>
+                        </Box>
+                    </Box>
                     <Link href="google.com" target="blank">
                         <Button className={styles.button} variant="contained" color="primary">
                             <ArrowForwardIosIcon />
                         </Button>
                     </Link>
-                </CardContent>
-            </Card>
+                </Box>
+            </Box>
             <Link href="google.com" target="blank">
                 {/* eslint-disable-next-line react/self-closing-comp */}
                 <div className={styles.overlay}></div>
