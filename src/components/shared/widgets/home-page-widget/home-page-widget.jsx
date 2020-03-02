@@ -1,7 +1,5 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
@@ -12,7 +10,7 @@ const useStyles = makeStyles({
     root: {
         boxShadow: '5px 5px 20px #D1D1D1',
         marginBottom: 15,
-        borderRadius: 10,
+        borderRadius: 25,
     },
     CardContent : {
     },
