@@ -59,3 +59,15 @@ collections:
          - {label: Job Title, name: jobTitle, widget: string, required: false}
          - {label: Photo, name: photo, widget: image, required: false}
          - {label: "Social Networks", name: "socialNetworks", widget: "list", fields: [{ name: type, label: Type, widget: "select", options: ["facebook", "twitter", "telegram", "youtube", "instagram", "meetup", "vk", "other"]}, { name: url, label: URL, widget: "string" }]}
+
+  - name: "homePageWidget"
+    label: "Widget"
+    folder: "data/widget"
+    create: true
+    identifier_field: "type"
+    fields:
+      - { name: "day", label: "Day", widget: "string" }
+      - { name: "month", label: "Month", widget: "string" }
+      - { name: "place", label: "Place", widget: "string" }
+      - { name: "eventType", label: "Event Type", widget: "select", options: ["GDG Minsk Web Meetup", "GDG Minsk Mobile Meetup", "GDG Minsk Cloud Meetup"]}
+      - { name: "url", label: "URL", widget: "string" }
