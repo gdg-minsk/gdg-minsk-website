@@ -9,20 +9,18 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 const useStyles = makeStyles({
     root: {
         boxShadow: '5px 5px 20px #D1D1D1',
-        marginBottom: 15,
-        borderRadius: 25,
-    },
-    CardContent : {
-    },
-    description: {
-        padding: '5px 5px 15px 5px',
+        borderRadius: 10,
+
     },
     eventDesc: {
-        paddingTop: '4%',
-        paddingLeft: 25,
+        margin: '0 30px',
+    },
+    description: {
+        padding: '15px 0 15px 15px',
     },
     day: {
         fontSize: 50,
+        lineHeight: '50px',
     },
     month: {
         fontSize: 24,
@@ -34,13 +32,10 @@ const useStyles = makeStyles({
     },
     place: {
         fontSize: 21,
-        marginBottom: 10,
-    },
-    date: {
-        paddingLeft: 24,
     },
     button: {
         height: '100%',
+        borderRadius: '0 10px 10px 0',
     },
     overlay: {
         position: 'absolute',
@@ -49,51 +44,62 @@ const useStyles = makeStyles({
         height: 79,
         cursor: 'pointer',
     },
-    '@media (max-width: 1280px)': {
-        event: {
-            fontSize: 24
-        },
-        place: {
-            fontSize: 16,
-        },
-    },
+
     '@media (max-width: 960px)': {
-        event: {
-            fontSize: 18
-        },
-        place: {
-            fontSize: 12,
-        },
-    },
-    '@media (max-width: 600px)': {
-        button: {
-            display: 'none',
-        },
         event: {
             fontSize: 20,
         },
         place: {
-            fontSize: 14,
+            fontSize: 16,
         },
         day: {
-            fontSize: 30,
+            fontSize: 35,
+            lineHeight: '35px',
         },
         month: {
-            fontSize: 14,
+            fontSize: 20,
         },
-        eventDesc: {
-            paddingTop: '2%',
-            paddingLeft: 12,
-        },
-        date: {
-            paddingLeft: 10,
-        },
-    },
-    '@media (min-width: 600px)': {
-        overlay: {
+        button: {
             display: 'none',
         },
+        overlay: {
+            display: 'flex',
+        }
     },
+    '@media (max-width: 600px)': {
+        // root:{
+        //     '&:hover':{
+        //         opacity: '1'
+        //     } 
+        //   }
+    //     button: {
+    //         display: 'none',
+    //     },
+    //     event: {
+    //         fontSize: 20,
+    //     },
+    //     place: {
+    //         fontSize: 14,
+    //     },
+    //     day: {
+    //         fontSize: 30,
+    //     },
+    //     month: {
+    //         fontSize: 14,
+    //     },
+    //     eventDesc: {
+    //         paddingTop: '2%',
+    //         paddingLeft: 12,
+    //     },
+    //     date: {
+    //         paddingLeft: 10,
+    //     },
+    },
+    // '@media (min-width: 600px)': {
+    //     overlay: {
+    //         display: 'none',
+    //     },
+    // },
 });
 
 const HomePageWidget = () => {
@@ -103,7 +109,7 @@ const HomePageWidget = () => {
         <>
             <Box display='flex' className={styles.root}>
                 <Box display='flex' flexGrow={1} className={styles.CardContent}>
-                    <Box display='flex' flexGrow={1} className={styles.description}>
+                    <Box alignItems="center" display='flex' flexGrow={1} className={styles.description}>
                         <Box className={styles.date}>
                             <Typography className={styles.day} align='center' color="textSecondary">28</Typography>
                             <Typography className={styles.month} align='center' color="textSecondary">January</Typography>

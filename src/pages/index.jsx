@@ -35,27 +35,6 @@ const useStyles = makeStyles(() => ({
             width: '100%',
         },
     },
-    photoBoxContainer: {
-        display: 'grid',
-        width: '100%',
-        height: '100%',
-        gridTemplateColumns: 'repeat(2, 1fr)',
-        gridAutoRows: '14%',
-        gridColumnGap: '17px',
-        gridRowGap: '17px',
-    },
-    photo: {
-        borderRadius: '10px',
-        width: '100%',
-        height: '100%',
-        objectFit: 'cover',
-        cursor: 'pointer',
-    },
-    box0: { gridColumnStart: '1', gridColumnEnd: '2', gridRowStart: '1', gridRowEnd: '4' },
-    box1: { gridColumnStart: '2', gridColumnEnd: '3', gridRowStart: '1', gridRowEnd: '1' },
-    box2: { gridColumnStart: '1', gridColumnEnd: '2', gridRowStart: '4', gridRowEnd: '5' },
-    box3: { gridColumnStart: '2', gridColumnEnd: '3', gridRowStart: '2', gridRowEnd: '5' },
-    box4: { gridColumnStart: '1', gridColumnEnd: '3', gridRowStart: '5', gridRowEnd: '7' },
 }));
 
 const IndexPage = () => {

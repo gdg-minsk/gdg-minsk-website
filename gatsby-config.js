@@ -8,8 +8,8 @@ module.exports = {
         description: 'GDG Description.',
         author: 'gdg',
         menuItems: [
-            { path: '/events', title: 'Events' },
-            { path: '/speakers', title: 'Speakers' },
+            // { path: '/events', title: 'Events' },
+            // { path: '/speakers', title: 'Speakers' },
             { path: '/about', title: 'About' },
         ],
     },
