@@ -105,6 +105,25 @@ const useStyles = makeStyles({
 const HomePageWidget = () => {
     const styles = useStyles();
 
+    const data = useStaticQuery(graphql`
+        query homePageWidget {
+            allMarkdownRemark(filter: { fields: { collection: { eq: "homePageWidget" } } }) {
+                edges {
+                    node {
+                        id
+                        frontmatter {
+                            day
+                            month
+                            place
+                            eventType
+                            url
+                        }
+                    }
+                }
+            }
+        }
+    `);
+
     return (
         <>
             <Box display='flex' className={styles.root}>
