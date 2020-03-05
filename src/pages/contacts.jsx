@@ -11,6 +11,8 @@ import SEO from '../components/shared/seo';
 import Link from '../components/shared/link';
 import SocialIcons from '../components/shared/social-icons';
 
+import { useWindowDimensions } from '../hooks/window-size';
+
 const useStyles = makeStyles(() => ({
     text: {
         fontSize: '30px',
@@ -60,6 +62,10 @@ const useStyles = makeStyles(() => ({
 
 const ContactsPage = () => {
     const classes = useStyles();
+
+    const { width } = useWindowDimensions();
+
+    console.log(width);
 
     return (
         <Layout isSocialIconsVisible={false}>
