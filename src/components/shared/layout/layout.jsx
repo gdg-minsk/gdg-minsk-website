@@ -56,7 +56,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const Layout = ({ children }) => {
+const Layout = ({ children, isSocialIconsVisible }) => {
     const classes = useStyles();
 
     const data = useStaticQuery(graphql`
@@ -89,13 +89,18 @@ const Layout = ({ children }) => {
                 </Container>
             </Box>
 
-            <Footer />
+            <Footer isSocialIconsVisible={isSocialIconsVisible} />
         </Box>
     );
 };
 
+Layout.defaultProps = {
+    isSocialIconsVisible: true,
+};
+
 Layout.propTypes = {
     children: PropTypes.node.isRequired,
+    isSocialIconsVisible: PropTypes.bool,
 };
 
 export default Layout;
