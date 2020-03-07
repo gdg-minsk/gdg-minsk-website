@@ -7,6 +7,7 @@ import TwitterIcon from '../../static/svg/twitter.svg';
 import VkIcon from '../../static/svg/vk.svg';
 import YoutubeIcon from '../../static/svg/youtube.svg';
 import MeetupIcon from '../../static/svg/meetup.svg';
+import DefaultIcon from '../../static/svg/default-social.svg';
 
 const Icons = {
     [SocialMedia.FACEBOOK]: FacebookIcon,
@@ -16,8 +17,15 @@ const Icons = {
     [SocialMedia.VK]: VkIcon,
     [SocialMedia.YOUTUBE]: YoutubeIcon,
     [SocialMedia.MEETUP]: MeetupIcon,
+    [SocialMedia.OTHER]: DefaultIcon,
 };
 
-const getSocialMediaIcon = type => Icons[type];
+const getSocialMediaIcon = type => {
+    if (Icons[type]) {
+        return Icons[type];
+    }
+
+    return DefaultIcon;
+};
 
 export default getSocialMediaIcon;

@@ -6,4 +6,5 @@ export default {
     VK: 'vk',
     YOUTUBE: 'youtube',
     MEETUP: 'meetup',
+    OTHER: 'other',
 };
