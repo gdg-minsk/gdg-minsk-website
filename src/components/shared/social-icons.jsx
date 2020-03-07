@@ -45,12 +45,9 @@ const SocialIcons = props => {
             {data.allMarkdownRemark.edges.map(({ node }) => {
                 const Icon = getSocialMediaIcon(node.frontmatter.type);
 
-                if (!Icon) {
-                    return null;
-                }
-
                 return (
                     <Link
+                        aria-label={node.frontmatter.type}
                         className={classes.socialIcon}
                         to={node.frontmatter.url}
                         target="blank"
