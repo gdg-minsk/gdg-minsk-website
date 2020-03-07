@@ -29,5 +29,6 @@ module.exports = {
         ],
         'react/jsx-props-no-spreading': 0,
         'react/no-array-index-key': 0,
+        'import/prefer-default-export': 0,
     },
 };

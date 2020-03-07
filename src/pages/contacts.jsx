@@ -13,6 +13,8 @@ import SocialIcons from '../components/shared/social-icons';
 
 import { useWindowDimensions } from '../hooks/window-size';
 
+import { MobileWidth } from '../constants/window-sizes';
+
 const useStyles = makeStyles(() => ({
     text: {
         fontSize: '30px',
@@ -63,12 +65,10 @@ const useStyles = makeStyles(() => ({
 const ContactsPage = () => {
     const classes = useStyles();
 
-    const test = useWindowDimensions();
-
-    console.log(`ololool:${JSON.stringify(test)}`);
+    const { width } = useWindowDimensions();
 
     return (
-        <Layout isSocialIconsVisible={false}>
+        <Layout isSocialIconsVisible={width <= MobileWidth}>
             <SEO title="Contacts" />
 
             <Box className={classes.page}>
