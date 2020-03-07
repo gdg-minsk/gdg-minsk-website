@@ -53,7 +53,7 @@ const IndexPage = () => {
                         photo {
                             childImageSharp {
                                 fluid(maxWidth: 1920) {
-                                    ...GatsbyImageSharpFluid
+                                    ...GatsbyImageSharpFluid_withWebp
                                 }
                             }
                         }
