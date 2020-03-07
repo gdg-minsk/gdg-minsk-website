@@ -2,8 +2,6 @@ import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useStaticQuery, graphql } from 'gatsby';
 
-import classNames from 'classnames';
-
 import Img from 'gatsby-image';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -49,7 +47,7 @@ const Header = ({ title, desktopMenu, mobileMenu }) => {
             file(relativePath: { eq: "gdg-logo.png" }) {
                 childImageSharp {
                     fixed(height: 25) {
-                        ...GatsbyImageSharpFixed_tracedSVG
+                        ...GatsbyImageSharpFixed_withWebp_tracedSVG
                     }
                 }
             }
