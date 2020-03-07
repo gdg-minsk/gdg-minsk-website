@@ -25,7 +25,7 @@ const SocialIcons = props => {
     const classes = useStyles(props);
 
     const data = useStaticQuery(graphql`
-        query SocialNetwork2 {
+        query SocialNetwork {
             allMarkdownRemark(filter: { fields: { collection: { eq: "socialNetwork" } } }) {
                 edges {
                     node {
