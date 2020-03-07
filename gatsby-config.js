@@ -8,9 +8,9 @@ module.exports = {
         description: 'GDG Description.',
         author: 'gdg',
         menuItems: [
-            // { path: '/events', title: 'Events' },
-            // { path: '/speakers', title: 'Speakers' },
-            { path: '/about', title: 'About' },
+            { path: '/events', title: 'Events' },
+            { path: '/speakers', title: 'Speakers' },
+            { path: '/contacts', title: 'Contacts' },
         ],
     },
     plugins: [
