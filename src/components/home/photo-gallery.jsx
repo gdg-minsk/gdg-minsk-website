@@ -112,6 +112,7 @@ const PhotoGallery = ({ photos }) => {
                 <Box display="flex" alignItems="center" justifyContent="center">
                     <Box display="flex" alignItems="center" className={classes.slider}>
                         <IconButton
+                            aria-label="previous image"
                             color="inherit"
                             disabled={currentPage === 0}
                             onClick={() => {
@@ -122,6 +123,7 @@ const PhotoGallery = ({ photos }) => {
                         </IconButton>
                         <span className={classes.photosLabel}>PHOTOS</span>
                         <IconButton
+                            aria-label="next image"
                             color="inherit"
                             disabled={currentPage === photoPages.length - 1}
                             onClick={() => {
