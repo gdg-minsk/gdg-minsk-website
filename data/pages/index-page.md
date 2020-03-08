@@ -1,6 +1,6 @@
 ---
 homePageWidget:
-  eventDay: '03'
+  day: '03'
   eventType: GDG Minsk Web Meetup
   month: March
   place: Space
