@@ -1,10 +1,6 @@
 ---
 homePageWidget:
   day: '03'
-  eventType: GDG Minsk Web Meetup
-  month: March
-  place: ул. Октябрьская 16/4 (Space)
-  url: 'https://gdg-minsk.timepad.ru/event/1268615/'
 templateKey: index-page
 pageTitle: Home
 title: You are on the website of the Belarusian Google Developer Group
