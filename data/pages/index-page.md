@@ -3,7 +3,7 @@ homePageWidget:
   day: '03'
   eventType: GDG Minsk Web Meetup
   month: March
-  place: Space
+  place: EventSpace
   url: 'https://gdg-minsk.timepad.ru/event/1268615/'
 templateKey: index-page
 pageTitle: Home
