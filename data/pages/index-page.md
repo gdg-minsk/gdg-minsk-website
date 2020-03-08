@@ -1,6 +1,6 @@
 ---
 homePageWidget:
-  day: 08
+  day: '03'
   eventType: GDG Minsk Web Meetup
   month: March
   place: ул. Октябрьская 16/4 (Space)
