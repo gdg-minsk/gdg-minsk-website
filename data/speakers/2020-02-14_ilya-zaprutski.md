@@ -6,6 +6,7 @@ jobTitle: Solution Architect
 photo: /static/img/cms/IlyaZaprutski.jpg
 streams:
   - Web Meetup
+  - Cloud Meetup
 socialNetworks:
   - type: facebook
     url: 'https://www.facebook.com/ilya.zaprutski'
