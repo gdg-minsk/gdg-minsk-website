@@ -43,4 +43,48 @@ photos:
     photo: /static/img/cms/dsc04751.jpg
   - description: GDG Mobile October Meetup 2019
     photo: /static/img/cms/dsc04767.jpg
+  - description: GDG Cloud March Meetup 2019
+    photo: /static/img/cms/img_2879.jpg
+  - description: GDG Cloud March Meetup 2019
+    photo: /static/img/cms/img_2719.jpg
+  - description: GDG DevFest 2018
+    photo: /static/img/cms/img_0148.jpg
+  - description: GDG DevFest 2018
+    photo: /static/img/cms/img_0149.jpg
+  - description: GDG DevFest 2018
+    photo: /static/img/cms/img_0151.jpg
+  - description: GDG DevFest 2018
+    photo: /static/img/cms/img_0156.jpg
+  - description: GDG DevFest 2018
+    photo: /static/img/cms/img_0170.jpg
+  - description: GDG DevFest 2018
+    photo: /static/img/cms/img_0173.jpg
+  - description: GDG DevFest 2018
+    photo: /static/img/cms/img_0185.jpg
+  - description: GDG DevFest 2018
+    photo: /static/img/cms/img_0187.jpg
+  - description: GDG DevFest 2018
+    photo: /static/img/cms/img_0199.jpg
+  - description: GDG DevFest 2018
+    photo: /static/img/cms/img_0213.jpg
+  - description: GDG DevFest 2018
+    photo: /static/img/cms/img_0220.jpg
+  - description: GDG DevFest 2018
+    photo: /static/img/cms/img_0224.jpg
+  - description: GDG DevFest 2018
+    photo: /static/img/cms/img_0254.jpg
+  - description: GDG DevFest 2018
+    photo: /static/img/cms/img_0300.jpg
+  - description: GDG DevFest 2018
+    photo: /static/img/cms/img_0325.jpg
+  - description: GDG DevFest 2018
+    photo: /static/img/cms/img_0407.jpg
+  - description: GDG DevFest 2018
+    photo: /static/img/cms/img_0438.jpg
+  - description: GDG DevFest 2018
+    photo: /static/img/cms/img_0566.jpg
+  - description: GDG DevFest 2018
+    photo: /static/img/cms/img_0730.jpg
+  - description: GDG DevFest 2018
+    photo: /static/img/cms/img_0754.jpg
 ---
