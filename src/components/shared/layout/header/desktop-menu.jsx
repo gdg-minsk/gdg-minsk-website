@@ -12,6 +12,9 @@ const useStyles = makeStyles(theme => ({
         margin: theme.spacing(1, 1.5),
         color: '#6D7278',
     },
+    activeLink: {
+        textDecoration: 'underline',
+    },
 }));
 
 const DesktopMenu = ({ menuItems }) => {
@@ -21,7 +24,14 @@ const DesktopMenu = ({ menuItems }) => {
         <Box component="nav" display="flex">
             {menuItems.map(x => {
                 return (
-                    <Link key={x.path} to={x.path} variant="button" color="textPrimary" className={classes.link}>
+                    <Link
+                        key={x.path}
+                        to={x.path}
+                        variant="button"
+                        color="textPrimary"
+                        className={classes.link}
+                        activeClassName={classes.activeLink}
+                    >
                         <Typography variant="subtitle1" component="h5">
                             {x.title}
                         </Typography>

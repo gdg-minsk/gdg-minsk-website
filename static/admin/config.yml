@@ -33,6 +33,13 @@ collections:
           - { label: 'Job Title', name: 'jobTitle', widget: 'string', required: false }
           - { label: 'Photo', name: 'photo', widget: 'image', required: false }
           - {
+                label: 'Streams',
+                name: 'streams',
+                widget: 'select',
+                multiple: true,
+                options: ['Web Meetup', 'Mobile Meetup', 'Cloud Meetup'],
+            }
+          - {
                 label: 'Social Networks',
                 name: 'socialNetworks',
                 widget: 'list',
@@ -85,33 +92,3 @@ collections:
             fields:
                 - { label: 'Template Key', name: 'templateKey', widget: 'hidden', default: 'speakers-page' }
                 - { label: PageTitle, name: pageTitle, widget: string }
-                - { label: Name, name: name, widget: string }
-                - { label: Surname, name: surname, widget: string, required: false }
-                - { label: Company, name: company, widget: string, required: false }
-                - { label: Job Title, name: jobTitle, widget: string, required: false }
-                - { label: Photo, name: photo, widget: image, required: false }
-                - {
-                      label: 'Social Networks',
-                      name: 'socialNetworks',
-                      widget: 'list',
-                      fields:
-                          [
-                              {
-                                  name: type,
-                                  label: Type,
-                                  widget: 'select',
-                                  options:
-                                      [
-                                          'facebook',
-                                          'twitter',
-                                          'telegram',
-                                          'youtube',
-                                          'instagram',
-                                          'meetup',
-                                          'vk',
-                                          'other',
-                                      ],
-                              },
-                              { name: url, label: URL, widget: 'string' },
-                          ],
-                  }

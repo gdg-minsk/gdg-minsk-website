@@ -7,7 +7,11 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Link from '../../link';
 
-const useStyles = makeStyles(() => ({}));
+const useStyles = makeStyles(() => ({
+    activeLink: {
+        textDecoration: 'underline',
+    },
+}));
 
 const MobileMenu = ({ menuItems }) => {
     const classes = useStyles();
@@ -16,7 +20,13 @@ const MobileMenu = ({ menuItems }) => {
         <Box component="nav" display="flex" flexDirection="column">
             {menuItems.map(x => {
                 return (
-                    <Link key={x.path} to={x.path} variant="button" color="textPrimary" className={classes.link}>
+                    <Link
+                        key={x.path}
+                        to={x.path}
+                        variant="button"
+                        color="textPrimary"
+                        activeClassName={classes.activeLink}
+                    >
                         <Typography variant="subtitle1" component="h5">
                             {x.title}
                         </Typography>

@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import classNames from 'classnames';
 
 import { useStaticQuery, graphql } from 'gatsby';
 import Img from 'gatsby-image/withIEPolyfill';
@@ -6,21 +7,17 @@ import Img from 'gatsby-image/withIEPolyfill';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import SearchIcon from '@material-ui/icons/Search';
-import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
-
-import orderBy from 'lodash-es/orderBy';
+import InputBase from '@material-ui/core/InputBase';
+import InputLabel from '@material-ui/core/InputLabel';
 
 import Layout from '../components/shared/layout/layout';
 import SEO from '../components/shared/seo';
 import Link from '../components/shared/link';
 import getSocialMediaIcon from '../tools/social-media';
 
-import { SortDirection } from '../constants/sort-options';
+import { Streams } from '../constants/app';
 
 const useStyles = makeStyles(() => ({
     pageContainer: {
@@ -88,6 +85,7 @@ const useStyles = makeStyles(() => ({
     },
 
     filterContainer: {
+        display: 'flex',
         boxShadow: '5px 5px 20px #D1D1D1',
         borderRadius: '10px',
         marginBottom: '20px',
@@ -97,6 +95,34 @@ const useStyles = makeStyles(() => ({
         zIndex: '10',
         background: '#fff',
         padding: '15px 20px',
+    },
+    searchOptionText: {
+        fontSize: '14px',
+        lineHeight: '16px',
+    },
+    searchItemLabel: {
+        textTransform: 'uppercase',
+        color: '#000000',
+        marginRight: '10px',
+        flexShrink: '0',
+    },
+    searchInputWrapper: {
+        background: '#FFFFFF',
+        border: '1px solid #EFEFEF',
+        borderRadius: '5px',
+    },
+    streamSelectInput: {
+        padding: '12px 10px',
+        minWidth: '150px',
+        textTransform: 'uppercase',
+    },
+    searchByNameInput: {
+        padding: '12px 10px',
+    },
+    dropdownItem: {
+        textTransform: 'uppercase',
+        fontSize: '14px',
+        lineHeight: '16px',
     },
 }));
 
@@ -112,12 +138,14 @@ const getCompanyInfo = (jobTitle, companyName) => {
     return jobTitle || companyName;
 };
 
+const ALL_STREAMS = 'all';
+
 const SpeakersPage = () => {
     const classes = useStyles();
 
     const [searchStr, setSearchStr] = useState('');
-    const [sortDirection, setSortDirection] = useState(SortDirection.ASC);
-    const [searchResults, setSearchResults] = React.useState([]);
+    const [eventType, setEventType] = useState(ALL_STREAMS);
+    const [searchResults, setSearchResults] = useState([]);
 
     const data = useStaticQuery(graphql`
         query AllSpeakers {
@@ -127,6 +155,7 @@ const SpeakersPage = () => {
             ) {
                 edges {
                     node {
+                        id
                         frontmatter {
                             name
                             company
@@ -138,6 +167,7 @@ const SpeakersPage = () => {
                                     }
                                 }
                             }
+                            streams
                             socialNetworks {
                                 type
                                 url
@@ -152,62 +182,89 @@ const SpeakersPage = () => {
     const handleSearchStrChange = useCallback(event => {
         setSearchStr(event.target.value);
     }, []);
-
-    const handleSortDirectionChange = useCallback(event => {
-        setSortDirection(event.target.value);
+    const handleEventTypeChange = useCallback(event => {
+        setEventType(event.target.value);
     }, []);
 
     useEffect(() => {
-        const results = data.allMarkdownRemark.edges.filter(({ node: { frontmatter: { name } } }) =>
-            name.toLowerCase().includes(searchStr.toLowerCase()),
+        const results = data.allMarkdownRemark.edges.filter(
+            ({
+                node: {
+                    frontmatter: { name, streams },
+                },
+            }) => {
+                if (eventType === ALL_STREAMS) {
+                    return name.toLowerCase().includes(searchStr.toLowerCase());
+                }
+
+                if (!streams) {
+                    return false;
+                }
+
+                return name.toLowerCase().includes(searchStr.toLowerCase()) && streams.includes(eventType);
+            },
         );
 
-        setSearchResults(
-            orderBy(
-                results,
-
-                [
-                    ({
-                        node: {
-                            frontmatter: { name },
-                        },
-                    }) => name,
-                ],
-
-                [sortDirection],
-            ),
-        );
-    }, [searchStr, sortDirection]);
+        setSearchResults(results);
+    }, [searchStr, eventType]);
 
     return (
         <Layout>
             <SEO title="Speakers" />
 
-            <div className={classes.filterContainer}>
-                <TextField
-                    label="With normal TextField"
-                    onChange={handleSearchStrChange}
-                    InputProps={{
-                        endAdornment: (
-                            <InputAdornment>
-                                <IconButton>
-                                    <SearchIcon />
-                                </IconButton>
-                            </InputAdornment>
-                        ),
-                    }}
-                />
+            <Box className={classes.filterContainer}>
+                <Box display="flex" alignItems="center" flexGrow={1} marginRight="40px">
+                    <InputLabel
+                        className={classNames(classes.searchItemLabel, classes.searchOptionText)}
+                        htmlFor="searchByNameInput"
+                    >
+                        speaker full name
+                    </InputLabel>
+                    <InputBase
+                        id="searchByNameInput"
+                        className={classNames(classes.searchInputWrapper, classes.searchOptionText)}
+                        classes={{ input: classes.searchByNameInput }}
+                        placeholder="Type any words to start search"
+                        onChange={handleSearchStrChange}
+                        inputProps={{ 'aria-label': 'search by name' }}
+                        fullWidth
+                    />
+                </Box>
 
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={sortDirection}
-                    onChange={handleSortDirectionChange}
-                >
-                    <MenuItem value={SortDirection.ASC}>ASC</MenuItem>
-                    <MenuItem value={SortDirection.DESC}>DESC</MenuItem>
-                </Select>
-            </div>
+                <Box display="flex" alignItems="center">
+                    <InputLabel
+                        className={classNames(classes.searchItemLabel, classes.searchOptionText)}
+                        htmlFor="searchByStreamSelect"
+                    >
+                        Stream
+                    </InputLabel>
+
+                    <Select
+                        id="searchByStreamSelect"
+                        value={eventType}
+                        onChange={handleEventTypeChange}
+                        input={
+                            <InputBase
+                                className={classNames(classes.searchInputWrapper, classes.searchOptionText)}
+                                classes={{ input: classes.streamSelectInput }}
+                            />
+                        }
+                    >
+                        <MenuItem classes={{ root: classes.dropdownItem }} value={ALL_STREAMS}>
+                            All
+                        </MenuItem>
+                        <MenuItem classes={{ root: classes.dropdownItem }} value={Streams.WEB}>
+                            Web Meetup
+                        </MenuItem>
+                        <MenuItem classes={{ root: classes.dropdownItem }} value={Streams.MOBILE}>
+                            Mobile Meetup
+                        </MenuItem>
+                        <MenuItem classes={{ root: classes.dropdownItem }} value={Streams.CLOUD}>
+                            Cloud Meetup
+                        </MenuItem>
+                    </Select>
+                </Box>
+            </Box>
 
             <Grid classes={{ container: classes.pageContainer }} container spacing={3}>
                 {searchResults.map(({ node }) => {
