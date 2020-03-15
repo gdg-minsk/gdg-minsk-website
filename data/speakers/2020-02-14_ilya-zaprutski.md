@@ -4,6 +4,8 @@ name: Ilya Zaprutski
 company: iTechArt
 jobTitle: Solution Architect
 photo: /static/img/cms/IlyaZaprutski.jpg
+streams:
+  - Web Meetup
 socialNetworks:
   - type: facebook
     url: 'https://www.facebook.com/ilya.zaprutski'
@@ -14,4 +16,3 @@ socialNetworks:
   - type: instagram
     url: 'https://www.instagram.com/ilya.zaprutski/'
 ---
-
