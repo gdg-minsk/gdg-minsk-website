@@ -97,7 +97,7 @@ const PhotoGallery = ({ photos }) => {
                         >
                             <Img
                                 className={classes.photo}
-                                fluid={photoInfo.photo.childImageSharp.fluid}
+                                fluid={photoInfo.gridPhoto.childImageSharp.fluid}
                                 objectFit="cover"
                                 objectPosition="50% 50%"
                                 alt={photoInfo.description}
@@ -141,7 +141,7 @@ const PhotoGallery = ({ photos }) => {
                     <Modal onClose={closeLightbox}>
                         <Carousel
                             currentIndex={currentImage}
-                            views={photos.map(({ photo: { childImageSharp: { fluid } }, description }) => ({
+                            views={photos.map(({ fullScreenPhoto: { childImageSharp: { fluid } }, description }) => ({
                                 ...fluid,
                                 srcset: fluid.srcSet,
                                 caption: description,
@@ -158,7 +158,19 @@ PhotoGallery.propTypes = {
     photos: PropTypes.arrayOf(
         PropTypes.shape({
             description: PropTypes.string,
-            photo: PropTypes.shape({
+            gridPhoto: PropTypes.shape({
+                childImageSharp: PropTypes.shape({
+                    fluid: PropTypes.shape({
+                        base64: PropTypes.string,
+                        src: PropTypes.string,
+                        width: PropTypes.number,
+                        height: PropTypes.number,
+                        aspectRatio: PropTypes.number,
+                        srcSet: PropTypes.string,
+                    }),
+                }),
+            }),
+            fullScreenPhoto: PropTypes.shape({
                 childImageSharp: PropTypes.shape({
                     fluid: PropTypes.shape({
                         base64: PropTypes.string,

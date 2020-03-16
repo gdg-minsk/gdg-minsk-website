@@ -50,7 +50,14 @@ const IndexPage = () => {
                     pageText
                     photos {
                         description
-                        photo {
+                        gridPhoto: photo {
+                            childImageSharp {
+                                fluid(maxWidth: 640) {
+                                    ...GatsbyImageSharpFluid_withWebp
+                                }
+                            }
+                        }
+                        fullScreenPhoto: photo {
                             childImageSharp {
                                 fluid(maxWidth: 1920) {
                                     ...GatsbyImageSharpFluid_withWebp
