@@ -11,13 +11,21 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import InputBase from '@material-ui/core/InputBase';
 import InputLabel from '@material-ui/core/InputLabel';
+import Hidden from '@material-ui/core/Hidden';
+import Button from '@material-ui/core/Button';
+import Collapse from '@material-ui/core/Collapse';
 
 import Layout from '../components/shared/layout/layout';
 import SEO from '../components/shared/seo';
 import Link from '../components/shared/link';
 import getSocialMediaIcon from '../tools/social-media';
 
+import { useWindowDimensions } from '../hooks/window-size';
+
+import FilterIcon from '../../static/svg/filter.svg';
+
 import { Streams } from '../constants/app';
+import { MobileWidth } from '../constants/window-sizes';
 
 const useStyles = makeStyles(() => ({
     pageContainer: {
@@ -69,6 +77,7 @@ const useStyles = makeStyles(() => ({
         borderRadius: '10px',
         cursor: 'pointer',
     },
+
     speakerName: {
         fontSize: '25px',
         lineHeight: '30px',
@@ -82,6 +91,7 @@ const useStyles = makeStyles(() => ({
         lineHeight: '18px',
         color: '#7F8388',
         marginTop: '5px',
+        textAlign: 'center',
     },
 
     filterContainer: {
@@ -106,6 +116,14 @@ const useStyles = makeStyles(() => ({
         marginRight: '10px',
         flexShrink: '0',
     },
+
+    searchByNameContainer: {
+        display: 'flex',
+        alignItems: 'center',
+        flexGrow: '1',
+        marginRight: '40px',
+    },
+
     searchInputWrapper: {
         background: '#FFFFFF',
         border: '1px solid #EFEFEF',
@@ -123,6 +141,52 @@ const useStyles = makeStyles(() => ({
         textTransform: 'uppercase',
         fontSize: '14px',
         lineHeight: '16px',
+    },
+
+    filterText: {
+        fontSize: '14px',
+        lineHeight: '16px',
+        color: '#6D7278',
+    },
+
+    '@media (max-width: 800px)': {
+        filterContainer: {
+            flexDirection: 'column',
+        },
+
+        searchByNameContainer: {
+            margin: '0 0 10px 0',
+        },
+    },
+
+    '@media (max-width: 600px)': {
+        speakerContainer: {
+            display: 'flex',
+            width: '50%',
+            maxWidth: '250px',
+            alignItems: 'center',
+            flexDirection: 'column',
+        },
+
+        speakerPhotoContainer: {
+            width: '100%',
+            height: 'auto',
+        },
+
+        speakerName: {
+            fontSize: '20px',
+            lineHeight: '23px',
+        },
+
+        companyInfo: {
+            fontSize: '13px',
+            lineHeight: '15px',
+        },
+
+        socialIcon: {
+            width: '30px',
+            height: '30px',
+        },
     },
 }));
 
@@ -143,9 +207,13 @@ const ALL_STREAMS = 'all';
 const SpeakersPage = () => {
     const classes = useStyles();
 
+    const { width } = useWindowDimensions();
+
     const [searchStr, setSearchStr] = useState('');
     const [eventType, setEventType] = useState(ALL_STREAMS);
     const [searchResults, setSearchResults] = useState([]);
+
+    const [isFilterSectionVisible, setFilterSectionVisibility] = useState(width > MobileWidth);
 
     const data = useStaticQuery(graphql`
         query AllSpeakers {
@@ -182,8 +250,18 @@ const SpeakersPage = () => {
     const handleSearchStrChange = useCallback(event => {
         setSearchStr(event.target.value);
     }, []);
+
     const handleEventTypeChange = useCallback(event => {
         setEventType(event.target.value);
+    }, []);
+
+    const handleFiltersVisibilityChange = useCallback(() => {
+        setFilterSectionVisibility(!isFilterSectionVisible);
+    }, [isFilterSectionVisible]);
+
+    const resetFilters = useCallback(() => {
+        setSearchStr('');
+        setEventType(ALL_STREAMS);
     }, []);
 
     useEffect(() => {
@@ -212,59 +290,78 @@ const SpeakersPage = () => {
         <Layout>
             <SEO title="Speakers" />
 
-            <Box className={classes.filterContainer}>
-                <Box display="flex" alignItems="center" flexGrow={1} marginRight="40px">
-                    <InputLabel
-                        className={classNames(classes.searchItemLabel, classes.searchOptionText)}
-                        htmlFor="searchByNameInput"
-                    >
-                        speaker full name
-                    </InputLabel>
-                    <InputBase
-                        id="searchByNameInput"
-                        className={classNames(classes.searchInputWrapper, classes.searchOptionText)}
-                        classes={{ input: classes.searchByNameInput }}
-                        placeholder="Type any words to start search"
-                        onChange={handleSearchStrChange}
-                        inputProps={{ 'aria-label': 'search by name' }}
-                        fullWidth
-                    />
-                </Box>
+            <Hidden smUp>
+                <Box display="flex" justifyContent="space-between" marginBottom="20px">
+                    <Button classes={{ text: classes.filterText }} onClick={resetFilters}>
+                        All speakers
+                    </Button>
 
-                <Box display="flex" alignItems="center">
-                    <InputLabel
-                        className={classNames(classes.searchItemLabel, classes.searchOptionText)}
-                        htmlFor="searchByStreamSelect"
-                    >
-                        Stream
-                    </InputLabel>
-
-                    <Select
-                        id="searchByStreamSelect"
-                        value={eventType}
-                        onChange={handleEventTypeChange}
-                        input={
-                            <InputBase
-                                className={classNames(classes.searchInputWrapper, classes.searchOptionText)}
-                                classes={{ input: classes.streamSelectInput }}
-                            />
-                        }
-                    >
-                        <MenuItem classes={{ root: classes.dropdownItem }} value={ALL_STREAMS}>
-                            All
-                        </MenuItem>
-                        <MenuItem classes={{ root: classes.dropdownItem }} value={Streams.WEB}>
-                            Web Meetup
-                        </MenuItem>
-                        <MenuItem classes={{ root: classes.dropdownItem }} value={Streams.MOBILE}>
-                            Mobile Meetup
-                        </MenuItem>
-                        <MenuItem classes={{ root: classes.dropdownItem }} value={Streams.CLOUD}>
-                            Cloud Meetup
-                        </MenuItem>
-                    </Select>
+                    <Button className={classes.filterText} onClick={handleFiltersVisibilityChange}>
+                        <Box width="15px" height="15px" marginRight="10px">
+                            <FilterIcon />
+                        </Box>
+                        Filter
+                    </Button>
                 </Box>
-            </Box>
+            </Hidden>
+
+            <Collapse in={width > MobileWidth || isFilterSectionVisible}>
+                <Box className={classes.filterContainer}>
+                    <Box className={classes.searchByNameContainer}>
+                        <InputLabel
+                            className={classNames(classes.searchItemLabel, classes.searchOptionText)}
+                            htmlFor="searchByNameInput"
+                        >
+                            speaker full name
+                        </InputLabel>
+                        <InputBase
+                            id="searchByNameInput"
+                            className={classNames(classes.searchInputWrapper, classes.searchOptionText)}
+                            classes={{ input: classes.searchByNameInput }}
+                            placeholder="Type any words to start search"
+                            onChange={handleSearchStrChange}
+                            value={searchStr}
+                            inputProps={{ 'aria-label': 'search by name' }}
+                            fullWidth
+                        />
+                    </Box>
+
+                    <Box display="flex" alignItems="center">
+                        <InputLabel
+                            className={classNames(classes.searchItemLabel, classes.searchOptionText)}
+                            htmlFor="searchByStreamSelect"
+                        >
+                            Stream
+                        </InputLabel>
+
+                        <Select
+                            id="searchByStreamSelect"
+                            value={eventType}
+                            onChange={handleEventTypeChange}
+                            input={
+                                <InputBase
+                                    className={classNames(classes.searchInputWrapper, classes.searchOptionText)}
+                                    classes={{ input: classes.streamSelectInput }}
+                                />
+                            }
+                            fullWidth
+                        >
+                            <MenuItem classes={{ root: classes.dropdownItem }} value={ALL_STREAMS}>
+                                All
+                            </MenuItem>
+                            <MenuItem classes={{ root: classes.dropdownItem }} value={Streams.WEB}>
+                                Web Meetup
+                            </MenuItem>
+                            <MenuItem classes={{ root: classes.dropdownItem }} value={Streams.MOBILE}>
+                                Mobile Meetup
+                            </MenuItem>
+                            <MenuItem classes={{ root: classes.dropdownItem }} value={Streams.CLOUD}>
+                                Cloud Meetup
+                            </MenuItem>
+                        </Select>
+                    </Box>
+                </Box>
+            </Collapse>
 
             <Grid classes={{ container: classes.pageContainer }} container spacing={3}>
                 {searchResults.map(({ node }) => {
@@ -276,7 +373,7 @@ const SpeakersPage = () => {
                     const companyInfo = getCompanyInfo(jobTitle, company);
 
                     return (
-                        <Grid key={id} item>
+                        <Grid className={classes.speakerContainer} key={id} item>
                             <div className={classes.speakerPhotoContainer}>
                                 <Link to="/speaker">
                                     <Img className={classes.speakerPhoto} fluid={photo.childImageSharp.fluid} />
@@ -289,7 +386,7 @@ const SpeakersPage = () => {
                                 {companyInfo && <span className={classes.companyInfo}>{companyInfo}</span>}
 
                                 {socialNetworks && (
-                                    <Box display="flex">
+                                    <Box display="flex" flexWrap="wrap">
                                         {socialNetworks.map(({ type, url }) => {
                                             const Icon = getSocialMediaIcon(type);
 
