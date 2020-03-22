@@ -23,6 +23,8 @@ import getSocialMediaIcon from '../tools/social-media';
 import { useWindowDimensions } from '../hooks/window-size';
 
 import FilterIcon from '../../static/svg/filter.svg';
+import UserIcon from '../../static/svg/user.svg';
+import Stork from '../../static/svg/stork.svg';
 
 import { Streams } from '../constants/app';
 import { MobileWidth } from '../constants/window-sizes';
@@ -78,6 +80,16 @@ const useStyles = makeStyles(() => ({
         cursor: 'pointer',
     },
 
+    defaultSpeakerPhotoContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        background: '#F9F8F8',
+        width: '100%',
+        height: '100%',
+        borderRadius: '10px',
+        cursor: 'pointer',
+    },
+
     speakerName: {
         fontSize: '25px',
         lineHeight: '30px',
@@ -94,11 +106,18 @@ const useStyles = makeStyles(() => ({
         textAlign: 'center',
     },
 
+    filterWrapper: {
+        position: 'sticky',
+        top: '0',
+        zIndex: '2',
+        background: '#fff',
+    },
+
     filterContainer: {
         display: 'flex',
         boxShadow: '5px 5px 20px #D1D1D1',
         borderRadius: '10px',
-        marginBottom: '20px',
+        margin: '20px 0',
         position: 'sticky',
         top: '70px',
         width: '100%',
@@ -186,6 +205,11 @@ const useStyles = makeStyles(() => ({
         socialIcon: {
             width: '30px',
             height: '30px',
+        },
+
+        defaultSpeakerPhotoContainer: {
+            height: '0',
+            paddingBottom: '100%',
         },
     },
 }));
@@ -290,78 +314,80 @@ const SpeakersPage = () => {
         <Layout>
             <SEO title="Speakers" />
 
-            <Hidden smUp>
-                <Box display="flex" justifyContent="space-between" marginBottom="20px">
-                    <Button classes={{ text: classes.filterText }} onClick={resetFilters}>
-                        All speakers
-                    </Button>
+            <Box className={classes.filterWrapper}>
+                <Hidden smUp>
+                    <Box display="flex" justifyContent="space-between" padding="10px 0">
+                        <Button classes={{ text: classes.filterText }} onClick={resetFilters}>
+                            All speakers
+                        </Button>
 
-                    <Button className={classes.filterText} onClick={handleFiltersVisibilityChange}>
-                        <Box width="15px" height="15px" marginRight="10px">
-                            <FilterIcon />
+                        <Button className={classes.filterText} onClick={handleFiltersVisibilityChange}>
+                            <Box width="15px" height="15px" marginRight="10px">
+                                <FilterIcon />
+                            </Box>
+                            Filter
+                        </Button>
+                    </Box>
+                </Hidden>
+
+                <Collapse in={width > MobileWidth || isFilterSectionVisible}>
+                    <Box className={classes.filterContainer}>
+                        <Box className={classes.searchByNameContainer}>
+                            <InputLabel
+                                className={classNames(classes.searchItemLabel, classes.searchOptionText)}
+                                htmlFor="searchByNameInput"
+                            >
+                                speaker full name
+                            </InputLabel>
+                            <InputBase
+                                id="searchByNameInput"
+                                className={classNames(classes.searchInputWrapper, classes.searchOptionText)}
+                                classes={{ input: classes.searchByNameInput }}
+                                placeholder="Type any words to start search"
+                                onChange={handleSearchStrChange}
+                                value={searchStr}
+                                inputProps={{ 'aria-label': 'search by name' }}
+                                fullWidth
+                            />
                         </Box>
-                        Filter
-                    </Button>
-                </Box>
-            </Hidden>
 
-            <Collapse in={width > MobileWidth || isFilterSectionVisible}>
-                <Box className={classes.filterContainer}>
-                    <Box className={classes.searchByNameContainer}>
-                        <InputLabel
-                            className={classNames(classes.searchItemLabel, classes.searchOptionText)}
-                            htmlFor="searchByNameInput"
-                        >
-                            speaker full name
-                        </InputLabel>
-                        <InputBase
-                            id="searchByNameInput"
-                            className={classNames(classes.searchInputWrapper, classes.searchOptionText)}
-                            classes={{ input: classes.searchByNameInput }}
-                            placeholder="Type any words to start search"
-                            onChange={handleSearchStrChange}
-                            value={searchStr}
-                            inputProps={{ 'aria-label': 'search by name' }}
-                            fullWidth
-                        />
+                        <Box display="flex" alignItems="center">
+                            <InputLabel
+                                className={classNames(classes.searchItemLabel, classes.searchOptionText)}
+                                htmlFor="searchByStreamSelect"
+                            >
+                                Stream
+                            </InputLabel>
+
+                            <Select
+                                id="searchByStreamSelect"
+                                value={eventType}
+                                onChange={handleEventTypeChange}
+                                input={
+                                    <InputBase
+                                        className={classNames(classes.searchInputWrapper, classes.searchOptionText)}
+                                        classes={{ input: classes.streamSelectInput }}
+                                    />
+                                }
+                                fullWidth
+                            >
+                                <MenuItem classes={{ root: classes.dropdownItem }} value={ALL_STREAMS}>
+                                    All
+                                </MenuItem>
+                                <MenuItem classes={{ root: classes.dropdownItem }} value={Streams.WEB}>
+                                    Web Meetup
+                                </MenuItem>
+                                <MenuItem classes={{ root: classes.dropdownItem }} value={Streams.MOBILE}>
+                                    Mobile Meetup
+                                </MenuItem>
+                                <MenuItem classes={{ root: classes.dropdownItem }} value={Streams.CLOUD}>
+                                    Cloud Meetup
+                                </MenuItem>
+                            </Select>
+                        </Box>
                     </Box>
-
-                    <Box display="flex" alignItems="center">
-                        <InputLabel
-                            className={classNames(classes.searchItemLabel, classes.searchOptionText)}
-                            htmlFor="searchByStreamSelect"
-                        >
-                            Stream
-                        </InputLabel>
-
-                        <Select
-                            id="searchByStreamSelect"
-                            value={eventType}
-                            onChange={handleEventTypeChange}
-                            input={
-                                <InputBase
-                                    className={classNames(classes.searchInputWrapper, classes.searchOptionText)}
-                                    classes={{ input: classes.streamSelectInput }}
-                                />
-                            }
-                            fullWidth
-                        >
-                            <MenuItem classes={{ root: classes.dropdownItem }} value={ALL_STREAMS}>
-                                All
-                            </MenuItem>
-                            <MenuItem classes={{ root: classes.dropdownItem }} value={Streams.WEB}>
-                                Web Meetup
-                            </MenuItem>
-                            <MenuItem classes={{ root: classes.dropdownItem }} value={Streams.MOBILE}>
-                                Mobile Meetup
-                            </MenuItem>
-                            <MenuItem classes={{ root: classes.dropdownItem }} value={Streams.CLOUD}>
-                                Cloud Meetup
-                            </MenuItem>
-                        </Select>
-                    </Box>
-                </Box>
-            </Collapse>
+                </Collapse>
+            </Box>
 
             <Grid classes={{ container: classes.pageContainer }} container spacing={3}>
                 {searchResults.map(({ node }) => {
@@ -376,7 +402,24 @@ const SpeakersPage = () => {
                         <Grid className={classes.speakerContainer} key={id} item>
                             <div className={classes.speakerPhotoContainer}>
                                 <Link to="/speaker">
-                                    <Img className={classes.speakerPhoto} fluid={photo.childImageSharp.fluid} />
+                                    {photo ? (
+                                        <Img className={classes.speakerPhoto} fluid={photo.childImageSharp.fluid} />
+                                    ) : (
+                                        <Box className={classes.defaultSpeakerPhotoContainer}>
+                                            <Box display="flex" justifyContent="flex-end">
+                                                <Stork height="40" />
+                                            </Box>
+
+                                            <Box
+                                                display="flex"
+                                                justifyContent="center"
+                                                alignItems="center"
+                                                flexGrow="1"
+                                            >
+                                                <UserIcon height="155" />
+                                            </Box>
+                                        </Box>
+                                    )}
                                 </Link>
                             </div>
                             <Box display="flex" flexDirection="column" alignItems="center" m="10px">
