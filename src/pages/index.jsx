@@ -46,6 +46,12 @@ const IndexPage = () => {
         query IndexPagePhotos {
             markdownRemark(frontmatter: { templateKey: { eq: "index-page" } }) {
                 frontmatter {
+                    homePageWidget {
+                        date
+                        place
+                        eventType
+                        url
+                    }
                     pageTitle
                     title
                     pageText
@@ -66,7 +72,7 @@ const IndexPage = () => {
 
     const {
         markdownRemark: {
-            frontmatter: { photos, pageText, pageTitle, title },
+            frontmatter: { photos, pageText, pageTitle, title, homePageWidget },
         },
     } = data;
 
@@ -77,7 +83,12 @@ const IndexPage = () => {
             <Grid classes={{ container: classes.pageContainer }} container spacing={3}>
                 <Grid className={classes.gridItem} item>
                     <Box className={classes.pageContent}>
-                        <HomePageWidget />
+                        <HomePageWidget
+                            date={homePageWidget.date}
+                            place={homePageWidget.place}
+                            eventType={homePageWidget.eventType}
+                            url={homePageWidget.url}
+                        />
                         <Typography variant="h5" component="h1" gutterBottom color="primary">
                             {title}
                         </Typography>

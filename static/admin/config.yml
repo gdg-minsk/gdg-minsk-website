@@ -1,7 +1,7 @@
 backend:
     name: github
     repo: gdg-minsk/gdg-minsk-website
-    branch: master
+    branch: home-page-widget
 
 media_folder: 'static/img/cms'
 
@@ -65,6 +65,24 @@ collections:
             label: 'Landing Page'
             name: 'index'
             fields:
+                - {
+                      label: 'Widget',
+                      name: 'homePageWidget',
+                      widget: 'object',
+                      fields:
+                          [
+                              { label: 'Date', name: 'date', widget: 'datetime', default: '', timeFormat: false },
+                              { label: 'Place', name: 'place', widget: 'string' },
+                              {
+                                  label: 'Event Type',
+                                  name: 'eventType',
+                                  widget: 'select',
+                                  options:
+                                      ['GDG Minsk Web Meetup', 'GDG Minsk Mobile Meetup', 'GDG Minsk Cloud Meetup'],
+                              },
+                              { label: 'Url', name: 'url', widget: 'string' },
+                          ],
+                  }
                 - { label: 'Template Key', name: 'templateKey', widget: 'hidden', default: 'index-page' }
                 - { label: 'PageTitle', name: 'pageTitle', widget: 'string' }
                 - { label: 'Title', name: 'title', widget: 'string' }
@@ -77,26 +95,6 @@ collections:
                           [
                               { label: Description, name: description, widget: string, required: false },
                               { label: Photo, name: photo, widget: image },
-                          ],
-                  }
-                - {
-                      label: 'Widget',
-                      name: 'homePageWidget',
-                      create: true,
-                      identifier_field: 'type',
-                      fields:
-                          [
-                              { name: 'day', label: 'Day', widget: 'string' },
-                              { name: 'month', label: 'Month', widget: 'string' },
-                              { name: 'place', label: 'Place', widget: 'string' },
-                              {
-                                  name: 'eventType',
-                                  label: 'Event Type',
-                                  widget: 'select',
-                                  options:
-                                      ['GDG Minsk Web Meetup', 'GDG Minsk Mobile Meetup', 'GDG Minsk Cloud Meetup'],
-                              },
-                              { name: 'url', label: 'URL', widget: 'string' },
                           ],
                   }
           - file: 'data/pages/speakers-page.md'
@@ -135,19 +133,3 @@ collections:
                               { name: url, label: URL, widget: 'string' },
                           ],
                   }
-    - name: 'homePageWidget'
-      label: 'Widget'
-      folder: 'data/widget'
-      create: true
-      identifier_field: 'type'
-      fields:
-          - { name: 'day', label: 'Day', widget: 'string' }
-          - { name: 'month', label: 'Month', widget: 'string' }
-          - { name: 'place', label: 'Place', widget: 'string' }
-          - {
-                name: 'eventType',
-                label: 'Event Type',
-                widget: 'select',
-                options: ['GDG Minsk Web Meetup', 'GDG Minsk Mobile Meetup', 'GDG Minsk Cloud Meetup'],
-            }
-          - { name: 'url', label: 'URL', widget: 'string' }

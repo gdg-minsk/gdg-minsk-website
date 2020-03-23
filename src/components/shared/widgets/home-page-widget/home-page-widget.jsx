@@ -1,6 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
-// import { useStaticQuery, graphql } from 'gatsby';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
@@ -66,63 +66,11 @@ const useStyles = makeStyles({
             display: 'flex',
         },
     },
-    '@media (max-width: 600px)': {
-        // root:{
-        //     '&:hover':{
-        //         opacity: '1'
-        //     }
-        //   }
-        //     button: {
-        //         display: 'none',
-        //     },
-        //     event: {
-        //         fontSize: 20,
-        //     },
-        //     place: {
-        //         fontSize: 14,
-        //     },
-        //     day: {
-        //         fontSize: 30,
-        //     },
-        //     month: {
-        //         fontSize: 14,
-        //     },
-        //     eventDesc: {
-        //         paddingTop: '2%',
-        //         paddingLeft: 12,
-        //     },
-        //     date: {
-        //         paddingLeft: 10,
-        //     },
-    },
-    // '@media (min-width: 600px)': {
-    //     overlay: {
-    //         display: 'none',
-    //     },
-    // },
 });
 
-const HomePageWidget = () => {
+const HomePageWidget = ({ date, place, eventType, url }) => {
     const styles = useStyles();
-
-    // const data = useStaticQuery(graphql`
-    //     query homePageWidget {
-    //         allMarkdownRemark(filter: { fields: { collection: { eq: "homePageWidget" } } }) {
-    //             edges {
-    //                 node {
-    //                     id
-    //                     frontmatter {
-    //                         day
-    //                         month
-    //                         place
-    //                         eventType
-    //                         url
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     }
-    // `);
+    console.log(date);
 
     return (
         <>
@@ -130,18 +78,14 @@ const HomePageWidget = () => {
                 <Box display="flex" flexGrow={1} className={styles.CardContent}>
                     <Box alignItems="center" display="flex" flexGrow={1} className={styles.description}>
                         <Box className={styles.date}>
-                            <Typography className={styles.day} align="center" color="textSecondary">
-                                28
-                            </Typography>
-                            <Typography className={styles.month} align="center" color="textSecondary">
-                                January
-                            </Typography>
+                            <Typography className={styles.day} align="center" color="textSecondary" />
+                            <Typography className={styles.month} align="center" color="textSecondary" />
                         </Box>
                         <Box className={styles.eventDesc} flexGrow={1}>
                             <Typography className={styles.place} color="textSecondary">
-                                ул. Октябрьская 16/4 (SPACE)
+                                {place}
                             </Typography>
-                            <Typography className={styles.event}>GDG Minsk Cloud Meetup</Typography>
+                            <Typography className={styles.event}>{eventType}</Typography>
                         </Box>
                     </Box>
                     <Link href="google.com" target="blank">
@@ -151,12 +95,19 @@ const HomePageWidget = () => {
                     </Link>
                 </Box>
             </Box>
-            <Link href="google.com" target="blank">
+            <Link href={url} target="blank">
                 {/* eslint-disable-next-line react/self-closing-comp */}
                 <div className={styles.overlay}></div>
             </Link>
         </>
     );
+};
+
+HomePageWidget.propTypes = {
+    date: PropTypes.instanceOf(Date).isRequired,
+    place: PropTypes.string.isRequired,
+    eventType: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
 };
 
 export default HomePageWidget;
