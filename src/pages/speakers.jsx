@@ -208,8 +208,14 @@ const useStyles = makeStyles(() => ({
         },
 
         defaultSpeakerPhotoContainer: {
-            height: '0',
-            paddingBottom: '100%',
+            position: 'relative',
+            width: '100%',
+
+            '&:before': {
+                content: "''",
+                display: 'block',
+                paddingTop: '100%',
+            },
         },
     },
 }));
@@ -406,17 +412,25 @@ const SpeakersPage = () => {
                                         <Img className={classes.speakerPhoto} fluid={photo.childImageSharp.fluid} />
                                     ) : (
                                         <Box className={classes.defaultSpeakerPhotoContainer}>
-                                            <Box display="flex" justifyContent="flex-end">
-                                                <Stork height="40" />
-                                            </Box>
-
                                             <Box
                                                 display="flex"
-                                                justifyContent="center"
-                                                alignItems="center"
-                                                flexGrow="1"
+                                                flexDirection="column"
+                                                position="absolute"
+                                                width="100%"
+                                                height="100%"
                                             >
-                                                <UserIcon height="155" />
+                                                <Box display="flex" justifyContent="flex-end">
+                                                    <Stork height="40" />
+                                                </Box>
+
+                                                <Box
+                                                    display="flex"
+                                                    justifyContent="center"
+                                                    alignItems="center"
+                                                    flexGrow="1"
+                                                >
+                                                    <UserIcon height="155" />
+                                                </Box>
                                             </Box>
                                         </Box>
                                     )}
