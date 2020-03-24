@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { useStaticQuery, graphql } from 'gatsby';
 
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,8 +8,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 
 import Header from './header/header';
-import DesktopMenu from './header/desktop-menu';
-import MobileMenu from './header/mobile-menu';
 import Footer from './footer/footer';
 
 const useStyles = makeStyles(() => ({
@@ -59,29 +55,11 @@ const useStyles = makeStyles(() => ({
 const Layout = ({ children, isSocialIconsVisible }) => {
     const classes = useStyles();
 
-    const data = useStaticQuery(graphql`
-        query SiteTitleWithMenuQuery {
-            site {
-                siteMetadata {
-                    title
-                    menuItems {
-                        title
-                        path
-                    }
-                }
-            }
-        }
-    `);
-
     return (
         <Box className={classes.root} display="flex" flexDirection="column">
             <CssBaseline />
 
-            <Header
-                title={data.site.siteMetadata.title}
-                desktopMenu={<DesktopMenu menuItems={data.site.siteMetadata.menuItems} />}
-                mobileMenu={<MobileMenu menuItems={data.site.siteMetadata.menuItems} />}
-            />
+            <Header />
 
             <Box className={classes.pageWrapper}>
                 <Container maxWidth="lg" className={classes.pageContentContainer}>

@@ -1,5 +1,4 @@
 import React, { useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
 import { useStaticQuery, graphql } from 'gatsby';
 
 import Img from 'gatsby-image';
@@ -16,6 +15,8 @@ import Box from '@material-ui/core/Box';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import Slide from '@material-ui/core/Slide';
 
+import DesktopMenu from './desktop-menu';
+import MobileMenu from './mobile-menu';
 import Link from '../../link';
 
 const useStyles = makeStyles(() => ({
@@ -24,14 +25,14 @@ const useStyles = makeStyles(() => ({
         boxShadow: 'none',
     },
     drawerPaper: {
-        width: 260,
+        width: '300px',
     },
     logoLink: {
         display: 'inline-block',
     },
 }));
 
-const Header = ({ title, desktopMenu, mobileMenu }) => {
+const Header = () => {
     const classes = useStyles();
 
     const [mobileOpen, setMobileOpen] = useState(false);
@@ -44,6 +45,15 @@ const Header = ({ title, desktopMenu, mobileMenu }) => {
 
     const data = useStaticQuery(graphql`
         query {
+            site {
+                siteMetadata {
+                    title
+                    menuItems {
+                        title
+                        path
+                    }
+                }
+            }
             file(relativePath: { eq: "gdg-logo.png" }) {
                 childImageSharp {
                     fixed(height: 25) {
@@ -65,13 +75,13 @@ const Header = ({ title, desktopMenu, mobileMenu }) => {
                                     <Img
                                         className={classes.headerLogo}
                                         fixed={data.file.childImageSharp.fixed}
-                                        alt={title}
+                                        alt={data.site.siteMetadata}
                                     />
                                 </Link>
                             </Box>
                             <Box>
                                 <Hidden xsDown implementation="css">
-                                    {desktopMenu}
+                                    <DesktopMenu menuItems={data.site.siteMetadata.menuItems} />
                                 </Hidden>
                             </Box>
                             <Box>
@@ -94,18 +104,12 @@ const Header = ({ title, desktopMenu, mobileMenu }) => {
                         }}
                         onClose={handleDrawerToggle}
                     >
-                        {mobileMenu}
+                        <MobileMenu menuItems={data.site.siteMetadata.menuItems} onClose={handleDrawerToggle} />
                     </Drawer>
                 </Hidden>
             </AppBar>
         </Slide>
     );
-};
-
-Header.propTypes = {
-    title: PropTypes.string.isRequired,
-    desktopMenu: PropTypes.node.isRequired,
-    mobileMenu: PropTypes.node.isRequired,
 };
 
 export default Header;
