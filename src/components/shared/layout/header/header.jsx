@@ -41,7 +41,9 @@ const Header = () => {
         setMobileOpen(!mobileOpen);
     }, [mobileOpen]);
 
-    const trigger = useScrollTrigger();
+    const trigger = useScrollTrigger({
+        threshold: 40,
+    });
 
     const data = useStaticQuery(graphql`
         query {
