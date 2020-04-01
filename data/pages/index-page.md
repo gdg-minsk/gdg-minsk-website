@@ -1,6 +1,6 @@
 ---
 homePageWidget:
-  date: 15.April
+  date: 2001-04-03T21:00:00.000Z
   eventType: GDG Minsk Web Meetup
   place: EventSpace
   url: 'https://gdg-minsk.timepad.ru/event/1268615/'
