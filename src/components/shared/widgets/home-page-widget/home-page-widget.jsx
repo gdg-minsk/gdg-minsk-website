@@ -114,7 +114,7 @@ const HomePageWidget = ({ date, place, eventType, url }) => {
     );
 };
 HomePageWidget.propTypes = {
-    date: PropTypes.instanceOf(Date).isRequired,
+    date: PropTypes.string.isRequired,
     place: PropTypes.string.isRequired,
     eventType: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
