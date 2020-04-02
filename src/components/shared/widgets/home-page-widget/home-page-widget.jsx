@@ -6,6 +6,9 @@ import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import { months } from '../../../../tools/months';
+import { useWindowDimensions } from '../../../../hooks/window-size';
+import { TabletWidth } from '../../../../constants/window-sizes';
 
 const useStyles = makeStyles({
     root: {
@@ -38,10 +41,10 @@ const useStyles = makeStyles({
         borderRadius: '0 10px 10px 0',
     },
     overlay: {
-        position: 'absolute',
-        top: 85,
-        width: '100%',
-        height: 79,
+        position: 'relative',
+        top: '-95px',
+        width: 'inherit',
+        height: 95,
         cursor: 'pointer',
     },
 
@@ -70,20 +73,7 @@ const useStyles = makeStyles({
 
 const HomePageWidget = ({ date, place, eventType, url }) => {
     const styles = useStyles();
-    const months = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December',
-    ];
+    const { width } = useWindowDimensions();
     const eventDate = new Date(date);
     const day = eventDate.getDate();
     const monthIndex = eventDate.getMonth();
@@ -92,7 +82,7 @@ const HomePageWidget = ({ date, place, eventType, url }) => {
     return (
         <>
             <Box display="flex" className={styles.root}>
-                <Box display="flex" flexGrow={1} className={styles.CardContent}>
+                <Box display="flex" flexGrow={1}>
                     <Box alignItems="center" display="flex" flexGrow={1} className={styles.description}>
                         <Box className={styles.date}>
                             <Typography className={styles.day} align="center" color="textSecondary">
@@ -109,7 +99,7 @@ const HomePageWidget = ({ date, place, eventType, url }) => {
                             <Typography className={styles.event}>{eventType}</Typography>
                         </Box>
                     </Box>
-                    <Link href="google.com" target="blank">
+                    <Link href={url} target="blank">
                         <Button className={styles.button} variant="contained" color="primary">
                             <ArrowForwardIosIcon />
                         </Button>
@@ -117,8 +107,8 @@ const HomePageWidget = ({ date, place, eventType, url }) => {
                 </Box>
             </Box>
             <Link href={url} target="blank">
-                {/* eslint-disable-next-line react/self-closing-comp */}
-                <div className={styles.overlay}></div>
+                {/* eslint-disable-next-line react/self-closing-comp */
+                width <= TabletWidth && <div className={styles.overlay}></div>}
             </Link>
         </>
     );

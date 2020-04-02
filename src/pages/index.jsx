@@ -30,7 +30,8 @@ const useStyles = makeStyles(() => ({
         marginRight: '50px',
     },
     widget: {
-        marginBottom: 15,
+        height: 95,
+        marginBottom: 35,
     },
     '@media (max-width: 600px)': {
         gridItem: {
