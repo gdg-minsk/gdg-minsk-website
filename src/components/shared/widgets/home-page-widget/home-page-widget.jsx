@@ -70,7 +70,24 @@ const useStyles = makeStyles({
 
 const HomePageWidget = ({ date, place, eventType, url }) => {
     const styles = useStyles();
-    console.log(date);
+    const months = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
+    ];
+    const eventDate = new Date(date);
+    const day = eventDate.getDate();
+    const monthIndex = eventDate.getMonth();
+    const month = months[monthIndex];
 
     return (
         <>
@@ -78,8 +95,12 @@ const HomePageWidget = ({ date, place, eventType, url }) => {
                 <Box display="flex" flexGrow={1} className={styles.CardContent}>
                     <Box alignItems="center" display="flex" flexGrow={1} className={styles.description}>
                         <Box className={styles.date}>
-                            <Typography className={styles.day} align="center" color="textSecondary" />
-                            <Typography className={styles.month} align="center" color="textSecondary" />
+                            <Typography className={styles.day} align="center" color="textSecondary">
+                                {day}
+                            </Typography>
+                            <Typography className={styles.month} align="center" color="textSecondary">
+                                {month}
+                            </Typography>
                         </Box>
                         <Box className={styles.eventDesc} flexGrow={1}>
                             <Typography className={styles.place} color="textSecondary">

@@ -29,6 +29,9 @@ const useStyles = makeStyles(() => ({
     pageContent: {
         marginRight: '50px',
     },
+    widget: {
+        marginBottom: 15,
+    },
     '@media (max-width: 600px)': {
         gridItem: {
             width: '100%',
@@ -90,12 +93,14 @@ const IndexPage = () => {
             <Grid classes={{ container: classes.pageContainer }} container spacing={3}>
                 <Grid className={classes.gridItem} item>
                     <Box className={classes.pageContent}>
-                        <HomePageWidget
-                            date={homePageWidget.date}
-                            place={homePageWidget.place}
-                            eventType={homePageWidget.eventType}
-                            url={homePageWidget.url}
-                        />
+                        <Box className={classes.widget}>
+                            <HomePageWidget
+                                date={homePageWidget.date}
+                                place={homePageWidget.place}
+                                eventType={homePageWidget.eventType}
+                                url={homePageWidget.url}
+                            />
+                        </Box>
                         <Typography variant="h5" component="h1" gutterBottom color="primary">
                             {title}
                         </Typography>
