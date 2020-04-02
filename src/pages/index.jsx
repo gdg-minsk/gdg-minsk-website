@@ -12,6 +12,7 @@ import Layout from '../components/shared/layout/layout';
 import SEO from '../components/shared/seo';
 
 import PhotoGallery from '../components/home/photo-gallery';
+import HomePageWidget from '../components/shared/widgets/home-page-widget/home-page-widget';
 
 const useStyles = makeStyles(() => ({
     pageContainer: {
@@ -45,6 +46,12 @@ const IndexPage = () => {
         query IndexPagePhotos {
             markdownRemark(frontmatter: { templateKey: { eq: "index-page" } }) {
                 frontmatter {
+                    homePageWidget {
+                        date
+                        place
+                        eventType
+                        url
+                    }
                     pageTitle
                     title
                     pageText
@@ -72,7 +79,7 @@ const IndexPage = () => {
 
     const {
         markdownRemark: {
-            frontmatter: { photos, pageText, pageTitle, title },
+            frontmatter: { photos, pageText, pageTitle, title, homePageWidget },
         },
     } = data;
 
@@ -83,6 +90,12 @@ const IndexPage = () => {
             <Grid classes={{ container: classes.pageContainer }} container spacing={3}>
                 <Grid className={classes.gridItem} item>
                     <Box className={classes.pageContent}>
+                        <HomePageWidget
+                            date={homePageWidget.date}
+                            place={homePageWidget.place}
+                            eventType={homePageWidget.eventType}
+                            url={homePageWidget.url}
+                        />
                         <Typography variant="h5" component="h1" gutterBottom color="primary">
                             {title}
                         </Typography>
