@@ -1,4 +1,9 @@
 ---
+homePageWidget:
+  date: 2020-04-28T21:00:00.000Z
+  place: EventSpace
+  eventType: GDG Minsk Web Meetup
+  url: 'https://www.meetup.com/SPACE-meetups/events/262441881/'
 templateKey: index-page
 pageTitle: Home
 title: You are on the website of the Belarusian Google Developer Group
