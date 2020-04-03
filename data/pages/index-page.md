@@ -2,7 +2,7 @@
 homePageWidget:
   date: 2020-04-14T21:00:00.000Z
   place: EventSpace
-  eventType: GDG Minsk Web Meetup
+  eventType: GDG Minsk Mobile Meetup
   url: 'https://www.meetup.com/GDG-Minsk/events/268949411/'
 templateKey: index-page
 pageTitle: Home
