@@ -87,7 +87,7 @@ const IndexPage = () => {
         },
     } = data;
 
-    const eventDate = new Date(homePageWidget.date).getTimezoneOffset();
+    const eventDate = new Date(homePageWidget.date);
 
     return (
         <Layout>
