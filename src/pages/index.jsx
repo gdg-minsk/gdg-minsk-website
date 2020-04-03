@@ -87,7 +87,8 @@ const IndexPage = () => {
         },
     } = data;
 
-    const eventDate = new Date(homePageWidget.date);
+    const eventDate = new Date(homePageWidget.date).toISOString();
+    const test = new Date(eventDate);
 
     return (
         <Layout>
@@ -98,7 +99,7 @@ const IndexPage = () => {
                     <Box className={classes.pageContent}>
                         <Box className={classes.widget}>
                             <HomePageWidget
-                                date={eventDate}
+                                date={test}
                                 place={homePageWidget.place}
                                 eventType={homePageWidget.eventType}
                                 url={homePageWidget.url}
