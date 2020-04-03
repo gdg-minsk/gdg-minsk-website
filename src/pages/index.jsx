@@ -87,6 +87,8 @@ const IndexPage = () => {
         },
     } = data;
 
+    const eventDate = new Date(homePageWidget.date).getTimezoneOffset();
+
     return (
         <Layout>
             <SEO title={pageTitle} />
@@ -96,7 +98,7 @@ const IndexPage = () => {
                     <Box className={classes.pageContent}>
                         <Box className={classes.widget}>
                             <HomePageWidget
-                                date={homePageWidget.date}
+                                date={eventDate}
                                 place={homePageWidget.place}
                                 eventType={homePageWidget.eventType}
                                 url={homePageWidget.url}

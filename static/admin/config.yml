@@ -78,7 +78,7 @@ collections:
                       widget: 'object',
                       fields:
                           [
-                              { label: 'Date', name: 'date', widget: 'datetime', default: '', timeFormat: false, dateFormat: true },
+                              { label: 'Date', name: 'date', widget: 'datetime', default: '', timeFormat: false },
                               { label: 'Place', name: 'place', widget: 'string' },
                               {
                                   label: 'Event Type',

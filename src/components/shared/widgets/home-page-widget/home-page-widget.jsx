@@ -74,9 +74,8 @@ const useStyles = makeStyles({
 const HomePageWidget = ({ date, place, eventType, url }) => {
     const styles = useStyles();
     const { width } = useWindowDimensions();
-    const eventDate = new Date(date);
-    const day = eventDate.getDate();
-    const monthIndex = eventDate.getMonth();
+    const day = date.getDate();
+    const monthIndex = date.getMonth();
     const month = months[monthIndex];
 
     return (
@@ -114,7 +113,7 @@ const HomePageWidget = ({ date, place, eventType, url }) => {
     );
 };
 HomePageWidget.propTypes = {
-    date: PropTypes.string.isRequired,
+    date: PropTypes.instanceOf(Date).isRequired,
     place: PropTypes.string.isRequired,
     eventType: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
