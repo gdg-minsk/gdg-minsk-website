@@ -1,7 +1,7 @@
 backend:
     name: github
     repo: gdg-minsk/gdg-minsk-website
-    branch: master
+    branch: widget
 
 media_folder: 'static/img/cms'
 
@@ -78,7 +78,7 @@ collections:
                       widget: 'object',
                       fields:
                           [
-                              { label: 'Date', name: 'date', widget: 'datetime', default: '', timeFormat: false },
+                              { label: 'Date', name: 'date', widget: 'datetime', default: '', timeFormat: false, dateFormat: "YYYY-MM-DD", format: "YYYY-MM-DD" },
                               { label: 'Place', name: 'place', widget: 'string' },
                               {
                                   label: 'Event Type',
