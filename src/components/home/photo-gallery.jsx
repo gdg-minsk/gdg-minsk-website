@@ -4,6 +4,7 @@ import classNames from 'classnames';
 
 import Img from 'gatsby-image/withIEPolyfill';
 
+import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
@@ -12,7 +13,7 @@ import chunk from 'lodash-es/chunk';
 
 import Carousel, { Modal, ModalGateway } from 'react-images';
 
-import { makeStyles } from '@material-ui/core/styles';
+import { FluidImage } from '../../constants/prop-types';
 
 const useStyles = makeStyles(() => ({
     photoGallery: {
@@ -160,26 +161,12 @@ PhotoGallery.propTypes = {
             description: PropTypes.string,
             gridPhoto: PropTypes.shape({
                 childImageSharp: PropTypes.shape({
-                    fluid: PropTypes.shape({
-                        base64: PropTypes.string,
-                        src: PropTypes.string,
-                        width: PropTypes.number,
-                        height: PropTypes.number,
-                        aspectRatio: PropTypes.number,
-                        srcSet: PropTypes.string,
-                    }),
+                    fluid: FluidImage,
                 }),
             }),
             fullScreenPhoto: PropTypes.shape({
                 childImageSharp: PropTypes.shape({
-                    fluid: PropTypes.shape({
-                        base64: PropTypes.string,
-                        src: PropTypes.string,
-                        width: PropTypes.number,
-                        height: PropTypes.number,
-                        aspectRatio: PropTypes.number,
-                        srcSet: PropTypes.string,
-                    }),
+                    fluid: FluidImage,
                 }),
             }),
         }),
