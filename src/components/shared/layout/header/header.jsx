@@ -77,7 +77,7 @@ const Header = () => {
                                     <Img
                                         className={classes.headerLogo}
                                         fixed={data.file.childImageSharp.fixed}
-                                        alt={data.site.siteMetadata}
+                                        alt={data.site.siteMetadata.title}
                                     />
                                 </Link>
                             </Box>

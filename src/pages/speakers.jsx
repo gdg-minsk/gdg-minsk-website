@@ -11,7 +11,12 @@ import { SpeakersFilterProvider } from '../speakers/contexts/filters';
 
 const SpeakersPage = () => {
     const data = useStaticQuery(graphql`
-        query AllSpeakers {
+        {
+            markdownRemark(frontmatter: { templateKey: { eq: "speakers-page" } }) {
+                frontmatter {
+                    pageTitle
+                }
+            }
             allMarkdownRemark(
                 filter: { fields: { collection: { eq: "speakers" } } }
                 sort: { fields: [frontmatter___name], order: ASC }
@@ -61,7 +66,7 @@ const SpeakersPage = () => {
 
     return (
         <Layout>
-            <SEO title="Speakers" />
+            <SEO title={data.markdownRemark.frontmatter.pageTitle} />
             <SpeakersFilterProvider>
                 <Speakers speakers={speakers} />
             </SpeakersFilterProvider>
