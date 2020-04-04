@@ -60,14 +60,12 @@ const SpeakersPage = () => {
     });
 
     return (
-        <>
-            <Layout>
-                <SEO title="Speakers" />
-                <SpeakersFilterProvider>
-                    <Speakers speakers={speakers} />
-                </SpeakersFilterProvider>
-            </Layout>
-        </>
+        <Layout>
+            <SEO title="Speakers" />
+            <SpeakersFilterProvider>
+                <Speakers speakers={speakers} />
+            </SpeakersFilterProvider>
+        </Layout>
     );
 };
 

@@ -6,19 +6,18 @@ import Img from 'gatsby-image/withIEPolyfill';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
+import Hidden from '@material-ui/core/Hidden';
 
 import Link from '../../components/shared/link';
 import DesktopFilters from './desktop-filters';
 import MobileFilters from './mobile-filters';
 
 import getSocialMediaIcon from '../../tools/social-media';
-import { useWindowDimensions } from '../../hooks/window-size';
 
 import UserIcon from '../../../static/svg/user.svg';
 import Stork from '../../../static/svg/stork.svg';
 
 import { ALL_STREAMS } from '../../constants/app';
-import { MobileWidth } from '../../constants/window-sizes';
 import { FluidImage } from '../../constants/prop-types';
 
 import { useSpeakersFilterState } from '../contexts/filters';
@@ -164,7 +163,6 @@ const getCompanyInfo = (jobTitle, companyName) => {
 const Speakers = ({ speakers }) => {
     const classes = useStyles();
 
-    const { width } = useWindowDimensions();
     const { eventType, searchStr } = useSpeakersFilterState();
     const [searchResults, setSearchResults] = useState([]);
 
@@ -186,7 +184,15 @@ const Speakers = ({ speakers }) => {
 
     return (
         <>
-            <Box className={classes.filterWrapper}>{width > MobileWidth ? <DesktopFilters /> : <MobileFilters />}</Box>
+            <Box className={classes.filterWrapper}>
+                <Hidden xsDown>
+                    <DesktopFilters />
+                </Hidden>
+
+                <Hidden smUp>
+                    <MobileFilters />
+                </Hidden>
+            </Box>
 
             <Grid classes={{ container: classes.pageContainer }} container spacing={3}>
                 {searchResults.map(({ id, name, company, jobTitle, socialNetworks, photo }) => {
