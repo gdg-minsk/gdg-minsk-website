@@ -13,6 +13,9 @@ import { useWindowDimensions } from '../../../../hooks/window-size';
 import { TabletWidth } from '../../../../constants/window-sizes';
 
 const useStyles = makeStyles({
+    date: {
+        marginLeft: 10,
+    },
     day: {
         fontSize: 50,
         lineHeight: '50px',
@@ -21,7 +24,7 @@ const useStyles = makeStyles({
         fontSize: 24,
     },
     event: {
-        fontSize: 31,
+        fontSize: 28,
         fontWeight: 500,
         color: '#0B478E',
     },
@@ -35,7 +38,7 @@ const useStyles = makeStyles({
 
     '@media (max-width: 960px)': {
         event: {
-            fontSize: 20,
+            fontSize: 17,
         },
         place: {
             fontSize: 16,
