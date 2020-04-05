@@ -15,6 +15,9 @@ const useStyles = makeStyles({
         boxShadow: '5px 5px 20px #D1D1D1',
         borderRadius: 10,
     },
+    date: {
+        marginLeft: 10,
+    },
     eventDesc: {
         margin: '0 30px',
     },
@@ -29,7 +32,7 @@ const useStyles = makeStyles({
         fontSize: 24,
     },
     event: {
-        fontSize: 31,
+        fontSize: 29,
         fontWeight: 500,
         color: '#0B478E',
     },
@@ -43,7 +46,7 @@ const useStyles = makeStyles({
 
     '@media (max-width: 960px)': {
         event: {
-            fontSize: 20,
+            fontSize: 19,
         },
         place: {
             fontSize: 16,
