@@ -30,7 +30,6 @@ const useStyles = makeStyles(() => ({
         marginRight: '50px',
     },
     widget: {
-        height: 95,
         marginBottom: 35,
     },
     '@media (max-width: 600px)': {
@@ -87,8 +86,7 @@ const IndexPage = () => {
         },
     } = data;
 
-    const eventDate = new Date(homePageWidget.date).toISOString();
-    const test = new Date(eventDate);
+    const eventDate = new Date(homePageWidget.date);
 
     return (
         <Layout>
@@ -99,7 +97,7 @@ const IndexPage = () => {
                     <Box className={classes.pageContent}>
                         <Box className={classes.widget}>
                             <HomePageWidget
-                                date={test}
+                                date={eventDate}
                                 place={homePageWidget.place}
                                 eventType={homePageWidget.eventType}
                                 url={homePageWidget.url}

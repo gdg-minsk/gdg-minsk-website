@@ -6,7 +6,7 @@ import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import { months } from '../../../../tools/months';
+import getEventMonth from '../../../../tools/months';
 import { useWindowDimensions } from '../../../../hooks/window-size';
 import { TabletWidth } from '../../../../constants/window-sizes';
 
@@ -40,13 +40,6 @@ const useStyles = makeStyles({
         height: '100%',
         borderRadius: '0 10px 10px 0',
     },
-    overlay: {
-        position: 'relative',
-        top: '-95px',
-        width: 'inherit',
-        height: 95,
-        cursor: 'pointer',
-    },
 
     '@media (max-width: 960px)': {
         event: {
@@ -75,10 +68,7 @@ const HomePageWidget = ({ date, place, eventType, url }) => {
     const styles = useStyles();
     const { width } = useWindowDimensions();
     const day = date.getDate();
-    const monthIndex = date.getMonth();
-    const month = months[monthIndex];
-
-    return (
+    const widget = (
         <>
             <Box display="flex" className={styles.root}>
                 <Box display="flex" flexGrow={1}>
@@ -88,7 +78,7 @@ const HomePageWidget = ({ date, place, eventType, url }) => {
                                 {day}
                             </Typography>
                             <Typography className={styles.month} align="center" color="textSecondary">
-                                {month}
+                                {getEventMonth(date)}
                             </Typography>
                         </Box>
                         <Box className={styles.eventDesc} flexGrow={1}>
@@ -105,13 +95,20 @@ const HomePageWidget = ({ date, place, eventType, url }) => {
                     </Link>
                 </Box>
             </Box>
-            <Link href={url} target="blank">
-                {/* eslint-disable-next-line react/self-closing-comp */
-                width <= TabletWidth && <div className={styles.overlay}></div>}
-            </Link>
         </>
     );
+
+    if (width <= TabletWidth) {
+        return (
+            <Link href={url} target="blank" underline="none">
+                {widget}
+            </Link>
+        );
+    }
+
+    return widget;
 };
+
 HomePageWidget.propTypes = {
     date: PropTypes.instanceOf(Date).isRequired,
     place: PropTypes.string.isRequired,

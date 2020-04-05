@@ -1,4 +1,4 @@
-export const months = [
+const months = [
     'January',
     'February',
     'March',
@@ -12,3 +12,10 @@ export const months = [
     'November',
     'December',
 ];
+
+const getEventMonth = date => {
+    const monthIndex = date.getMonth();
+    return months[monthIndex];
+};
+
+export default getEventMonth;
