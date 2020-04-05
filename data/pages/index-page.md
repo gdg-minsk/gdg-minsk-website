@@ -1,9 +1,10 @@
 ---
 homePageWidget:
-  date: '2020-04-09'
-  place: EventSpace
-  eventType: GDG Minsk Web Meetup
-  url: 'https://www.meetup.com/GDG-Minsk/events/268949411/'
+  date: '2020-05-13'
+  place: '#stayhome'
+  eventType: GDG Minsk Mobile Meetup
+  url: >-
+    https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public
 templateKey: index-page
 pageTitle: Home
 title: You are on the website of the Belarusian Google Developer Group
