@@ -1,7 +1,7 @@
 backend:
     name: github
     repo: gdg-minsk/gdg-minsk-website
-    branch: master
+    branch: widget
 
 media_folder: 'static/img/cms'
 
@@ -72,6 +72,24 @@ collections:
             label: 'Landing Page'
             name: 'index'
             fields:
+                - {
+                      label: 'Widget',
+                      name: 'homePageWidget',
+                      widget: 'object',
+                      fields:
+                          [
+                              { label: 'Date', name: 'date', widget: 'datetime', default: '', timeFormat: false, dateFormat: "YYYY-MM-DD", format: "YYYY-MM-DD" },
+                              { label: 'Place', name: 'place', widget: 'string' },
+                              {
+                                  label: 'Event Type',
+                                  name: 'eventType',
+                                  widget: 'select',
+                                  options:
+                                      ['GDG Minsk Web Meetup', 'GDG Minsk Mobile Meetup', 'GDG Minsk Cloud Meetup'],
+                              },
+                              { label: 'Url', name: 'url', widget: 'string' },
+                          ],
+                  }
                 - { label: 'Template Key', name: 'templateKey', widget: 'hidden', default: 'index-page' }
                 - { label: 'PageTitle', name: 'pageTitle', widget: 'string' }
                 - { label: 'Title', name: 'title', widget: 'string' }
