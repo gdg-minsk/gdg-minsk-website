@@ -13,18 +13,8 @@ import { useWindowDimensions } from '../../../../hooks/window-size';
 import { TabletWidth } from '../../../../constants/window-sizes';
 
 const useStyles = makeStyles({
-    root: {
-        boxShadow: '5px 5px 20px #D1D1D1',
-        borderRadius: 10,
-    },
     date: {
         marginLeft: 10,
-    },
-    eventDesc: {
-        margin: '0 30px',
-    },
-    description: {
-        padding: '15px 0 15px 15px',
     },
     day: {
         fontSize: 50,
@@ -34,7 +24,7 @@ const useStyles = makeStyles({
         fontSize: 24,
     },
     event: {
-        fontSize: 29,
+        fontSize: 28,
         fontWeight: 500,
         color: '#0B478E',
     },
@@ -48,7 +38,7 @@ const useStyles = makeStyles({
 
     '@media (max-width: 960px)': {
         event: {
-            fontSize: 19,
+            fontSize: 17,
         },
         place: {
             fontSize: 16,
