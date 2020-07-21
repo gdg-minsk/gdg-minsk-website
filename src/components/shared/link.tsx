@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { ReactNode, RefObject } from 'react';
 import PropTypes from 'prop-types';
 
 import { Link as GatsbyLink } from 'gatsby';
 
 import MuiLink from '@material-ui/core/Link';
 
-const Link = React.forwardRef(function Link(props, ref) {
+interface Props {
+    children?: ReactNode;
+    to: string;
+    className: string;
+    target: string;
+}
+
+const Link = React.forwardRef(function Link(props: Props, ref: any) {
     const internal = /^\/(?!\/)/.test(props.to);
 
     if (internal) {
@@ -17,10 +24,5 @@ const Link = React.forwardRef(function Link(props, ref) {
         </MuiLink>
     );
 });
-
-Link.propTypes = {
-    to: PropTypes.string.isRequired,
-    children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
-};
 
 export default Link;

@@ -11,8 +11,8 @@ import Link from './link';
 
 const useStyles = makeStyles(() => ({
     socialIcon: {
-        width: props => props.iconSize,
-        height: props => props.iconSize,
+        width: (props: Props) => props.iconSize,
+        height: (props: Props) => props.iconSize,
         cursor: 'pointer',
         transition: 'transform .2s',
         '&:hover': {
@@ -21,7 +21,12 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const SocialIcons = props => {
+interface Props
+{
+    iconSize: number;
+}
+
+const SocialIcons = (props: Props) => {
     const classes = useStyles(props);
 
     const data = useStaticQuery(graphql`
@@ -63,10 +68,6 @@ const SocialIcons = props => {
 
 SocialIcons.defaultProps = {
     iconSize: 40,
-};
-
-SocialIcons.propTypes = {
-    iconSize: PropTypes.number, // eslint-disable-line
 };
 
 export default SocialIcons;
