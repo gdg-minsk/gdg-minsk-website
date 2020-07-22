@@ -6,7 +6,7 @@ import Layout from '../components/shared/layout/layout';
 import SEO from '../components/shared/seo';
 import Image from '../components/shared/image';
 
-const EventPage = () => (
+const EventPage = () : ReactElement => (
     <Layout
         parallaxContent={
             <h1 style={{ color: 'red' }}>

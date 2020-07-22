@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import PropTypes from 'prop-types';
 
 import Box from '@material-ui/core/Box';
@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const DesktopMenu = ({ menuItems }) => {
+const DesktopMenu = ({ menuItems }) : ReactElement => {
     const classes = useStyles();
 
     return (

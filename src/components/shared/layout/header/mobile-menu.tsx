@@ -46,7 +46,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const MobileMenu = ({ menuItems, onClose }) => {
+const MobileMenu = ({ menuItems, onClose }) : ReactElement => {
     const classes = useStyles();
 
     return (

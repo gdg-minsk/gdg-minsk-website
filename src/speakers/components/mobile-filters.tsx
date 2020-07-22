@@ -69,7 +69,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const MobileFilters = () => {
+const MobileFilters = () : ReactElement => {
     const classes = useStyles();
 
     const filtersDispatch = useSpeakersFiltersDispatch();

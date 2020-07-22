@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import PropTypes from 'prop-types';
 import { MuiThemeProvider, CssBaseline } from '@material-ui/core';
 
-const ThemeProvider = ({ children, theme }) => (
+const ThemeProvider = ({ children, theme }) : ReactElement => (
     <MuiThemeProvider theme={theme}>
         <CssBaseline />
         {children}

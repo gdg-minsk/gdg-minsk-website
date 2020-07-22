@@ -42,7 +42,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const IndexPage = () => {
+const IndexPage = () : ReactElement => {
     const classes = useStyles();
 
     const data = useStaticQuery(graphql`

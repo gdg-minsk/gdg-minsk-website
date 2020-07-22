@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, ReactElement } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -84,7 +84,7 @@ const PhotoGallery = ({ photos }) => {
         <>
             <div className={classes.photoGallery}>
                 {photoPages[currentPage].map((photoInfo, index) => {
-                    const openPhoto = () => {
+                    const openPhoto = () : void => {
                         openLightbox(currentPage * GRID_IMAGE_SIZE + index);
                     };
                     return (

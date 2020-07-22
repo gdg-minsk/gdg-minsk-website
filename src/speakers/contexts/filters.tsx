@@ -1,4 +1,4 @@
-import React, { useReducer, createContext, useContext } from 'react';
+import React, { useReducer, createContext, useContext, ReactElement } from 'react';
 import PropTypes from 'prop-types';
 
 import { ALL_STREAMS } from '../../constants/app';
@@ -31,7 +31,7 @@ const speakersFilterReducer = (state, action) => {
     }
 };
 
-const SpeakersFilterProvider = ({ children }) => {
+const SpeakersFilterProvider = ({ children })  : ReactElement => {
     const [state, dispatch] = useReducer(speakersFilterReducer, INIT_STATE);
 
     return (

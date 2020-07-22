@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import PropTypes from 'prop-types';
 
 import Container from '@material-ui/core/Container';
@@ -52,7 +52,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const Layout = ({ children, isSocialIconsVisible }) => {
+const Layout = ({ children, isSocialIconsVisible }) : ReactElement => {
     const classes = useStyles();
 
     return (
