@@ -1,34 +1,28 @@
 module.exports = {
-    extends: ['airbnb', 'plugin:prettier/recommended', 'prettier/react'],
-    globals: {
-        window: true,
-        document: true,
-        localStorage: true,
-        FormData: true,
-        FileReader: true,
-        Blob: true,
-        navigator: true,
+    env: {
+        es6: true,
     },
-    parser: 'babel-eslint',
+    parser: '@typescript-eslint/parser',
+    extends: ['plugin:@typescript-eslint/recommended', 'prettier/@typescript-eslint', 'plugin:prettier/recommended'],
+    parserOptions: {
+        ecmaVersion: 2018,
+        sourceType: 'module',
+    },
     rules: {
-        'react/jsx-filename-extension': [
-            1,
-            {
-                extensions: ['.js', '.jsx'],
-            },
-        ],
-        'import/imports-first': ['error', 'absolute-first'],
-        'import/newline-after-import': 'error',
-        'max-len': [
+        '@typescript-eslint/explicit-function-return-type': [
             'error',
-            120,
             {
-                ignoreStrings: true,
-                ignoreRegExpLiterals: true,
+                allowExpressions: true,
+                allowTypedFunctionExpressions: true,
+                allowHigherOrderFunctions: true,
             },
         ],
-        'react/jsx-props-no-spreading': 0,
-        'react/no-array-index-key': 0,
-        'import/prefer-default-export': 0,
+        '@typescript-eslint/no-explicit-any': 0,
+        '@typescript-eslint/camelcase': 0,
+        '@typescript-eslint/no-empty-function': 0,
+        '@typescript-eslint/no-use-before-define': 0,
+        'prefer-rest-params': 0,
+        'prefer-spread': 0,
+        quotes: ['error', 'single', { allowTemplateLiterals: true }],
     },
 };

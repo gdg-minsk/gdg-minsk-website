@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -29,7 +29,7 @@ const useStyles = makeStyles({
     },
 });
 
-const EventCard = ({ imageUrl, imageTitle, title, description, date, speakers }) => {
+const EventCard = ({ imageUrl, imageTitle, title, description, date, speakers }) : ReactElement => {
     const classes = useStyles();
     const listItems = speakers.map(speaker => (
         <Link key={speaker.id} to="/speaker" underline="none">

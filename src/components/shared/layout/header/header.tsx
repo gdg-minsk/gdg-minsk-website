@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, ReactElement } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 
 import Img from 'gatsby-image';
@@ -32,7 +32,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const Header = () => {
+const Header = () : ReactElement => {
     const classes = useStyles();
 
     const [mobileOpen, setMobileOpen] = useState(false);

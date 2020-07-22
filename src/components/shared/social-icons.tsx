@@ -21,12 +21,11 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-interface Props
-{
+interface Props {
     iconSize: number;
 }
 
-const SocialIcons = (props: Props) => {
+const SocialIcons = (props: Props) : ReactElement => {
     const classes = useStyles(props);
 
     const data = useStaticQuery(graphql`

@@ -12,7 +12,7 @@ import getEventMonth from '../../../../tools/months';
 import { useWindowDimensions } from '../../../../hooks/window-size';
 import { TabletWidth } from '../../../../constants/window-sizes';
 
-const useStyles : any = makeStyles({
+const useStyles = makeStyles({
     date: {
         marginLeft: 10,
     },
@@ -56,7 +56,7 @@ const useStyles : any = makeStyles({
     },
 });
 
-const HomePageWidget = ({ date, place, eventType, url }) => {
+const HomePageWidget = ({ date, place, eventType, url }) : ReactElement => {
     const styles = useStyles();
 
     const { width } = useWindowDimensions();

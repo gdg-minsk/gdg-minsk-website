@@ -13,7 +13,7 @@ const months = [
     'December',
 ];
 
-const getEventMonth = date => {
+const getEventMonth = (date): string => {
     const monthIndex = date.getMonth();
     return months[monthIndex];
 };

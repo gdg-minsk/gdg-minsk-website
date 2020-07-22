@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import classNames from 'classnames';
 
 import Typography from '@material-ui/core/Typography';
@@ -62,7 +62,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const ContactsPage = () => {
+const ContactsPage = () : ReactElement => {
     const classes = useStyles();
 
     const { width } = useWindowDimensions();

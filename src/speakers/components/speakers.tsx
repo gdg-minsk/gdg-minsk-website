@@ -160,7 +160,7 @@ const getCompanyInfo = (jobTitle, companyName) => {
     return jobTitle || companyName;
 };
 
-const Speakers = ({ speakers }) => {
+const Speakers = ({ speakers }) : ReactElement => {
     const classes = useStyles();
 
     const { eventType, searchStr } = useSpeakersFilterState();

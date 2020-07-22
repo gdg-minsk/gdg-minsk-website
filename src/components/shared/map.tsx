@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import PropTypes from 'prop-types';
 
 import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
 
-const GoogleMap = ({ google, lat, lng, zoom }) => {
+const GoogleMap = ({ google, lat, lng, zoom }) : ReactElement => {
     return (
         <Map
             style={{

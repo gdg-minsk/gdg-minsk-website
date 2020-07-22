@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -25,7 +25,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const Footer = ({ isSocialIconsVisible }) => {
+const Footer = ({ isSocialIconsVisible }) : ReactElement => {
     const classes = useStyles();
 
     return (
