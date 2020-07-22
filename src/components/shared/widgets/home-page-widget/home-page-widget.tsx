@@ -12,7 +12,7 @@ import getEventMonth from '../../../../tools/months';
 import { useWindowDimensions } from '../../../../hooks/window-size';
 import { TabletWidth } from '../../../../constants/window-sizes';
 
-const useStyles = makeStyles({
+const useStyles : any = makeStyles({
     date: {
         marginLeft: 10,
     },
@@ -79,11 +79,11 @@ const HomePageWidget = ({ date, place, eventType, url }) => {
                     <Typography className={styles.event}>{eventType}</Typography>
                 </Box>
             </Box>
-            <Link href={url} target="blank" className={styles.buttonContainer}>
+            {/* <Link href={url} target="blank" className={styles.buttonContainer}>
                 <Button className={styles.button} variant="contained" color="primary">
                     <ArrowForwardIosIcon />
                 </Button>
-            </Link>
+            </Link> */}
         </Box>
     );
 

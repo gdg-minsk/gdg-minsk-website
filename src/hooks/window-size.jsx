@@ -17,12 +17,14 @@ const useWindowSize = () => {
 
     useEffect(() => {
         if (!isClient) {
-            return false;
+            return;
         }
 
-        const handleResize = debounce(() => {
-            setDimensions(getSize());
-        }, 100);
+        const handleResize = () => {
+            return debounce(() => {
+                setDimensions(getSize());
+            }, 100)();
+        };
 
         window.addEventListener('resize', handleResize);
 

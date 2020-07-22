@@ -5,6 +5,9 @@
     "dependencies": {
         "@material-ui/core": "^4.9.5",
         "@material-ui/icons": "^4.9.1",
+        "@types/classnames": "^2.2.3",
+        "@types/lodash-es": "^4.17.3",
+        "@types/react-images": "^0.5.3",
         "@material-ui/styles": "^4.9.0",
         "classnames": "^2.2.6",
         "date-fns": "^2.10.0",
@@ -21,6 +24,7 @@
         "gatsby-plugin-react-svg": "^3.0.0",
         "gatsby-plugin-segment-js": "^3.1.0",
         "gatsby-plugin-sharp": "^2.4.7",
+        "gatsby-plugin-typescript": "^2.4.16",
         "gatsby-remark-copy-linked-files": "^2.1.38",
         "gatsby-remark-images": "^3.1.46",
         "gatsby-remark-relative-images": "^0.3.0",
@@ -52,19 +56,20 @@
         "lint-staged": "^10.0.8",
         "prettier": "^1.19.1",
         "prettier-eslint": "^9.0.1",
-        "pretty-quick": "^2.0.1"
+        "pretty-quick": "^2.0.1",
+        "typescript": "^3.9.7"
     },
     "scripts": {
         "build": "gatsby build",
         "develop": "gatsby develop",
         "start": "npm run develop",
-        "serve": "gatsby serve"
+        "serve": "gatsby serve",
+        "type-check": "tsc --noEmit"
     },
     "lint-staged": {
-        "*.{js,jsx}": [
+        "*.{js,jsx,ts,tsx}": [
             "pretty-quick --staged",
-            "eslint --fix",
-            "git add"
+            "eslint --fix"
         ]
     },
     "repository": {
@@ -79,7 +84,7 @@
     ],
     "husky": {
         "hooks": {
-            "pre-commit": "lint-staged"
+            "pre-push": "lint-staged"
         }
     }
 }
