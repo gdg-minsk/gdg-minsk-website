@@ -9,7 +9,7 @@ interface Props {
     children?: ReactNode;
     to: string;
     className: string;
-    target: string;
+    target?: string;
 }
 
 const Link = React.forwardRef(function Link(props: Props, ref: any) {

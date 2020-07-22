@@ -112,5 +112,6 @@ module.exports = {
                 delayLoadTime: 1000,
             },
         },
+        "gatsby-plugin-typescript"
     ],
 };
