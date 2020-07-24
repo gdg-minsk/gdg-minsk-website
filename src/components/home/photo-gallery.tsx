@@ -61,7 +61,7 @@ const useStyles = makeStyles(() => ({
 
 const GRID_IMAGE_SIZE = 5;
 
-const PhotoGallery = ({ photos }) => {
+const PhotoGallery = ({ photos }): ReactElement => {
     const classes = useStyles();
 
     const [currentImage, setCurrentImage] = useState(0);
@@ -84,7 +84,7 @@ const PhotoGallery = ({ photos }) => {
         <>
             <div className={classes.photoGallery}>
                 {photoPages[currentPage].map((photoInfo, index) => {
-                    const openPhoto = () : void => {
+                    const openPhoto = (): void => {
                         openLightbox(currentPage * GRID_IMAGE_SIZE + index);
                     };
                     return (

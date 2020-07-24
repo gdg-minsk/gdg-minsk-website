@@ -56,7 +56,7 @@ const useStyles = makeStyles({
     },
 });
 
-const HomePageWidget = ({ date, place, eventType, url }) : ReactElement => {
+const HomePageWidget = ({ date, place, eventType, url }): ReactElement => {
     const styles = useStyles();
 
     const { width } = useWindowDimensions();

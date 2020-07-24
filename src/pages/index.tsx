@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import classNames from 'classnames';
 
 import { useStaticQuery, graphql } from 'gatsby';
@@ -42,7 +42,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const IndexPage = () : ReactElement => {
+const IndexPage = (): ReactElement => {
     const classes = useStyles();
 
     const data = useStaticQuery(graphql`

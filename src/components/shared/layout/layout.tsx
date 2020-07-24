@@ -52,7 +52,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const Layout = ({ children, isSocialIconsVisible }) : ReactElement => {
+const Layout = ({ children, isSocialIconsVisible }): ReactElement => {
     const classes = useStyles();
 
     return (

@@ -60,7 +60,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const NotFoundPage = () : ReactElement => {
+const NotFoundPage = (): ReactElement => {
     const classes = useStyles();
 
     const data = useStaticQuery(graphql`

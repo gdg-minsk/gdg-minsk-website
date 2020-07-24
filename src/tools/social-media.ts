@@ -20,7 +20,7 @@ const Icons = {
     [SocialMedia.OTHER]: DefaultIcon,
 };
 
-const getSocialMediaIcon = type => {
+const getSocialMediaIcon = (type): any => {
     if (Icons[type]) {
         return Icons[type];
     }

@@ -32,7 +32,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const Header = () : ReactElement => {
+const Header = (): ReactElement => {
     const classes = useStyles();
 
     const [mobileOpen, setMobileOpen] = useState(false);

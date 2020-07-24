@@ -62,7 +62,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const ContactsPage = () : ReactElement => {
+const ContactsPage = (): ReactElement => {
     const classes = useStyles();
 
     const { width } = useWindowDimensions();

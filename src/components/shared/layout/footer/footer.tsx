@@ -25,7 +25,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const Footer = ({ isSocialIconsVisible }) : ReactElement => {
+const Footer = ({ isSocialIconsVisible }): ReactElement => {
     const classes = useStyles();
 
     return (
