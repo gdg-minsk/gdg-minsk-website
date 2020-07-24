@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ReactElement } from 'react';
 import PropTypes from 'prop-types';
 
 import Img from 'gatsby-image/withIEPolyfill';
@@ -148,7 +148,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const getCompanyInfo = (jobTitle, companyName) => {
+const getCompanyInfo = (jobTitle, companyName): any => {
     if (!jobTitle && !companyName) {
         return null;
     }
@@ -160,7 +160,7 @@ const getCompanyInfo = (jobTitle, companyName) => {
     return jobTitle || companyName;
 };
 
-const Speakers = ({ speakers }) : ReactElement => {
+const Speakers = ({ speakers }): ReactElement => {
     const classes = useStyles();
 
     const { eventType, searchStr } = useSpeakersFilterState();
@@ -205,29 +205,29 @@ const Speakers = ({ speakers }) : ReactElement => {
                                     {photo ? (
                                         <Img className={classes.speakerPhoto} fluid={photo.childImageSharp.fluid} />
                                     ) : (
-                                        <Box className={classes.defaultSpeakerPhotoContainer}>
-                                            <Box
-                                                display="flex"
-                                                flexDirection="column"
-                                                position="absolute"
-                                                width="100%"
-                                                height="100%"
-                                            >
-                                                <Box display="flex" justifyContent="flex-end">
-                                                    <Stork height="40" />
-                                                </Box>
-
+                                            <Box className={classes.defaultSpeakerPhotoContainer}>
                                                 <Box
                                                     display="flex"
-                                                    justifyContent="center"
-                                                    alignItems="center"
-                                                    flexGrow="1"
+                                                    flexDirection="column"
+                                                    position="absolute"
+                                                    width="100%"
+                                                    height="100%"
                                                 >
-                                                    <UserIcon height="155" />
+                                                    <Box display="flex" justifyContent="flex-end">
+                                                        <Stork height="40" />
+                                                    </Box>
+
+                                                    <Box
+                                                        display="flex"
+                                                        justifyContent="center"
+                                                        alignItems="center"
+                                                        flexGrow="1"
+                                                    >
+                                                        <UserIcon height="155" />
+                                                    </Box>
                                                 </Box>
                                             </Box>
-                                        </Box>
-                                    )}
+                                        )}
                                 </Link>
                             </div>
                             <Box display="flex" flexDirection="column" alignItems="center" m="10px">

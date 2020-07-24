@@ -17,7 +17,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const SpeakerPage = () : ReactElement => {
+const SpeakerPage = (): ReactElement => {
     const classes = useStyles();
 
     return (

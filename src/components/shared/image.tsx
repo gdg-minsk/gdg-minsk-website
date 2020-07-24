@@ -13,7 +13,7 @@ import Img from 'gatsby-image';
  * - `useStaticQuery`: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-const Image = () : ReactElement => {
+const Image = (): ReactElement => {
     const data = useStaticQuery(graphql`
         query {
             placeholderImage: file(relativePath: { eq: "gdg.png" }) {

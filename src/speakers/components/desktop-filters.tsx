@@ -74,7 +74,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const DesktopFilters = () : ReactElement => {
+const DesktopFilters = (): ReactElement => {
     const classes = useStyles();
 
     const { eventType, searchStr } = useSpeakersFilterState();

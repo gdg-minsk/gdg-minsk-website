@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const DesktopMenu = ({ menuItems }) : ReactElement => {
+const DesktopMenu = ({ menuItems }): ReactElement => {
     const classes = useStyles();
 
     return (

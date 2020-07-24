@@ -11,7 +11,7 @@ const INIT_STATE = {
     searchStr: '',
 };
 
-const speakersFilterReducer = (state, action) => {
+const speakersFilterReducer = (state, action): any => {
     switch (action.type) {
         case 'setEventType': {
             return { ...state, eventType: action.payload.eventType };
@@ -31,7 +31,7 @@ const speakersFilterReducer = (state, action) => {
     }
 };
 
-const SpeakersFilterProvider = ({ children })  : ReactElement => {
+const SpeakersFilterProvider = ({ children }): ReactElement => {
     const [state, dispatch] = useReducer(speakersFilterReducer, INIT_STATE);
 
     return (
@@ -45,7 +45,7 @@ SpeakersFilterProvider.propTypes = {
     children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
 };
 
-const useSpeakersFilterState = () => {
+const useSpeakersFilterState = (): any => {
     const context = useContext(SpeakersFilterStateContext);
 
     if (context === undefined) {
@@ -55,7 +55,7 @@ const useSpeakersFilterState = () => {
     return context;
 };
 
-const useSpeakersFiltersDispatch = () => {
+const useSpeakersFiltersDispatch = (): any => {
     const context = useContext(SpeakersFilterDispatchContext);
 
     if (context === undefined) {

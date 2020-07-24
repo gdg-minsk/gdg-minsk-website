@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
@@ -6,7 +6,7 @@ import Layout from '../components/shared/layout/layout';
 import SEO from '../components/shared/seo';
 import Image from '../components/shared/image';
 
-const EventPage = () : ReactElement => (
+const EventPage = (): ReactElement => (
     <Layout
         parallaxContent={
             <h1 style={{ color: 'red' }}>

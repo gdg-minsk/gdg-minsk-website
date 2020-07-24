@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import { useStaticQuery, graphql } from 'gatsby';
 
@@ -9,7 +9,7 @@ import Speakers from '../speakers/components/speakers';
 
 import { SpeakersFilterProvider } from '../speakers/contexts/filters';
 
-const SpeakersPage = () => {
+const SpeakersPage = (): ReactElement => {
     const data = useStaticQuery(graphql`
         {
             markdownRemark(frontmatter: { templateKey: { eq: "speakers-page" } }) {
