@@ -47,7 +47,7 @@ const useStyles = makeStyles(() => ({
             left: '-85%',
             zIndex: '2',
             display: 'block',
-            content: "''",
+            content: '',
             width: '50%',
             height: '100%',
             background: 'linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,.3) 100%)',
@@ -140,7 +140,7 @@ const useStyles = makeStyles(() => ({
             width: '100%',
 
             '&:before': {
-                content: "''",
+                content: '',
                 display: 'block',
                 paddingTop: '100%',
             },
@@ -205,29 +205,29 @@ const Speakers = ({ speakers }): ReactElement => {
                                     {photo ? (
                                         <Img className={classes.speakerPhoto} fluid={photo.childImageSharp.fluid} />
                                     ) : (
-                                            <Box className={classes.defaultSpeakerPhotoContainer}>
+                                        <Box className={classes.defaultSpeakerPhotoContainer}>
+                                            <Box
+                                                display="flex"
+                                                flexDirection="column"
+                                                position="absolute"
+                                                width="100%"
+                                                height="100%"
+                                            >
+                                                <Box display="flex" justifyContent="flex-end">
+                                                    <Stork height="40" />
+                                                </Box>
+
                                                 <Box
                                                     display="flex"
-                                                    flexDirection="column"
-                                                    position="absolute"
-                                                    width="100%"
-                                                    height="100%"
+                                                    justifyContent="center"
+                                                    alignItems="center"
+                                                    flexGrow="1"
                                                 >
-                                                    <Box display="flex" justifyContent="flex-end">
-                                                        <Stork height="40" />
-                                                    </Box>
-
-                                                    <Box
-                                                        display="flex"
-                                                        justifyContent="center"
-                                                        alignItems="center"
-                                                        flexGrow="1"
-                                                    >
-                                                        <UserIcon height="155" />
-                                                    </Box>
+                                                    <UserIcon height="155" />
                                                 </Box>
                                             </Box>
-                                        )}
+                                        </Box>
+                                    )}
                                 </Link>
                             </div>
                             <Box display="flex" flexDirection="column" alignItems="center" m="10px">
