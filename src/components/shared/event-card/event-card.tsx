@@ -41,10 +41,10 @@ const EventCard = ({ imageUrl, imageTitle, title, description, date, speakers })
                         className={classes.avatar}
                     />
                 ) : (
-                        <Avatar className={classes.avatar}>
-                            {`${speaker.firstName.charAt(0)} ${speaker.lastName.charAt(0)}`}
-                        </Avatar>
-                    )}
+                    <Avatar className={classes.avatar}>
+                        {`${speaker.firstName.charAt(0)} ${speaker.lastName.charAt(0)}`}
+                    </Avatar>
+                )}
             </Tooltip>
         </Link>
     ));
