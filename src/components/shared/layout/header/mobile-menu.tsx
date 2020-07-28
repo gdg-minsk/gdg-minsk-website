@@ -1,60 +1,33 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import PropTypes from 'prop-types';
 
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
 
 import SocialIcons from '../../social-icons';
 
 import Link from '../../link';
+import '../../../../styles/menuStyles.css';
 
-const useStyles = makeStyles(() => ({
-    activeLink: {
-        textDecoration: 'underline',
-    },
-    contactUsText: {
-        fontSize: '17px',
-        lineHeight: '20px',
-        textAlign: 'center',
-        textTransform: 'uppercase',
-        color: '#000000',
-    },
-    emailLink: {
-        marginTop: '10px',
-        fontWeight: 'bold',
-        fontSize: '26px',
-        lineHeight: '30px',
-        textTransform: 'uppercase',
-        color: '#3372DF',
-        marginBottom: '32px',
-    },
-    menuItem: {
-        fontSize: '30px',
-        lineHeight: '35px',
-        textTransform: 'uppercase',
-        color: '#6D7278',
-        marginBottom: '40px',
-    },
-    closeBtnText: {
-        fontSize: '19px',
-        lineHeight: '22px',
-        textTransform: 'uppercase',
-        color: '#5F6368',
-    },
-}));
+interface MenuItem {
+    path: string;
+    title: string;
+}
 
-const MobileMenu = ({ menuItems, onClose }): ReactElement => {
-    const classes = useStyles();
+interface Props {
+    menuItems: MenuItem[];
+    onClose(): void;
+}
 
+const MobileMenu = ({ menuItems, onClose }: Props): ReactElement => {
     return (
         <Box display="flex" flexDirection="column" height="100%">
             <Box margin="20px 20px 0 0" alignSelf="flex-end">
                 <Button
                     onClick={onClose}
-                    classes={{ text: classes.closeBtnText }}
+                    classes={{ text: "closeBtnText" }}
                     endIcon={<CloseIcon>close</CloseIcon>}
                 >
                     CLOSE
@@ -75,9 +48,9 @@ const MobileMenu = ({ menuItems, onClose }): ReactElement => {
                             to={x.path}
                             variant="button"
                             color="textPrimary"
-                            activeClassName={classes.activeLink}
+                            activeClassName="activeLink"
                         >
-                            <Typography className={classes.menuItem} variant="subtitle1" component="h5">
+                            <Typography className="menuItem" variant="subtitle1" component="h5">
                                 {x.title}
                             </Typography>
                         </Link>
@@ -88,11 +61,11 @@ const MobileMenu = ({ menuItems, onClose }): ReactElement => {
                 <Box display="flex" flexWrap="wrap" justifyContent="center">
                     <SocialIcons iconSize={56} />
                 </Box>
-                <Typography className={classes.contactUsText} component="p">
+                <Typography className="contactUsText" component="p">
                     Contact us on any questions
                 </Typography>
 
-                <Link className={classes.emailLink} to="mailto:GDG@gmail.com">
+                <Link className="emailLink" to="mailto:GDG@gmail.com">
                     GDG@GMAIL.COM
                 </Link>
             </Box>

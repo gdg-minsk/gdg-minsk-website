@@ -1,5 +1,4 @@
-import React, { ReactNode, RefObject } from 'react';
-import PropTypes from 'prop-types';
+import React, { ReactNode } from 'react';
 
 import { Link as GatsbyLink } from 'gatsby';
 
@@ -8,8 +7,11 @@ import MuiLink from '@material-ui/core/Link';
 interface Props {
     children?: ReactNode;
     to: string;
-    className: string;
+    className?: string;
+    activeClassName?: string;
     target?: string;
+    variant?: "button" | "caption" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "inherit" | "subtitle1" | "subtitle2" | "body1" | "body2" | "overline" | "srOnly";
+    color?: "inherit" | "primary" | "secondary" | "initial" | "textPrimary" | "textSecondary" | "error";
 }
 
 const Link = React.forwardRef(function Link(props: Props, ref: any) {

@@ -1,25 +1,22 @@
 import React, { ReactElement } from 'react';
-import PropTypes from 'prop-types';
 
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 
 import Link from '../../link';
 
-const useStyles = makeStyles(theme => ({
-    link: {
-        margin: theme.spacing(1, 1.5),
-        color: '#6D7278',
-    },
-    activeLink: {
-        textDecoration: 'underline',
-    },
-}));
+import '../../../../styles/menuStyles.css';
 
-const DesktopMenu = ({ menuItems }): ReactElement => {
-    const classes = useStyles();
+interface MenuItem {
+    path: string;
+    title: string;
+}
 
+interface Props {
+    menuItems: MenuItem[];
+}
+
+const DesktopMenu = ({ menuItems }: Props): ReactElement => {
     return (
         <Box component="nav" display="flex">
             {menuItems.map(x => {
@@ -29,8 +26,8 @@ const DesktopMenu = ({ menuItems }): ReactElement => {
                         to={x.path}
                         variant="button"
                         color="textPrimary"
-                        className={classes.link}
-                        activeClassName={classes.activeLink}
+                        className="link"
+                        activeClassName="activeLink"
                     >
                         <Typography variant="subtitle1" component="h5">
                             {x.title}
@@ -40,15 +37,6 @@ const DesktopMenu = ({ menuItems }): ReactElement => {
             })}
         </Box>
     );
-};
-
-DesktopMenu.propTypes = {
-    menuItems: PropTypes.arrayOf(
-        PropTypes.shape({
-            path: PropTypes.string.isRequired,
-            title: PropTypes.string.isRequired,
-        }),
-    ).isRequired,
 };
 
 export default DesktopMenu;
