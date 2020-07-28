@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react';
-import PropTypes from 'prop-types';
 
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -71,16 +70,6 @@ const MobileMenu = ({ menuItems, onClose }: Props): ReactElement => {
             </Box>
         </Box>
     );
-};
-
-MobileMenu.propTypes = {
-    menuItems: PropTypes.arrayOf(
-        PropTypes.shape({
-            path: PropTypes.string.isRequired,
-            title: PropTypes.string.isRequired,
-        }),
-    ).isRequired,
-    onClose: PropTypes.func.isRequired,
 };
 
 export default MobileMenu;
