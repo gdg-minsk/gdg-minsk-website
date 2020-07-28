@@ -1,0 +1,12 @@
+.appBar {
+    background-color: #fff;
+    box-shadow: none;
+}
+
+.drawerPaper {
+    width: '300px';
+}
+
+.logoLink {
+    display: 'inline-block';
+}

@@ -1,0 +1,41 @@
+.link {
+    margin: 1em 1.5em;
+    color: #6D7278;
+}
+
+.activeLink {
+    text-decoration: underline;
+}
+
+.contactUsText {
+    font-size: '17px';
+    line-height: '20px';
+    text-align: 'center';
+    text-transform: 'uppercase';
+    color: #000000;
+}
+
+.emailLink {
+    margin-top: '10px';
+    font-weight: 'bold';
+    font-size: '26px';
+    line-height: '30px';
+    text-transform: 'uppercase';
+    color: #3372DF;
+    margin-bottom: '32px';
+}
+
+.menuItem {
+    font-size: '30px';
+    line-height: '35px';
+    text-transform: 'uppercase';
+    color: #6D7278;
+    margin-bottom: '40px';
+}
+
+.closeBtnText {
+    font-size: '19px';
+    line-height: '22px';
+    text-transform: 'uppercase';
+    color: #5F6368;
+}
