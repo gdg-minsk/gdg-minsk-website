@@ -45,7 +45,7 @@ const Header = (): ReactElement => {
             file(relativePath: { eq: "gdg-logo.png" }) {
                 childImageSharp {
                     fixed(height: 25) {
-                        ...GatsbyImageSharpFixed_withWebp_tracedSVG
+                        ...GatsbyImageSharpFixed
                     }
                 }
             }
