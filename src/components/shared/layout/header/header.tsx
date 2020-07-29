@@ -88,7 +88,7 @@ const Header = (): ReactElement => {
                         anchor="right"
                         open={mobileOpen}
                         classes={{
-                            paper: "drawerPaper",
+                            paper: 'drawerPaper',
                         }}
                         onClose={handleDrawerToggle}
                     >

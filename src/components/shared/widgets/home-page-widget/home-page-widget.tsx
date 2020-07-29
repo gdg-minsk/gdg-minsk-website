@@ -1,12 +1,10 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/styles';
-import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 import getEventMonth from '../../../../tools/months';
 import { useWindowDimensions } from '../../../../hooks/window-size';

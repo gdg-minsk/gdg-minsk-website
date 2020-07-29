@@ -9,15 +9,14 @@ import React, { ReactElement } from 'react';
 import Helmet from 'react-helmet';
 import { useStaticQuery, graphql } from 'gatsby';
 
-interface Props
-{
+interface Props {
     description?: string;
     lang?: string;
     meta?: any[];
     title: string;
-};
+}
 
-function SEO({ description=``, lang = `en`, meta=[], title }: Props): ReactElement {
+function SEO({ description = ``, lang = `en`, meta = [], title }: Props): ReactElement {
     const { site } = useStaticQuery(
         graphql`
             query {

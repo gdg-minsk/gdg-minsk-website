@@ -24,11 +24,7 @@ const MobileMenu = ({ menuItems, onClose }: Props): ReactElement => {
     return (
         <Box display="flex" flexDirection="column" height="100%">
             <Box margin="20px 20px 0 0" alignSelf="flex-end">
-                <Button
-                    onClick={onClose}
-                    classes={{ text: "closeBtnText" }}
-                    endIcon={<CloseIcon>close</CloseIcon>}
-                >
+                <Button onClick={onClose} classes={{ text: 'closeBtnText' }} endIcon={<CloseIcon>close</CloseIcon>}>
                     CLOSE
                 </Button>
             </Box>
