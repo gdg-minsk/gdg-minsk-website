@@ -3,7 +3,6 @@ import { useStaticQuery, graphql } from 'gatsby';
 
 import Img from 'gatsby-image';
 
-import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -19,22 +18,9 @@ import DesktopMenu from './desktop-menu';
 import MobileMenu from './mobile-menu';
 import Link from '../../link';
 
-const useStyles = makeStyles(() => ({
-    appBar: {
-        backgroundColor: '#fff',
-        boxShadow: 'none',
-    },
-    drawerPaper: {
-        width: '300px',
-    },
-    logoLink: {
-        display: 'inline-block',
-    },
-}));
+import '../../../../styles/headerStyles.css';
 
 const Header = (): ReactElement => {
-    const classes = useStyles();
-
     const [mobileOpen, setMobileOpen] = useState(false);
 
     const handleDrawerToggle = useCallback(() => {
@@ -68,14 +54,14 @@ const Header = (): ReactElement => {
 
     return (
         <Slide appear={false} direction="down" in={!trigger}>
-            <AppBar position="fixed" className={classes.appBar}>
+            <AppBar position="fixed" className="appBar">
                 <Toolbar disableGutters>
                     <Container maxWidth="lg">
                         <Box display="flex" alignItems="center">
                             <Box flexGrow={1}>
-                                <Link to="/" className={classes.logoLink} underline="none">
+                                <Link to="/" className="logoLink">
                                     <Img
-                                        className={classes.headerLogo}
+                                        className="headerLogo"
                                         fixed={data.file.childImageSharp.fixed}
                                         alt={data.site.siteMetadata.title}
                                     />
@@ -102,7 +88,7 @@ const Header = (): ReactElement => {
                         anchor="right"
                         open={mobileOpen}
                         classes={{
-                            paper: classes.drawerPaper,
+                            paper: "drawerPaper",
                         }}
                         onClose={handleDrawerToggle}
                     >
