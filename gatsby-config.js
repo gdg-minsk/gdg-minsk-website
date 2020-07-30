@@ -112,6 +112,7 @@ module.exports = {
                 delayLoadTime: 1000,
             },
         },
-        "gatsby-plugin-typescript"
+        'gatsby-plugin-typescript',
+        'gatsby-plugin-sass'
     ],
 };
