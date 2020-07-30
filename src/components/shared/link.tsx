@@ -27,6 +27,7 @@ interface Props {
         | 'overline'
         | 'srOnly';
     color?: 'inherit' | 'primary' | 'secondary' | 'initial' | 'textPrimary' | 'textSecondary' | 'error';
+    underline?: 'none' | 'always' | 'hover';
 }
 
 const Link = React.forwardRef(function Link(props: Props, ref: any) {
