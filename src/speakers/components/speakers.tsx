@@ -1,11 +1,9 @@
 import React, { useState, useEffect, ReactElement } from 'react';
-import PropTypes from 'prop-types';
 
 import Img from 'gatsby-image/withIEPolyfill';
 
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import { makeStyles } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
 
 import Link from '../../components/shared/link';
@@ -22,131 +20,7 @@ import { FluidImage } from '../../constants/prop-types';
 
 import { useSpeakersFilterState } from '../contexts/filters';
 
-const useStyles = makeStyles(() => ({
-    pageContainer: {
-        flexGrow: 1,
-        justifyContent: 'center',
-        fontFamily: 'Roboto',
-    },
-    socialIcon: {
-        width: '40px',
-        height: '40px',
-        transition: 'transform .2s',
-        '&:hover': {
-            transform: 'scale(1.5)',
-        },
-    },
-    speakerPhotoContainer: {
-        width: '280px',
-        height: '310px',
-        position: 'relative',
-        overflow: 'hidden',
-        '&:before': {
-            position: 'absolute',
-            top: '0',
-            left: '-85%',
-            zIndex: '2',
-            display: 'block',
-            content: '',
-            width: '50%',
-            height: '100%',
-            background: 'linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,.3) 100%)',
-            WebkitTransform: 'skewX(-25deg)',
-            transform: 'skewX(-25deg)',
-        },
-        '&:hover::before': {
-            animation: '$shine .75s',
-            animationName: '$shine',
-        },
-    },
-
-    '@keyframes shine': {
-        '100%': {
-            left: '125%',
-        },
-    },
-
-    speakerPhoto: {
-        width: '100%',
-        height: '100%',
-        borderRadius: '10px',
-        cursor: 'pointer',
-    },
-
-    defaultSpeakerPhotoContainer: {
-        display: 'flex',
-        flexDirection: 'column',
-        background: '#F9F8F8',
-        width: '100%',
-        height: '100%',
-        borderRadius: '10px',
-        cursor: 'pointer',
-    },
-
-    speakerName: {
-        fontSize: '25px',
-        lineHeight: '30px',
-        textAlign: 'center',
-        textTransform: 'capitalize',
-        color: '#000000',
-    },
-
-    companyInfo: {
-        fontSize: '15px',
-        lineHeight: '18px',
-        color: '#7F8388',
-        marginTop: '5px',
-        textAlign: 'center',
-    },
-
-    filterWrapper: {
-        position: 'sticky',
-        top: '0',
-        zIndex: '2',
-        background: '#fff',
-    },
-
-    '@media (max-width: 600px)': {
-        speakerContainer: {
-            display: 'flex',
-            width: '50%',
-            maxWidth: '250px',
-            alignItems: 'center',
-            flexDirection: 'column',
-        },
-
-        speakerPhotoContainer: {
-            width: '100%',
-            height: 'auto',
-        },
-
-        speakerName: {
-            fontSize: '20px',
-            lineHeight: '23px',
-        },
-
-        companyInfo: {
-            fontSize: '13px',
-            lineHeight: '15px',
-        },
-
-        socialIcon: {
-            width: '30px',
-            height: '30px',
-        },
-
-        defaultSpeakerPhotoContainer: {
-            position: 'relative',
-            width: '100%',
-
-            '&:before': {
-                content: '',
-                display: 'block',
-                paddingTop: '100%',
-            },
-        },
-    },
-}));
+import './speakers.scss';
 
 const getCompanyInfo = (jobTitle, companyName): any => {
     if (!jobTitle && !companyName) {
@@ -160,9 +34,26 @@ const getCompanyInfo = (jobTitle, companyName): any => {
     return jobTitle || companyName;
 };
 
-const Speakers = ({ speakers }): ReactElement => {
-    const classes = useStyles();
+interface SocialNetwork {
+    type: string;
+    url: string;
+}
 
+interface Speaker {
+    id: string;
+    name: string;
+    company?: string;
+    jobTitle?: string;
+    socialNetworks?: SocialNetwork[];
+    photo: typeof FluidImage;
+    streams: string[];
+}
+
+interface Speakers {
+    speakers: Speaker[];
+}
+
+const Speakers = ({ speakers }: Speakers): ReactElement => {
     const { eventType, searchStr } = useSpeakersFilterState();
     const [searchResults, setSearchResults] = useState([]);
 
@@ -184,7 +75,7 @@ const Speakers = ({ speakers }): ReactElement => {
 
     return (
         <>
-            <Box className={classes.filterWrapper}>
+            <Box className="filterWrapper">
                 <Hidden xsDown>
                     <DesktopFilters />
                 </Hidden>
@@ -194,18 +85,18 @@ const Speakers = ({ speakers }): ReactElement => {
                 </Hidden>
             </Box>
 
-            <Grid classes={{ container: classes.pageContainer }} container spacing={3}>
+            <Grid classes={{ container: 'pageContainer' }} container spacing={3}>
                 {searchResults.map(({ id, name, company, jobTitle, socialNetworks, photo }) => {
                     const companyInfo = getCompanyInfo(jobTitle, company);
 
                     return (
-                        <Grid className={classes.speakerContainer} key={id} item>
-                            <div className={classes.speakerPhotoContainer}>
+                        <Grid className="speakerContainer" key={id} item>
+                            <div className="speakerPhotoContainer">
                                 <Link to="/speaker">
                                     {photo ? (
-                                        <Img className={classes.speakerPhoto} fluid={photo.childImageSharp.fluid} />
+                                        <Img className="speakerPhoto" fluid={photo.childImageSharp.fluid} />
                                     ) : (
-                                        <Box className={classes.defaultSpeakerPhotoContainer}>
+                                        <Box className="defaultSpeakerPhotoContainer">
                                             <Box
                                                 display="flex"
                                                 flexDirection="column"
@@ -231,10 +122,10 @@ const Speakers = ({ speakers }): ReactElement => {
                                 </Link>
                             </div>
                             <Box display="flex" flexDirection="column" alignItems="center" m="10px">
-                                <Link className={classes.speakerName} to="/" underline="none">
+                                <Link className="speakerName" to="/" underline="none">
                                     {name}
                                 </Link>
-                                {companyInfo && <span className={classes.companyInfo}>{companyInfo}</span>}
+                                {companyInfo && <span className="companyInfo">{companyInfo}</span>}
 
                                 {socialNetworks && (
                                     <Box display="flex" flexWrap="wrap">
@@ -242,7 +133,7 @@ const Speakers = ({ speakers }): ReactElement => {
                                             const Icon = getSocialMediaIcon(type);
 
                                             return (
-                                                <Link className={classes.socialIcon} to={url} target="blank" key={type}>
+                                                <Link className="socialIcon" to={url} target="blank" key={type}>
                                                     <Icon />
                                                 </Link>
                                             );
@@ -256,29 +147,6 @@ const Speakers = ({ speakers }): ReactElement => {
             </Grid>
         </>
     );
-};
-
-Speakers.propTypes = {
-    speakers: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.string.isRequired,
-            name: PropTypes.string.isRequired,
-            company: PropTypes.string,
-            jobTitle: PropTypes.string,
-            socialNetworks: PropTypes.arrayOf(
-                PropTypes.shape({
-                    type: PropTypes.string.isRequired,
-                    url: PropTypes.string.isRequired,
-                }),
-            ),
-            streams: PropTypes.arrayOf(PropTypes.string),
-            photo: PropTypes.shape({
-                childImageSharp: PropTypes.shape({
-                    fluid: FluidImage,
-                }),
-            }),
-        }),
-    ).isRequired,
 };
 
 export default Speakers;

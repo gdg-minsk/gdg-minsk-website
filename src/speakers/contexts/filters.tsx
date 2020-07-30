@@ -1,17 +1,26 @@
-import React, { useReducer, createContext, useContext, ReactElement } from 'react';
-import PropTypes from 'prop-types';
+import React, { useReducer, createContext, useContext, ReactElement, Dispatch } from 'react';
 
 import { ALL_STREAMS } from '../../constants/app';
 
-const SpeakersFilterStateContext = createContext();
-const SpeakersFilterDispatchContext = createContext();
+interface Filter {
+    eventType: string;
+    searchStr: string;
+}
 
-const INIT_STATE = {
+interface Action {
+    type: string;
+    payload: Filter;
+}
+
+const INIT_STATE: Filter = {
     eventType: ALL_STREAMS,
     searchStr: '',
 };
 
-const speakersFilterReducer = (state, action): any => {
+const SpeakersFilterStateContext = createContext<Filter>(INIT_STATE);
+const SpeakersFilterDispatchContext = createContext<Dispatch<Action>>(undefined);
+
+const speakersFilterReducer = (state: Filter, action: Action): Filter => {
     switch (action.type) {
         case 'setEventType': {
             return { ...state, eventType: action.payload.eventType };
@@ -31,7 +40,11 @@ const speakersFilterReducer = (state, action): any => {
     }
 };
 
-const SpeakersFilterProvider = ({ children }): ReactElement => {
+interface Props {
+    children?: ReactElement;
+}
+
+const SpeakersFilterProvider = ({ children }: Props): ReactElement => {
     const [state, dispatch] = useReducer(speakersFilterReducer, INIT_STATE);
 
     return (
@@ -41,11 +54,7 @@ const SpeakersFilterProvider = ({ children }): ReactElement => {
     );
 };
 
-SpeakersFilterProvider.propTypes = {
-    children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
-};
-
-const useSpeakersFilterState = (): any => {
+const useSpeakersFilterState = (): Filter => {
     const context = useContext(SpeakersFilterStateContext);
 
     if (context === undefined) {
@@ -55,7 +64,7 @@ const useSpeakersFilterState = (): any => {
     return context;
 };
 
-const useSpeakersFiltersDispatch = (): any => {
+const useSpeakersFiltersDispatch = (): Dispatch<Action> => {
     const context = useContext(SpeakersFilterDispatchContext);
 
     if (context === undefined) {

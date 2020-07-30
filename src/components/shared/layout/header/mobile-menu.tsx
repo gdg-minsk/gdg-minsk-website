@@ -17,7 +17,7 @@ interface MenuItem {
 
 interface Props {
     menuItems: MenuItem[];
-    onClose(): void;
+    onClose: () => void;
 }
 
 const MobileMenu = ({ menuItems, onClose }: Props): ReactElement => {
