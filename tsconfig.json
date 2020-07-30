@@ -11,5 +11,6 @@
       "noUnusedLocals": false,
       "allowJs": true
     },
-    "exclude": ["node_modules", "public", ".cache"]
+    "exclude": ["node_modules", "public", ".cache"],
+    "include": ["src/custom-types/types.d.ts"]
   }
