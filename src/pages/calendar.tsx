@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
@@ -7,7 +7,6 @@ import moment from 'moment';
 
 import Layout from '../components/shared/layout/layout';
 import SEO from '../components/shared/seo';
-import Image from '../components/shared/image';
 
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
