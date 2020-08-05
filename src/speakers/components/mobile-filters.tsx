@@ -1,8 +1,7 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, Dispatch, ReactElement } from 'react';
 import classNames from 'classnames';
 
 import Box from '@material-ui/core/Box';
-import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import InputBase from '@material-ui/core/InputBase';
@@ -14,69 +13,20 @@ import FilterIcon from '../../../static/svg/filter.svg';
 
 import { ALL_STREAMS, Streams } from '../../constants/app';
 
-import { useSpeakersFiltersDispatch, useSpeakersFilterState } from '../contexts/filters';
+import { Filter } from '../../entities/entities';
+import './mobile-filters.css';
 
-const useStyles = makeStyles(() => ({
-    filterText: {
-        fontSize: '14px',
-        lineHeight: '16px',
-        color: '#6D7278',
-    },
+const MobileFilters = ({ setFilter }: { setFilter: Dispatch<Filter> }): ReactElement => {
+    const [eventType, setEventType] = useState(ALL_STREAMS);
+    const [searchStr, setSearchStr] = useState('');
 
-    filtersContainer: {
-        boxShadow: '0px -5px 20px #D1D1D1',
-        borderRadius: '10px 10px 0px 0px',
-        padding: '15px',
-    },
+    const handleSearchStrChange = useCallback(event => {
+        setSearchStr(event.target.value as string);
+    }, []);
 
-    modal: {
-        backgroundColor: 'rgba(0, 0, 0, 0.1)',
-    },
-
-    searchItemLabel: {
-        textTransform: 'uppercase',
-        color: '#000000',
-        fontSize: '14px',
-        lineHeight: '16px',
-        marginBottom: '5px',
-    },
-    searchInputWrapper: {
-        background: '#FFFFFF',
-        border: '1px solid #EFEFEF',
-        borderRadius: '7px',
-        fontSize: '14px',
-        lineHeight: '16px',
-    },
-    searchByNameInput: {
-        padding: '12px 10px',
-    },
-    streamSelectInput: {
-        padding: '12px 10px',
-        textTransform: 'uppercase',
-    },
-    dropdownItem: {
-        textTransform: 'uppercase',
-        fontSize: '14px',
-        lineHeight: '16px',
-    },
-    applyFiltersBtn: {
-        boxShadow: '5px 5px 12px rgba(51, 114, 223, 0.5)',
-        fontSize: '18px',
-    },
-    cancelBtn: {
-        color: '#BCBCBC',
-        fontSize: '18px',
-    },
-}));
-
-const MobileFilters = (): ReactElement => {
-    const classes = useStyles();
-
-    const filtersDispatch = useSpeakersFiltersDispatch();
-    const { eventType: initEventType, searchStr: initSearchStr } = useSpeakersFilterState();
-
-    const [searchStr, setSearchStr] = useState(initSearchStr);
-    const [eventType, setEventType] = useState(initEventType);
+    const handleEventTypeChange = useCallback(event => {
+        setEventType(event.target.value as string);
+    }, []);
 
     const [isFilterSectionVisible, setFilterSectionVisibility] = useState(false);
 
@@ -87,39 +37,24 @@ const MobileFilters = (): ReactElement => {
     const resetFilters = useCallback(() => {
         setSearchStr('');
         setEventType(ALL_STREAMS);
-
-        filtersDispatch({
-            type: 'reset',
-        });
-    }, []);
-
-    const handleSearchStrChange = useCallback(event => {
-        setSearchStr(event.target.value);
-    }, []);
-
-    const handleEventTypeChange = useCallback(event => {
-        setEventType(event.target.value);
     }, []);
 
     const handleApplyFiltersClick = useCallback(() => {
-        filtersDispatch({
-            type: 'setFilters',
-            payload: { eventType, searchStr },
-        });
+        setFilter({ searchStr: searchStr, eventType: eventType });
 
         setFilterSectionVisibility(false);
     }, [eventType, searchStr]);
 
-    const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
+    const iOS = typeof window !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
     return (
         <>
             <Box display="flex" justifyContent="space-between" padding="10px 0">
-                <Button classes={{ text: classes.filterText }} onClick={resetFilters}>
+                <Button classes={{ text: 'filterText' }} onClick={resetFilters}>
                     All speakers
                 </Button>
 
-                <Button className={classes.filterText} onClick={handleFiltersVisibilityChange}>
+                <Button className='filterText' onClick={handleFiltersVisibilityChange}>
                     <Box width="15px" height="15px" marginRight="10px">
                         <FilterIcon />
                     </Box>
@@ -135,24 +70,24 @@ const MobileFilters = (): ReactElement => {
                 disableBackdropTransition={!iOS}
                 disableDiscovery={iOS}
                 classes={{
-                    paperAnchorBottom: classes.filtersContainer,
+                    paperAnchorBottom: 'filtersContainer',
                 }}
                 ModalProps={{
                     BackdropProps: {
                         classes: {
-                            root: classes.modal,
+                            root: 'modal',
                         },
                     },
                 }}
             >
                 <Box marginBottom="25px">
-                    <InputLabel className={classes.searchItemLabel} htmlFor="searchByNameInput">
+                    <InputLabel className='searchItemLabel' htmlFor="searchByNameInput">
                         speaker full name
                     </InputLabel>
                     <InputBase
                         id="searchByNameInput"
-                        className={classNames(classes.searchInputWrapper)}
-                        classes={{ input: classes.searchByNameInput }}
+                        className={classNames('searchInputWrapper')}
+                        classes={{ input: 'searchByNameInput' }}
                         placeholder="Type any words to start search"
                         onChange={handleSearchStrChange}
                         value={searchStr}
@@ -161,7 +96,7 @@ const MobileFilters = (): ReactElement => {
                     />
                 </Box>
                 <Box>
-                    <InputLabel className={classes.searchItemLabel} htmlFor="searchByStreamSelect">
+                    <InputLabel className='searchItemLabel' htmlFor="searchByStreamSelect">
                         Stream
                     </InputLabel>
 
@@ -171,22 +106,22 @@ const MobileFilters = (): ReactElement => {
                         onChange={handleEventTypeChange}
                         input={
                             <InputBase
-                                className={classes.searchInputWrapper}
-                                classes={{ input: classes.streamSelectInput }}
+                                className='searchInputWrapper'
+                                classes={{ input: 'streamSelectInput' }}
                             />
                         }
                         fullWidth
                     >
-                        <MenuItem classes={{ root: classes.dropdownItem }} value={ALL_STREAMS}>
+                        <MenuItem classes={{ root: 'dropdownItem' }} value={ALL_STREAMS}>
                             All
                         </MenuItem>
-                        <MenuItem classes={{ root: classes.dropdownItem }} value={Streams.WEB}>
+                        <MenuItem classes={{ root: 'dropdownItem' }} value={Streams.WEB}>
                             Web Meetup
                         </MenuItem>
-                        <MenuItem classes={{ root: classes.dropdownItem }} value={Streams.MOBILE}>
+                        <MenuItem classes={{ root: 'dropdownItem' }} value={Streams.MOBILE}>
                             Mobile Meetup
                         </MenuItem>
-                        <MenuItem classes={{ root: classes.dropdownItem }} value={Streams.CLOUD}>
+                        <MenuItem classes={{ root: 'dropdownItem' }} value={Streams.CLOUD}>
                             Cloud Meetup
                         </MenuItem>
                     </Select>
@@ -195,7 +130,7 @@ const MobileFilters = (): ReactElement => {
                 <Box display="flex" justifyContent="space-around" marginTop="40px">
                     <Button
                         classes={{
-                            root: classes.applyFiltersBtn,
+                            root: 'applyFiltersBtn',
                         }}
                         variant="contained"
                         color="primary"
@@ -205,7 +140,7 @@ const MobileFilters = (): ReactElement => {
                     </Button>
                     <Button
                         classes={{
-                            root: classes.cancelBtn,
+                            root: 'cancelBtn',
                         }}
                         onClick={handleFiltersVisibilityChange}
                     >
