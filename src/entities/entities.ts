@@ -1,16 +1,16 @@
-import { FluidImage } from "../constants/prop-types";
+import { FluidImage } from '../constants/prop-types';
 
-interface SocialNetwork {
+export interface SocialNetwork {
     type: string;
     url: string;
 }
 
-interface Filter {
+export interface Filter {
     eventType: string;
     searchStr: string;
 }
 
-interface Speaker {
+export interface Speaker {
     id: string;
     name: string;
     company?: string;
@@ -19,5 +19,3 @@ interface Speaker {
     photo: typeof FluidImage;
     streams: string[];
 }
-
-export type {SocialNetwork, Filter, Speaker}
