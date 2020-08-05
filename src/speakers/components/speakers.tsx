@@ -18,11 +18,11 @@ import Stork from '../../../static/svg/stork.svg';
 import { ALL_STREAMS } from '../../constants/app';
 import { FluidImage } from '../../constants/prop-types';
 
-import { useSpeakersFilterState } from '../contexts/filters';
-
 import './speakers.scss';
+import { useStaticQuery, graphql } from 'gatsby';
+import { Speaker, Filter } from '../../entities/entities';
 
-const getCompanyInfo = (jobTitle, companyName): any => {
+const getCompanyInfo = (jobTitle: string, companyName: string): string => {
     if (!jobTitle && !companyName) {
         return null;
     }
@@ -34,28 +34,65 @@ const getCompanyInfo = (jobTitle, companyName): any => {
     return jobTitle || companyName;
 };
 
-interface SocialNetwork {
-    type: string;
-    url: string;
-}
 
-interface Speaker {
-    id: string;
-    name: string;
-    company?: string;
-    jobTitle?: string;
-    socialNetworks?: SocialNetwork[];
-    photo: typeof FluidImage;
-    streams: string[];
-}
 
-interface Speakers {
-    speakers: Speaker[];
-}
-
-const Speakers = ({ speakers }: Speakers): ReactElement => {
-    const { eventType, searchStr } = useSpeakersFilterState();
+const Speakers = ({ filter }: { filter: Filter }): ReactElement => {
+    const { eventType, searchStr } = filter;
     const [searchResults, setSearchResults] = useState([]);
+
+    const data = useStaticQuery(graphql`
+    {
+        markdownRemark(frontmatter: { templateKey: { eq: "speakers-page" } }) {
+            frontmatter {
+                pageTitle
+            }
+        }
+        allMarkdownRemark(
+            filter: { fields: { collection: { eq: "speakers" } } }
+            sort: { fields: [frontmatter___name], order: ASC }
+        ) {
+            edges {
+                node {
+                    id
+                    frontmatter {
+                        name
+                        company
+                        jobTitle
+                        photo {
+                            childImageSharp {
+                                fluid(maxWidth: 400) {
+                                    ...GatsbyImageSharpFluid
+                                }
+                            }
+                        }
+                        streams
+                        socialNetworks {
+                            type
+                            url
+                        }
+                    }
+                }
+            }
+        }
+    }
+    `);
+
+    const speakers: Speaker[] = data.allMarkdownRemark.edges.map(({ node }) => {
+        const {
+            frontmatter: { name, company, jobTitle, socialNetworks, photo, streams },
+            id,
+        } = node;
+
+        return {
+            id,
+            name,
+            company,
+            jobTitle,
+            socialNetworks,
+            photo,
+            streams,
+        };
+    });
 
     useEffect(() => {
         const results = speakers.filter(({ name, streams }) => {
@@ -71,20 +108,10 @@ const Speakers = ({ speakers }: Speakers): ReactElement => {
         });
 
         setSearchResults(results);
-    }, [speakers, searchStr, eventType]);
+    }, [searchStr, eventType]);
 
     return (
         <>
-            <Box className="filterWrapper">
-                <Hidden xsDown>
-                    <DesktopFilters />
-                </Hidden>
-
-                <Hidden smUp>
-                    <MobileFilters />
-                </Hidden>
-            </Box>
-
             <Grid classes={{ container: 'pageContainer' }} container spacing={3}>
                 {searchResults.map(({ id, name, company, jobTitle, socialNetworks, photo }) => {
                     const companyInfo = getCompanyInfo(jobTitle, company);
@@ -96,29 +123,29 @@ const Speakers = ({ speakers }: Speakers): ReactElement => {
                                     {photo ? (
                                         <Img className="speakerPhoto" fluid={photo.childImageSharp.fluid} />
                                     ) : (
-                                        <Box className="defaultSpeakerPhotoContainer">
-                                            <Box
-                                                display="flex"
-                                                flexDirection="column"
-                                                position="absolute"
-                                                width="100%"
-                                                height="100%"
-                                            >
-                                                <Box display="flex" justifyContent="flex-end">
-                                                    <Stork height="40" />
-                                                </Box>
-
+                                            <Box className="defaultSpeakerPhotoContainer">
                                                 <Box
                                                     display="flex"
-                                                    justifyContent="center"
-                                                    alignItems="center"
-                                                    flexGrow="1"
+                                                    flexDirection="column"
+                                                    position="absolute"
+                                                    width="100%"
+                                                    height="100%"
                                                 >
-                                                    <UserIcon height="155" />
+                                                    <Box display="flex" justifyContent="flex-end">
+                                                        <Stork height="40" />
+                                                    </Box>
+
+                                                    <Box
+                                                        display="flex"
+                                                        justifyContent="center"
+                                                        alignItems="center"
+                                                        flexGrow="1"
+                                                    >
+                                                        <UserIcon height="155" />
+                                                    </Box>
                                                 </Box>
                                             </Box>
-                                        </Box>
-                                    )}
+                                        )}
                                 </Link>
                             </div>
                             <Box display="flex" flexDirection="column" alignItems="center" m="10px">
