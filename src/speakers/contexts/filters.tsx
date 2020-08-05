@@ -11,8 +11,6 @@ interface Filter {
 }
 
 const SpeakersFilter = ({setFilter }: {setFilter: Dispatch<Filter> }): ReactElement => {
-    //const [state, dispatch] = useReducer(speakersFilterReducer, INIT_STATE);
-
     return (
         <Box className="filterWrapper">
             <Hidden xsDown>
@@ -20,7 +18,7 @@ const SpeakersFilter = ({setFilter }: {setFilter: Dispatch<Filter> }): ReactElem
             </Hidden>
 
             <Hidden smUp>
-                <MobileFilters />
+                <MobileFilters setFilter={setFilter} />
             </Hidden>
         </Box>
     );
