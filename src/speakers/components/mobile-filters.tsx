@@ -54,7 +54,7 @@ const MobileFilters = ({ setFilter }: { setFilter: Dispatch<Filter> }): ReactEle
                     All speakers
                 </Button>
 
-                <Button className='filterText' onClick={handleFiltersVisibilityChange}>
+                <Button className="filterText" onClick={handleFiltersVisibilityChange}>
                     <Box width="15px" height="15px" marginRight="10px">
                         <FilterIcon />
                     </Box>
@@ -81,7 +81,7 @@ const MobileFilters = ({ setFilter }: { setFilter: Dispatch<Filter> }): ReactEle
                 }}
             >
                 <Box marginBottom="25px">
-                    <InputLabel className='searchItemLabel' htmlFor="searchByNameInput">
+                    <InputLabel className="searchItemLabel" htmlFor="searchByNameInput">
                         speaker full name
                     </InputLabel>
                     <InputBase
@@ -96,7 +96,7 @@ const MobileFilters = ({ setFilter }: { setFilter: Dispatch<Filter> }): ReactEle
                     />
                 </Box>
                 <Box>
-                    <InputLabel className='searchItemLabel' htmlFor="searchByStreamSelect">
+                    <InputLabel className="searchItemLabel" htmlFor="searchByStreamSelect">
                         Stream
                     </InputLabel>
 
@@ -104,12 +104,7 @@ const MobileFilters = ({ setFilter }: { setFilter: Dispatch<Filter> }): ReactEle
                         id="searchByStreamSelect"
                         value={eventType}
                         onChange={handleEventTypeChange}
-                        input={
-                            <InputBase
-                                className='searchInputWrapper'
-                                classes={{ input: 'streamSelectInput' }}
-                            />
-                        }
+                        input={<InputBase className="searchInputWrapper" classes={{ input: 'streamSelectInput' }} />}
                         fullWidth
                     >
                         <MenuItem classes={{ root: 'dropdownItem' }} value={ALL_STREAMS}>

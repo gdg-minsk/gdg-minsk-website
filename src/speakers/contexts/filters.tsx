@@ -1,6 +1,5 @@
-import React, { useReducer, ReactElement, Dispatch, SetStateAction } from 'react';
+import React, { ReactElement, Dispatch } from 'react';
 
-import { ALL_STREAMS } from '../../constants/app';
 import { Box, Hidden } from '@material-ui/core';
 import DesktopFilters from '../components/desktop-filters';
 import MobileFilters from '../components/mobile-filters';
@@ -10,7 +9,7 @@ interface Filter {
     searchStr: string;
 }
 
-const SpeakersFilter = ({setFilter }: {setFilter: Dispatch<Filter> }): ReactElement => {
+const SpeakersFilter = ({ setFilter }: { setFilter: Dispatch<Filter> }): ReactElement => {
     return (
         <Box className="filterWrapper">
             <Hidden xsDown>

@@ -27,17 +27,14 @@ const DesktopFilters = ({ setFilter }: { setFilter: Dispatch<Filter> }): ReactEl
     }, [searchStr, eventType]);
 
     return (
-        <Box className='filterContainer'>
-            <Box className='searchByNameContainer'>
-                <InputLabel
-                    className='searchItemLabel searchOptionText'
-                    htmlFor="searchByNameInput"
-                >
+        <Box className="filterContainer">
+            <Box className="searchByNameContainer">
+                <InputLabel className="searchItemLabel searchOptionText" htmlFor="searchByNameInput">
                     speaker full name
                 </InputLabel>
                 <InputBase
                     id="searchByNameInput"
-                    className='searchInputWrapper searchOptionText'
+                    className="searchInputWrapper searchOptionText"
                     classes={{ input: 'searchByNameInput' }}
                     placeholder="Type any words to start search"
                     onChange={handleSearchStrChange}
@@ -48,10 +45,7 @@ const DesktopFilters = ({ setFilter }: { setFilter: Dispatch<Filter> }): ReactEl
             </Box>
 
             <Box display="flex" alignItems="center">
-                <InputLabel
-                    className='searchItemLabel searchOptionText'
-                    htmlFor="searchByStreamSelect"
-                >
+                <InputLabel className="searchItemLabel searchOptionText" htmlFor="searchByStreamSelect">
                     Stream
                 </InputLabel>
 
@@ -61,7 +55,7 @@ const DesktopFilters = ({ setFilter }: { setFilter: Dispatch<Filter> }): ReactEl
                     onChange={handleEventTypeChange}
                     input={
                         <InputBase
-                            className='searchInputWrapper searchOptionText'
+                            className="searchInputWrapper searchOptionText"
                             classes={{ input: 'streamSelectInput' }}
                         />
                     }
