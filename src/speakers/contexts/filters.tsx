@@ -3,11 +3,7 @@ import React, { ReactElement, Dispatch } from 'react';
 import { Box, Hidden } from '@material-ui/core';
 import DesktopFilters from '../components/desktop-filters';
 import MobileFilters from '../components/mobile-filters';
-
-interface Filter {
-    eventType: string;
-    searchStr: string;
-}
+import { Filter } from '../../entities/entities';
 
 const SpeakersFilter = ({ setFilter }: { setFilter: Dispatch<Filter> }): ReactElement => {
     return (
