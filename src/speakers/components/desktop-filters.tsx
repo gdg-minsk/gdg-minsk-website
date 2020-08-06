@@ -1,7 +1,6 @@
 import React, { useCallback, ReactElement, Dispatch, useState, useEffect } from 'react';
 
 import Box from '@material-ui/core/Box';
-import Select from '@material-ui/core/Select';
 import InputBase from '@material-ui/core/InputBase';
 import InputLabel from '@material-ui/core/InputLabel';
 
@@ -49,9 +48,7 @@ const DesktopFilters = ({ setFilter }: { setFilter: Dispatch<Filter> }): ReactEl
                     Stream
                 </InputLabel>
 
-                <FilterDropdown
-                    eventType={eventType}
-                    handleEventTypeChange={handleEventTypeChange} />
+                <FilterDropdown eventType={eventType} handleEventTypeChange={handleEventTypeChange} />
             </Box>
         </Box>
     );
