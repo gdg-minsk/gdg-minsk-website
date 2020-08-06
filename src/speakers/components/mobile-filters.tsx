@@ -2,7 +2,6 @@ import React, { useState, useCallback, Dispatch, ReactElement } from 'react';
 import classNames from 'classnames';
 
 import Box from '@material-ui/core/Box';
-import Select from '@material-ui/core/Select';
 import InputBase from '@material-ui/core/InputBase';
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
@@ -100,12 +99,10 @@ const MobileFilters = ({ setFilter }: { setFilter: Dispatch<Filter> }): ReactEle
                         Stream
                     </InputLabel>
 
-                    <FilterDropdown
-                        eventType={eventType}
-                        handleEventTypeChange={handleEventTypeChange} />
+                    <FilterDropdown eventType={eventType} handleEventTypeChange={handleEventTypeChange} />
                 </Box>
 
-                <Box className='buttonBox'>
+                <Box className="buttonBox">
                     <Button
                         classes={{
                             root: 'applyFiltersBtn',
