@@ -10,10 +10,6 @@
     background: #fff;
     padding: 15px 20px;
 }
-.searchOptionText {
-    font-size: 14px;
-    line-height: 16px;
-}
 .searchItemLabel{
     text-transform: uppercase;
     color: #000000;
@@ -26,23 +22,8 @@
     flex-grow: 1;
     margin-right: 40px;
 }
-.searchInputWrapper {
-    background: #FFFFFF;
-    border: 1px solid #EFEFEF;
-    border-radius: 5px;
-}
-.streamSelectInput {
-    padding: 12px 10px;
-    min-width: 150px;
-    text-transform: uppercase;
-}
 .searchByNameInput {
     padding: 12px 10px;
-}
-.dropdownItem {
-    text-transform: uppercase;
-    font-size: 14px;
-    line-height: 16px;
 }
 .filterText {
     font-size: 14px;

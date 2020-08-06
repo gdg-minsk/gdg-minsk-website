@@ -1,14 +1,14 @@
 import React, { useCallback, ReactElement, Dispatch, useState, useEffect } from 'react';
 
 import Box from '@material-ui/core/Box';
-import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import InputBase from '@material-ui/core/InputBase';
 import InputLabel from '@material-ui/core/InputLabel';
 
-import { Streams, ALL_STREAMS } from '../../constants/app';
+import { ALL_STREAMS } from '../../constants/app';
 import { Filter } from '../../entities/entities';
 import './desktop-filters.scss';
+import FilterDropdown from './filter-menu-items';
 
 const DesktopFilters = ({ setFilter }: { setFilter: Dispatch<Filter> }): ReactElement => {
     const [eventType, setEventType] = useState(ALL_STREAMS);
@@ -49,31 +49,9 @@ const DesktopFilters = ({ setFilter }: { setFilter: Dispatch<Filter> }): ReactEl
                     Stream
                 </InputLabel>
 
-                <Select
-                    id="searchByStreamSelect"
-                    value={eventType}
-                    onChange={handleEventTypeChange}
-                    input={
-                        <InputBase
-                            className="searchInputWrapper searchOptionText"
-                            classes={{ input: 'streamSelectInput' }}
-                        />
-                    }
-                    fullWidth
-                >
-                    <MenuItem classes={{ root: 'dropdownItem' }} value={ALL_STREAMS}>
-                        All
-                    </MenuItem>
-                    <MenuItem classes={{ root: 'dropdownItem' }} value={Streams.WEB}>
-                        Web Meetup
-                    </MenuItem>
-                    <MenuItem classes={{ root: 'dropdownItem' }} value={Streams.MOBILE}>
-                        Mobile Meetup
-                    </MenuItem>
-                    <MenuItem classes={{ root: 'dropdownItem' }} value={Streams.CLOUD}>
-                        Cloud Meetup
-                    </MenuItem>
-                </Select>
+                <FilterDropdown
+                    eventType={eventType}
+                    handleEventTypeChange={handleEventTypeChange} />
             </Box>
         </Box>
     );

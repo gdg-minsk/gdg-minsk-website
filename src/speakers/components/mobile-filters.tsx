@@ -2,7 +2,6 @@ import React, { useState, useCallback, Dispatch, ReactElement } from 'react';
 import classNames from 'classnames';
 
 import Box from '@material-ui/core/Box';
-import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import InputBase from '@material-ui/core/InputBase';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -11,10 +10,11 @@ import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 
 import FilterIcon from '../../../static/svg/filter.svg';
 
-import { ALL_STREAMS, Streams } from '../../constants/app';
+import { ALL_STREAMS } from '../../constants/app';
 
 import { Filter } from '../../entities/entities';
 import './mobile-filters.css';
+import FilterDropdown from './filter-menu-items';
 
 const MobileFilters = ({ setFilter }: { setFilter: Dispatch<Filter> }): ReactElement => {
     const [eventType, setEventType] = useState(ALL_STREAMS);
@@ -100,29 +100,12 @@ const MobileFilters = ({ setFilter }: { setFilter: Dispatch<Filter> }): ReactEle
                         Stream
                     </InputLabel>
 
-                    <Select
-                        id="searchByStreamSelect"
-                        value={eventType}
-                        onChange={handleEventTypeChange}
-                        input={<InputBase className="searchInputWrapper" classes={{ input: 'streamSelectInput' }} />}
-                        fullWidth
-                    >
-                        <MenuItem classes={{ root: 'dropdownItem' }} value={ALL_STREAMS}>
-                            All
-                        </MenuItem>
-                        <MenuItem classes={{ root: 'dropdownItem' }} value={Streams.WEB}>
-                            Web Meetup
-                        </MenuItem>
-                        <MenuItem classes={{ root: 'dropdownItem' }} value={Streams.MOBILE}>
-                            Mobile Meetup
-                        </MenuItem>
-                        <MenuItem classes={{ root: 'dropdownItem' }} value={Streams.CLOUD}>
-                            Cloud Meetup
-                        </MenuItem>
-                    </Select>
+                    <FilterDropdown
+                        eventType={eventType}
+                        handleEventTypeChange={handleEventTypeChange} />
                 </Box>
 
-                <Box display="flex" justifyContent="space-around" marginTop="40px">
+                <Box className='buttonBox'>
                     <Button
                         classes={{
                             root: 'applyFiltersBtn',
