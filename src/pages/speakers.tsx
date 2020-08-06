@@ -32,7 +32,7 @@ const SpeakersPage = (): ReactElement => {
     return (
         <Layout>
             <SEO title={data.markdownRemark.frontmatter.pageTitle} />
-            <SpeakersFilter setFilter={setFilter} />
+            <SpeakersFilter filter={filter} setFilter={setFilter} />
             <Speakers filter={filter} />
         </Layout>
     );
