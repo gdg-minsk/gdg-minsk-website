@@ -1,4 +1,4 @@
-import React, { useState, useCallback, Dispatch, ReactElement } from 'react';
+import React, { useState, useCallback, Dispatch, ReactElement, SetStateAction } from 'react';
 import classNames from 'classnames';
 
 import Box from '@material-ui/core/Box';
@@ -9,22 +9,26 @@ import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 
 import FilterIcon from '../../../static/svg/filter.svg';
 
-import { ALL_STREAMS } from '../../constants/app';
-
 import { Filter } from '../../entities/entities';
 import './mobile-filters.css';
 import FilterDropdown from './filter-menu-items';
 
-const MobileFilters = ({ setFilter }: { setFilter: Dispatch<Filter> }): ReactElement => {
-    const [eventType, setEventType] = useState(ALL_STREAMS);
-    const [searchStr, setSearchStr] = useState('');
+const MobileFilters = ({
+    filter,
+    setFilter,
+}: {
+    filter: Filter;
+    setFilter: Dispatch<SetStateAction<Filter>>;
+}): ReactElement => {
+    const [{ eventType, searchStr }, setTempState] = useState(filter);
 
     const handleSearchStrChange = useCallback(event => {
-        setSearchStr(event.target.value as string);
+        const str = event.target.value as string;
+        setTempState(state => ({ searchStr: str, eventType: state.eventType }));
     }, []);
 
     const handleEventTypeChange = useCallback(event => {
-        setEventType(event.target.value as string);
+        setTempState(state => ({ eventType: event.target.value as string, searchStr: state.searchStr }));
     }, []);
 
     const [isFilterSectionVisible, setFilterSectionVisibility] = useState(false);
@@ -34,8 +38,7 @@ const MobileFilters = ({ setFilter }: { setFilter: Dispatch<Filter> }): ReactEle
     }, [isFilterSectionVisible]);
 
     const resetFilters = useCallback(() => {
-        setSearchStr('');
-        setEventType(ALL_STREAMS);
+        setTempState(filter);
     }, []);
 
     const handleApplyFiltersClick = useCallback(() => {

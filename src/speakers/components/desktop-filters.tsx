@@ -22,6 +22,7 @@ const DesktopFilters = ({
     const handleEventTypeChange = useCallback(event => {
         setFilter(filterState => ({ searchStr: filterState.searchStr, eventType: event.target.value as string }));
     }, []);
+
     return (
         <Box className="filterContainer">
             <Box className="searchByNameContainer">
