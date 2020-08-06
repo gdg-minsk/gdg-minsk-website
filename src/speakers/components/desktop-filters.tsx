@@ -1,30 +1,27 @@
-import React, { useCallback, ReactElement, Dispatch, useState, useEffect } from 'react';
+import React, { useCallback, ReactElement, Dispatch, SetStateAction } from 'react';
 
 import Box from '@material-ui/core/Box';
 import InputBase from '@material-ui/core/InputBase';
 import InputLabel from '@material-ui/core/InputLabel';
 
-import { ALL_STREAMS } from '../../constants/app';
 import { Filter } from '../../entities/entities';
 import './desktop-filters.scss';
 import FilterDropdown from './filter-menu-items';
 
-const DesktopFilters = ({ setFilter }: { setFilter: Dispatch<Filter> }): ReactElement => {
-    const [eventType, setEventType] = useState(ALL_STREAMS);
-    const [searchStr, setSearchStr] = useState('');
-
+const DesktopFilters = ({
+    filter,
+    setFilter,
+}: {
+    filter: Filter;
+    setFilter: Dispatch<SetStateAction<Filter>>;
+}): ReactElement => {
     const handleSearchStrChange = useCallback(event => {
-        setSearchStr(event.target.value as string);
+        setFilter(filterState => ({ searchStr: event.target.value as string, eventType: filterState.eventType }));
     }, []);
 
     const handleEventTypeChange = useCallback(event => {
-        setEventType(event.target.value as string);
+        setFilter(filterState => ({ searchStr: filterState.searchStr, eventType: event.target.value as string }));
     }, []);
-
-    useEffect(() => {
-        setFilter({ searchStr: searchStr, eventType: eventType });
-    }, [searchStr, eventType]);
-
     return (
         <Box className="filterContainer">
             <Box className="searchByNameContainer">
@@ -37,7 +34,7 @@ const DesktopFilters = ({ setFilter }: { setFilter: Dispatch<Filter> }): ReactEl
                     classes={{ input: 'searchByNameInput' }}
                     placeholder="Type any words to start search"
                     onChange={handleSearchStrChange}
-                    value={searchStr}
+                    value={filter.searchStr}
                     inputProps={{ 'aria-label': 'search by name' }}
                     fullWidth
                 />
@@ -48,7 +45,7 @@ const DesktopFilters = ({ setFilter }: { setFilter: Dispatch<Filter> }): ReactEl
                     Stream
                 </InputLabel>
 
-                <FilterDropdown eventType={eventType} handleEventTypeChange={handleEventTypeChange} />
+                <FilterDropdown eventType={filter.eventType} handleEventTypeChange={handleEventTypeChange} />
             </Box>
         </Box>
     );

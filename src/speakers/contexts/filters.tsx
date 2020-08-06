@@ -1,15 +1,21 @@
-import React, { ReactElement, Dispatch } from 'react';
+import React, { ReactElement, Dispatch, SetStateAction } from 'react';
 
 import { Box, Hidden } from '@material-ui/core';
 import DesktopFilters from '../components/desktop-filters';
 import MobileFilters from '../components/mobile-filters';
 import { Filter } from '../../entities/entities';
 
-const SpeakersFilter = ({ setFilter }: { setFilter: Dispatch<Filter> }): ReactElement => {
+const SpeakersFilter = ({
+    filter,
+    setFilter,
+}: {
+    filter: Filter;
+    setFilter: Dispatch<SetStateAction<Filter>>;
+}): ReactElement => {
     return (
         <Box className="filterWrapper">
             <Hidden xsDown>
-                <DesktopFilters setFilter={setFilter} />
+                <DesktopFilters filter={filter} setFilter={setFilter} />
             </Hidden>
 
             <Hidden smUp>
