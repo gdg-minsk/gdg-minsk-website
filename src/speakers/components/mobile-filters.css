@@ -21,24 +21,8 @@
     line-height: 16px;
     margin-bottom: 5px;
 }
-.searchInputWrapper {
-    background: #FFFFFF;
-    border: 1px solid #EFEFEF;
-    border-radius: 7px;
-    font-size: 14px;
-    line-height: 16px;
-}
 .searchByNameInput {
     padding: 12px 10px;
-}
-.streamSelectInput {
-    padding: 12px 10px;
-    text-transform: uppercase;
-}
-.dropdownItem {
-    text-transform: uppercase;
-    font-size: 14px;
-    line-height: 16px;
 }
 .applyFiltersBtn {
     box-shadow: 5px 5px 12px rgba(51 114 223 0.5);
@@ -47,4 +31,9 @@
 .cancelBtn {
     color: #BCBCBC;
     font-size: 18px;
+}
+.buttonBox{
+    display:flex;
+    justify-content:space-around;
+    margin-top:40px;
 }
