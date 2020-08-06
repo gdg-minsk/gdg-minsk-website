@@ -19,7 +19,7 @@ const SpeakersFilter = ({
             </Hidden>
 
             <Hidden smUp>
-                <MobileFilters setFilter={setFilter} />
+                <MobileFilters filter={filter} setFilter={setFilter} />
             </Hidden>
         </Box>
     );
