@@ -6,6 +6,7 @@ import SEO from '../components/shared/seo';
 import { EventFilter, ListItem } from '../entities/entities';
 import streams from '../constants/streams';
 import EventsFilter from '../events/components/eventsFilter';
+import Events from '../events/components/events';
 
 const INIT_STATE: EventFilter = {
     stream: { current: streams[0], options: streams },
@@ -54,6 +55,7 @@ const EventPage = (): ReactElement => {
         <Layout>
             <SEO title={data.markdownRemark.frontmatter.pageTitle} />
             <EventsFilter filter={filter} setFilter={setFilter} />
+            <Events filter={filter} />
         </Layout>
     );
 };

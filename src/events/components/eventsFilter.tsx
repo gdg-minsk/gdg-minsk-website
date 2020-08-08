@@ -10,7 +10,7 @@ const EventsFilter = ({
     setFilter,
 }: {
     filter: EventFilter;
-    setFilter: Dispatch<SetStateAction<v>>;
+    setFilter: Dispatch<SetStateAction<EventFilter>>;
 }): ReactElement => {
     return (
         <Box className="filterWrapper">

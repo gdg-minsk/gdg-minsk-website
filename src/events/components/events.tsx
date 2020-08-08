@@ -7,47 +7,27 @@ import Box from '@material-ui/core/Box';
 
 import Link from '../../components/shared/link';
 
-import getSocialMediaIcon from '../../tools/social-media';
-
 import UserIcon from '../../../static/svg/user.svg';
 import Stork from '../../../static/svg/stork.svg';
 
 import { ALL_STREAMS } from '../../constants/streams';
 
-import './speakers.scss';
+import './events.scss';
 import { useStaticQuery, graphql } from 'gatsby';
-import { Speaker, SpeakerFilter } from '../../entities/entities';
+import { CommunityEvent, EventFilter } from '../../entities/entities';
 
-const getCompanyInfo = (jobTitle: string, companyName: string): string => {
-    if (!jobTitle && !companyName) {
-        return null;
-    }
-
-    if (jobTitle && companyName) {
-        return `${jobTitle}@${companyName}`;
-    }
-
-    return jobTitle || companyName;
-};
-
-const Speakers = ({ filter }: { filter: SpeakerFilter }): ReactElement => {
-    const {
-        stream: {
-            current: { title: currentStream },
-        },
-        searchStr,
-    } = filter;
+const Events = ({ filter }: { filter: EventFilter }): ReactElement => {
     const [searchResults, setSearchResults] = useState([]);
 
     const data = useStaticQuery(graphql`
         {
-            markdownRemark(frontmatter: { templateKey: { eq: "speakers-page" } }) {
+            markdownRemark(frontmatter: { templateKey: { eq: "events-page" } }) {
                 frontmatter {
                     pageTitle
                 }
             }
             allMarkdownRemark(
-                filter: { fields: { collection: { eq: "speakers" } } }
+                filter: { fields: { collection: { eq: "events" } } }
                 sort: { fields: [frontmatter___name], order: ASC }
             ) {
                 edges {
@@ -55,8 +35,10 @@ const Speakers = ({ filter }: { filter: SpeakerFilter }): ReactElement => {
                         id
                         frontmatter {
                             name
-                            company
-                            jobTitle
+                            date
+                            speaker
+                            description
+                            place
                             photo {
                                 childImageSharp {
                                     fluid(maxWidth: 400) {
@@ -64,11 +46,7 @@ const Speakers = ({ filter }: { filter: SpeakerFilter }): ReactElement => {
                                     }
                                 }
                             }
-                            streams
-                            socialNetworks {
-                                type
-                                url
-                            }
+                            stream
                         }
                     }
                 }
@@ -76,47 +54,57 @@ const Speakers = ({ filter }: { filter: SpeakerFilter }): ReactElement => {
         }
     `);
 
-    const speakers: Speaker[] = data.allMarkdownRemark.edges.map(({ node }) => {
-        const {
-            frontmatter: { name, company, jobTitle, socialNetworks, photo, streams },
-            id,
-        } = node;
+    const events: CommunityEvent[] = data.allMarkdownRemark.edges.map(
+        ({ node }): CommunityEvent => {
+            const {
+                frontmatter: { name, date, speaker, description, photo, stream, place },
+                id,
+            } = node;
 
-        return {
-            id,
-            name,
-            company,
-            jobTitle,
-            socialNetworks,
-            photo,
-            streams,
-        };
-    });
+            return {
+                id,
+                name,
+                date,
+                description,
+                speaker,
+                photo,
+                stream,
+                place,
+            };
+        },
+    );
 
     useEffect(() => {
-        const results = speakers.filter(({ name, streams }: Speaker) => {
-            if (currentStream === ALL_STREAMS) {
-                return name.toLowerCase().includes(searchStr.toLowerCase());
+        const results = events.filter(({ name, description, stream, speaker }: CommunityEvent) => {
+            let included = true;
+            if (filter.searchStr !== '') {
+                included =
+                    included &&
+                    (name.toLowerCase().includes(filter.searchStr.toLowerCase()) ||
+                        description.toLowerCase().includes(filter.searchStr.toLowerCase()));
             }
-
-            return name.toLowerCase().includes(searchStr.toLowerCase()) && streams.includes(currentStream);
+            if (filter.stream.current.value !== ALL_STREAMS) {
+                included = included && stream === filter.stream.current.title;
+            }
+            if (filter.speaker.current.value !== '') {
+                included = included && speaker.id === filter.speaker.current.value;
+            }
+            return included;
         });
 
         setSearchResults(results);
-    }, [searchStr, currentStream]);
+    }, [filter.searchStr, filter.stream.current, filter.speaker.current]);
 
     return (
         <>
             <Grid classes={{ container: 'pageContainer' }} container spacing={3}>
-                {searchResults.map(({ id, name, company, jobTitle, socialNetworks, photo }) => {
-                    const companyInfo = getCompanyInfo(jobTitle, company);
-
+                {searchResults.map(({ id, name, date, description, speaker, photo, stream }: CommunityEvent) => {
                     return (
                         <Grid className="speakerContainer" key={id} item>
                             <div className="speakerPhotoContainer">
-                                <Link to="/speaker">
+                                <Link to="/event">
                                     {photo ? (
-                                        <Img className="speakerPhoto" fluid={photo.childImageSharp.fluid} />
+                                        <Img className="speakerPhoto" fluid={(photo as any).childImageSharp.fluid} />
                                     ) : (
                                         <Box className="defaultSpeakerPhotoContainer">
                                             <Box
@@ -147,21 +135,10 @@ const Speakers = ({ filter }: { filter: SpeakerFilter }): ReactElement => {
                                 <Link className="speakerName" to="/" underline="none">
                                     {name}
                                 </Link>
-                                {companyInfo && <span className="companyInfo">{companyInfo}</span>}
-
-                                {socialNetworks && (
-                                    <Box display="flex" flexWrap="wrap">
-                                        {socialNetworks.map(({ type, url }) => {
-                                            const Icon = getSocialMediaIcon(type);
-
-                                            return (
-                                                <Link className="socialIcon" to={url} target="blank" key={type}>
-                                                    <Icon />
-                                                </Link>
-                                            );
-                                        })}
-                                    </Box>
-                                )}
+                                {date && <span className="speakerInfo">{date}</span>}
+                                {description && <span className="companyInfo">{description}</span>}
+                                {speaker && <span className="speakerInfo">{speaker.name}</span>}
+                                {stream && <span className="speakerInfo">{stream}</span>}
                             </Box>
                         </Grid>
                     );
@@ -171,4 +148,4 @@ const Speakers = ({ filter }: { filter: SpeakerFilter }): ReactElement => {
     );
 };
 
-export default Speakers;
+export default Events;

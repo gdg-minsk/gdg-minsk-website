@@ -35,3 +35,14 @@ export interface Speaker {
     photo: typeof FluidImage;
     streams: string[];
 }
+
+export interface CommunityEvent {
+    id: string;
+    name: string;
+    description: string;
+    place?: string;
+    date?: Date;
+    speaker?: Speaker;
+    photo: typeof FluidImage;
+    stream: string;
+}

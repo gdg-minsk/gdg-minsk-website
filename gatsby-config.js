@@ -120,6 +120,6 @@ module.exports = {
             },
         },
         'gatsby-plugin-typescript',
-        'gatsby-plugin-sass'
+        'gatsby-plugin-sass',
     ],
 };
