@@ -1,38 +1,61 @@
-import React, { ReactElement } from 'react';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
+import React, { ReactElement, useState } from 'react';
+import { useStaticQuery, graphql } from 'gatsby';
 
 import Layout from '../components/shared/layout/layout';
 import SEO from '../components/shared/seo';
-import Image from '../components/shared/image';
+import { EventFilter, ListItem } from '../entities/entities';
+import streams from '../constants/streams';
+import EventsFilter from '../events/components/eventsFilter';
 
-const EventPage = (): ReactElement => (
-    <Layout
-        parallaxContent={
-            <h1 style={{ color: 'red' }}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tincidunt feugiat massa, ut ornare
-                tortor suscipit quis. Mauris mollis mauris quis lacus pellentesque, non hendrerit odio consectetur.
-                Vestibulum nec nisi sed urna egestas rhoncus et nec tellus. Praesent sit amet cursus metus. Sed tortor
-                nulla, vehicula eget consequat nec, consectetur et ligula. Sed pretium ex felis, in dapibus nunc
-            </h1>
+const INIT_STATE: EventFilter = {
+    stream: { current: streams[0], options: streams },
+    speaker: { current: { value: '', title: '' }, options: [] },
+    searchStr: '',
+};
+
+const EventPage = (): ReactElement => {
+    const data = useStaticQuery(graphql`
+        {
+            markdownRemark(frontmatter: { templateKey: { eq: "events-page" } }) {
+                frontmatter {
+                    pageTitle
+                }
+            }
+            allMarkdownRemark(
+                filter: { fields: { collection: { eq: "speakers" } } }
+                sort: { fields: [frontmatter___name], order: ASC }
+            ) {
+                edges {
+                    node {
+                        id
+                        frontmatter {
+                            name
+                        }
+                    }
+                }
+            }
         }
-        bannerImages={[
-            {
-                image: '/img/gdg-stickers.jpg',
-                amount: 0.4,
-            },
-        ]}
-    >
-        <SEO title="Events" />
+    `);
 
-        <Typography gutterBottom variant="h1" component="h1">
-            Events
-        </Typography>
+    const speakers: ListItem[] = data.allMarkdownRemark.edges.map(
+        ({ node }): ListItem => {
+            const {
+                frontmatter: { name },
+                id,
+            } = node;
+            return { value: id, title: name };
+        },
+    );
 
-        <Box style={{ maxWidth: `800px`, width: '100%', marginBottom: `1.45rem` }}>
-            <Image />
-        </Box>
-    </Layout>
-);
+    INIT_STATE.speaker.options = speakers;
+    const [filter, setFilter] = useState(INIT_STATE);
+
+    return (
+        <Layout>
+            <SEO title={data.markdownRemark.frontmatter.pageTitle} />
+            <EventsFilter filter={filter} setFilter={setFilter} />
+        </Layout>
+    );
+};
 
 export default EventPage;

@@ -12,11 +12,11 @@ import getSocialMediaIcon from '../../tools/social-media';
 import UserIcon from '../../../static/svg/user.svg';
 import Stork from '../../../static/svg/stork.svg';
 
-import { ALL_STREAMS } from '../../constants/app';
+import { ALL_STREAMS } from '../../constants/streams';
 
 import './speakers.scss';
 import { useStaticQuery, graphql } from 'gatsby';
-import { Speaker, Filter } from '../../entities/entities';
+import { Speaker, SpeakerFilter } from '../../entities/entities';
 
 const getCompanyInfo = (jobTitle: string, companyName: string): string => {
     if (!jobTitle && !companyName) {
@@ -30,8 +30,13 @@ const getCompanyInfo = (jobTitle: string, companyName: string): string => {
     return jobTitle || companyName;
 };
 
-const Speakers = ({ filter }: { filter: Filter }): ReactElement => {
-    const { eventType, searchStr } = filter;
+const Speakers = ({ filter }: { filter: SpeakerFilter }): ReactElement => {
+    const {
+        stream: {
+            current: { title: currentStream },
+        },
+        searchStr,
+    } = filter;
     const [searchResults, setSearchResults] = useState([]);
 
     const data = useStaticQuery(graphql`
@@ -90,7 +95,7 @@ const Speakers = ({ filter }: { filter: Filter }): ReactElement => {
 
     useEffect(() => {
         const results = speakers.filter(({ name, streams }) => {
-            if (eventType === ALL_STREAMS) {
+            if (currentStream === ALL_STREAMS) {
                 return name.toLowerCase().includes(searchStr.toLowerCase());
             }
 
@@ -98,11 +103,11 @@ const Speakers = ({ filter }: { filter: Filter }): ReactElement => {
                 return false;
             }
 
-            return name.toLowerCase().includes(searchStr.toLowerCase()) && streams.includes(eventType);
+            return name.toLowerCase().includes(searchStr.toLowerCase()) && streams.includes(currentStream);
         });
 
         setSearchResults(results);
-    }, [searchStr, eventType]);
+    }, [searchStr, currentStream]);
 
     return (
         <>

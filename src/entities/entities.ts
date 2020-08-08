@@ -1,12 +1,28 @@
 import { FluidImage } from '../constants/prop-types';
 
+export interface ListItem {
+    title: string;
+    value: string;
+}
+
+export interface FilterItem {
+    current: ListItem;
+    options: ListItem[];
+}
+
 export interface SocialNetwork {
     type: string;
     url: string;
 }
 
-export interface Filter {
-    eventType: string;
+export interface SpeakerFilter {
+    stream: FilterItem;
+    searchStr: string;
+}
+
+export interface EventFilter {
+    speaker: FilterItem;
+    stream: FilterItem;
     searchStr: string;
 }
 

@@ -3,14 +3,14 @@ import React, { ReactElement, Dispatch, SetStateAction } from 'react';
 import { Box, Hidden } from '@material-ui/core';
 import DesktopFilters from '../components/desktop-filters';
 import MobileFilters from '../components/mobile-filters';
-import { Filter } from '../../entities/entities';
+import { EventFilter } from '../../entities/entities';
 
-const SpeakersFilter = ({
+const EventsFilter = ({
     filter,
     setFilter,
 }: {
-    filter: Filter;
-    setFilter: Dispatch<SetStateAction<Filter>>;
+    filter: EventFilter;
+    setFilter: Dispatch<SetStateAction<v>>;
 }): ReactElement => {
     return (
         <Box className="filterWrapper">
@@ -25,4 +25,4 @@ const SpeakersFilter = ({
     );
 };
 
-export { SpeakersFilter };
+export default EventsFilter;

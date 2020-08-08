@@ -1,15 +1,15 @@
 {
     "compilerOptions": {
-      "module": "commonjs",
-      "target": "es2017",
-      "jsx": "react",
-      "lib": ["dom", "es2017"],
-      "strict": false,
-      "noEmit": true,
-      "isolatedModules": true,
-      "esModuleInterop": true,
-      "noUnusedLocals": false,
-      "allowJs": true
+        "module": "commonjs",
+        "target": "es2017",
+        "jsx": "react",
+        "lib": ["dom", "es2017"],
+        "strict": false,
+        "noEmit": true,
+        "isolatedModules": true,
+        "esModuleInterop": true,
+        "noUnusedLocals": false,
+        "allowJs": true
     },
     "exclude": ["node_modules", "public", ".cache"]
-  }
+}
