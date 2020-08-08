@@ -65,6 +65,7 @@ collections:
         - { label: 'Template Key', name: 'templateKey', widget: 'hidden', default: 'event' }
         - { label: 'Name', name: 'name', widget: 'string' }
         - { label: 'Date', name: 'date', widget: 'datetime', default: '', timeFormat: "HH:mm", dateFormat: "YYYY-MM-DD", format: "LLL" }
+        - { label: 'Speaker', name: 'speaker', widget: 'relation', collection: 'speakers', valueField: 'name', searchFields: 'name' }
         - { label: 'Description', name: 'description', widget: 'string' }
         - { label: 'Place', name: 'place', widget: 'string', required: false }
         - { label: 'Url', name: 'url', widget: 'string' }
