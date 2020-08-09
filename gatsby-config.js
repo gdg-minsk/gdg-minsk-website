@@ -44,6 +44,13 @@ module.exports = {
             },
         },
         {
+            resolve: `gatsby-source-filesystem`,
+            options: {
+                path: `${__dirname}/data/events`,
+                name: `events`,
+            },
+        },
+        {
             resolve: 'gatsby-source-filesystem',
             options: {
                 path: `${__dirname}/data/pages`,
@@ -113,6 +120,6 @@ module.exports = {
             },
         },
         'gatsby-plugin-typescript',
-        'gatsby-plugin-sass'
+        'gatsby-plugin-sass',
     ],
 };

@@ -9,7 +9,7 @@ import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 
 import FilterIcon from '../../../static/svg/filter.svg';
 
-import { SpeakerFilter } from '../../entities/entities';
+import { EventFilter } from '../../entities/entities';
 import './mobile-filters.css';
 import FilterDropdown from '../../components/shared/filtering/filterDropDown';
 
@@ -17,8 +17,8 @@ const MobileFilters = ({
     filter,
     setFilter,
 }: {
-    filter: SpeakerFilter;
-    setFilter: Dispatch<SetStateAction<SpeakerFilter>>;
+    filter: EventFilter;
+    setFilter: Dispatch<SetStateAction<EventFilter>>;
 }): ReactElement => {
     const [state, setTempState] = useState(filter);
 
@@ -37,6 +37,17 @@ const MobileFilters = ({
         }));
     }, []);
 
+    const handleSpeakerChange = useCallback(event => {
+        const selected = event.target.value as string;
+        setTempState(filterState => ({
+            ...filterState,
+            speaker: {
+                ...filterState.speaker,
+                current: filterState.speaker.options.find(item => item.value === selected),
+            },
+        }));
+    }, []);
+
     const [isFilterSectionVisible, setFilterSectionVisibility] = useState(false);
 
     const handleFiltersVisibilityChange = useCallback(() => {
@@ -50,7 +61,7 @@ const MobileFilters = ({
     const handleApplyFiltersClick = useCallback(() => {
         setFilter(state);
         setFilterSectionVisibility(false);
-    }, [state.searchStr, state.stream.current]);
+    }, [state.searchStr, state.stream.current, state.speaker.current]);
 
     const iOS = typeof window !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
@@ -58,7 +69,7 @@ const MobileFilters = ({
         <>
             <Box display="flex" justifyContent="space-between" padding="10px 0">
                 <Button classes={{ text: 'filterText' }} onClick={resetFilters}>
-                    All speakers
+                    All events
                 </Button>
 
                 <Button className="filterText" onClick={handleFiltersVisibilityChange}>
@@ -111,6 +122,17 @@ const MobileFilters = ({
                         value={filter.stream.current.value}
                         onValueChange={handleStreamChange}
                         items={filter.stream.options}
+                    />
+                </Box>
+                <Box>
+                    <InputLabel className="searchItemLabel" htmlFor="searchByStreamSelect">
+                        Speaker
+                    </InputLabel>
+
+                    <FilterDropdown
+                        value={filter.speaker.current.value}
+                        onValueChange={handleSpeakerChange}
+                        items={filter.speaker.options}
                     />
                 </Box>
 

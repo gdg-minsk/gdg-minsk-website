@@ -7,12 +7,12 @@ import SEO from '../components/shared/seo';
 
 import Speakers from '../speakers/components/speakers';
 
-import { SpeakersFilter } from '../speakers/contexts/filters';
-import { ALL_STREAMS } from '../constants/app';
-import { Filter } from '../entities/entities';
+import { SpeakersFilter } from '../speakers/components/speakersFilters';
+import { SpeakerFilter } from '../entities/entities';
+import streams from '../constants/streams';
 
-const INIT_STATE: Filter = {
-    eventType: ALL_STREAMS,
+const INIT_STATE: SpeakerFilter = {
+    stream: { current: streams[0], options: streams },
     searchStr: '',
 };
 

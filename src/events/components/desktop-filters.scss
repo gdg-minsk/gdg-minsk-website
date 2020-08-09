@@ -1,0 +1,40 @@
+.filterContainer {
+    display: flex;
+    box-shadow: 5px 5px 20px #D1D1D1;
+    border-radius: 10px;
+    margin: 20px 0;
+    position: sticky;
+    top: 70px;
+    width: 100%;
+    z-index: 10;
+    background: #fff;
+    padding: 15px 20px;
+}
+.searchItemLabel{
+    text-transform: uppercase;
+    color: #000000;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+.searchByNameContainer {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    margin-right: 40px;
+}
+.searchByNameInput {
+    padding: 12px 10px;
+}
+.filterText {
+    font-size: 14px;
+    line-height: 16px;
+    color: #6D7278;
+}
+@media (max-width: 800px) {
+    .filterContainer {
+        flex-direction: column;
+    }
+    .searchByNameContainer {
+        margin: 0 0 10px 0;
+    }
+}
