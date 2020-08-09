@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 
 import { useStaticQuery, graphql } from 'gatsby';
 
@@ -7,7 +7,14 @@ import SEO from '../components/shared/seo';
 
 import Speakers from '../speakers/components/speakers';
 
-import { SpeakersFilterProvider } from '../speakers/contexts/filters';
+import { SpeakersFilter } from '../speakers/components/speakersFilters';
+import { SpeakerFilter } from '../entities/entities';
+import streams from '../constants/streams';
+
+const INIT_STATE: SpeakerFilter = {
+    stream: { current: streams[0], options: streams },
+    searchStr: '',
+};
 
 const SpeakersPage = (): ReactElement => {
     const data = useStaticQuery(graphql`
@@ -17,59 +24,16 @@ const SpeakersPage = (): ReactElement => {
                     pageTitle
                 }
             }
-            allMarkdownRemark(
-                filter: { fields: { collection: { eq: "speakers" } } }
-                sort: { fields: [frontmatter___name], order: ASC }
-            ) {
-                edges {
-                    node {
-                        id
-                        frontmatter {
-                            name
-                            company
-                            jobTitle
-                            photo {
-                                childImageSharp {
-                                    fluid(maxWidth: 400) {
-                                        ...GatsbyImageSharpFluid
-                                    }
-                                }
-                            }
-                            streams
-                            socialNetworks {
-                                type
-                                url
-                            }
-                        }
-                    }
-                }
-            }
         }
     `);
 
-    const speakers = data.allMarkdownRemark.edges.map(({ node }) => {
-        const {
-            frontmatter: { name, company, jobTitle, socialNetworks, photo, streams },
-            id,
-        } = node;
-
-        return {
-            id,
-            name,
-            company,
-            jobTitle,
-            socialNetworks,
-            photo,
-            streams,
-        };
-    });
+    const [filter, setFilter] = useState(INIT_STATE);
 
     return (
         <Layout>
             <SEO title={data.markdownRemark.frontmatter.pageTitle} />
-            <SpeakersFilterProvider>
-                <Speakers speakers={speakers} />
-            </SpeakersFilterProvider>
+            <SpeakersFilter filter={filter} setFilter={setFilter} />
+            <Speakers filter={filter} />
         </Layout>
     );
 };

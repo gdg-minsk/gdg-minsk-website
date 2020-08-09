@@ -55,7 +55,28 @@ collections:
                         { name: url, label: URL, widget: 'string' },
                     ],
             }
-
+    - name: 'events'
+      label: 'Events'
+      folder: 'data/events'
+      create: true
+      slug: '{{year}}-{{month}}-{{day}}_{{name}}'
+      identifier_field: 'name'
+      fields:
+        - { label: 'Template Key', name: 'templateKey', widget: 'hidden', default: 'event' }
+        - { label: 'Name', name: 'name', widget: 'string' }
+        - { label: 'Date', name: 'date', widget: 'datetime', default: '', timeFormat: "HH:mm", dateFormat: "YYYY-MM-DD", format: "LLL" }
+        - { label: 'Speaker', name: 'speaker', widget: 'relation', collection: 'speakers', valueField: 'name', searchFields: 'name', multiple: true }
+        - { label: 'Description', name: 'description', widget: 'string' }
+        - { label: 'Photo', name: 'photo', widget: 'image', required: false }
+        - { label: 'Place', name: 'place', widget: 'string', required: false }
+        - { label: 'Url', name: 'url', widget: 'string' }
+        - {
+          label: 'Stream',
+          name: 'stream',
+          widget: 'select',
+          multiple: false,
+          options: ['Web Meetup', 'Mobile Meetup', 'Cloud Meetup'],
+        }
     - name: 'pages'
       label: 'Pages'
       files:
@@ -110,3 +131,9 @@ collections:
             fields:
                 - { label: 'Template Key', name: 'templateKey', widget: 'hidden', default: 'speakers-page' }
                 - { label: PageTitle, name: pageTitle, widget: string }
+          - file: 'data/pages/events-page.md'
+            label: 'Events Page'
+            name: 'events'
+            fields:
+              - { label: 'Template Key', name: 'templateKey', widget: 'hidden', default: 'events-page' }
+              - { label: PageTitle, name: pageTitle, widget: string }

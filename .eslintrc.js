@@ -4,10 +4,11 @@ module.exports = {
     },
     parser: '@typescript-eslint/parser',
     extends: [
-        'plugin:@typescript-eslint/recommended', 
-        'prettier/@typescript-eslint', 
+        'plugin:@typescript-eslint/recommended',
+        'prettier/@typescript-eslint',
         'plugin:prettier/recommended',
-        'plugin:react/recommended'],
+        'plugin:react/recommended',
+    ],
     parserOptions: {
         ecmaVersion: 2018,
         sourceType: 'module',
@@ -30,8 +31,8 @@ module.exports = {
         quotes: ['error', 'single', { allowTemplateLiterals: true }],
     },
     settings: {
-        'react': {
-          'version': 'detect'
-        }
-      }
+        react: {
+            version: 'detect',
+        },
+    },
 };
