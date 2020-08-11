@@ -77,6 +77,19 @@ collections:
           multiple: false,
           options: ['Web Meetup', 'Mobile Meetup', 'Cloud Meetup'],
         }
+    - name: 'contacts'
+      label: 'Contacts'
+      folder: 'data/contacts'
+      create: true
+      slug: '{{year}}-{{month}}-{{day}}_{{name}}'
+      identifier_field: 'name'
+      fields:
+        - { label: 'Template Key', name: 'templateKey', widget: 'hidden', default: 'contact' }
+        - { label: 'Name', name: 'name', widget: 'string' }
+        - { label: 'Photo', name: 'photo', widget: 'image', required: false }
+        - { label: 'Email', name: 'email', widget: 'string', required: false }
+        - { label: 'Telegram', name: 'telegram', widget: 'string', required: false }
+        - { label: 'Phone', name: 'phone', widget: 'string', required: false }
     - name: 'pages'
       label: 'Pages'
       files:
