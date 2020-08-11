@@ -24,6 +24,11 @@ const ContactsPage = (): ReactElement => {
 
     const data = useStaticQuery(graphql`
     {
+        markdownRemark(frontmatter: { templateKey: { eq: "contacts-page" } }) {
+            frontmatter {
+                pageTitle
+            }
+        }
         allMarkdownRemark(
             filter: { fields: { collection: { eq: "contacts" } } }
             sort: { fields: [frontmatter___name], order: ASC }
@@ -61,7 +66,7 @@ const ContactsPage = (): ReactElement => {
     });
     return (
         <Layout isSocialIconsVisible={width <= MobileWidth}>
-            <SEO title="Contacts" />
+            <SEO title={data.markdownRemark.frontmatter.pageTitle} />
 
             <Box className='page'>
                 <Box className='contacts'>
