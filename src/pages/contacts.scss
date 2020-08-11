@@ -1,0 +1,69 @@
+.contacts {
+    text-align: center;
+    display: inline-block;
+}
+
+.text {
+    font-size: 30px;
+    line-height: 35px;
+    text-transform: uppercase;
+}
+
+.contactCard {
+    box-shadow: 5px 5px 20px #D1D1D1;
+    border-radius: 10px;
+    text-align: left;
+}
+
+.link {
+    font-weight: bold;
+}
+
+.emailLink {
+    line-height: 50px;
+}
+
+.emailInfo {
+    margin-bottom: 105px;
+}
+
+.socialNetworkText {
+    margin-bottom: 20px;
+}
+
+.socialIconsContainer {
+    display: flex;
+    margin-top: 100px;
+}
+
+.contactLine {
+    display: block;
+    font-size: 15px;
+    line-height: 18px;
+    color: #7F8388;
+    margin-top: 5px;
+    text-align: left;
+}
+
+@media (max-width: 600px) {
+    .page {
+        align-self: center;
+    }
+    .text {
+        font-size: 17px;
+        line-height: 20px;
+    }
+    .socialIconsContainer {
+        display: none;
+    }
+    .emailInfo {
+        display: flex;
+        flex-direction: column;
+    }
+    .emailLink {
+        margin-top: 10px;
+    }
+    .socialNetworkText {
+        margin-bottom: 10px;
+    }
+}
