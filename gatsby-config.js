@@ -51,6 +51,13 @@ module.exports = {
             },
         },
         {
+            resolve: `gatsby-source-filesystem`,
+            options: {
+                path: `${__dirname}/data/contacts`,
+                name: `contacts`,
+            },
+        },
+        {
             resolve: 'gatsby-source-filesystem',
             options: {
                 path: `${__dirname}/data/pages`,

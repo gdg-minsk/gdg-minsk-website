@@ -150,3 +150,9 @@ collections:
             fields:
               - { label: 'Template Key', name: 'templateKey', widget: 'hidden', default: 'events-page' }
               - { label: PageTitle, name: pageTitle, widget: string }
+          - file: 'data/pages/contacts-page.md'
+            label: 'Contacts Page'
+            name: 'contacts'
+            fields:
+              - { label: 'Template Key', name: 'templateKey', widget: 'hidden', default: 'events-page' }
+              - { label: PageTitle, name: pageTitle, widget: string }

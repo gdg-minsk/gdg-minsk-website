@@ -16,8 +16,10 @@ import './contacts.scss';
 import { graphql, useStaticQuery } from 'gatsby';
 import { Contact } from '../entities/entities';
 import { Grid } from '@material-ui/core';
-
-
+import Img from 'gatsby-image/withIEPolyfill';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
+import { faTelegramPlane } from '@fortawesome/free-brands-svg-icons';
 
 const ContactsPage = (): ReactElement => {
     const { width } = useWindowDimensions();
@@ -45,6 +47,9 @@ const ContactsPage = (): ReactElement => {
                                 }
                             }
                         }
+                        email
+                        telegram
+                        phone
                     }
                 }
             }
@@ -54,14 +59,17 @@ const ContactsPage = (): ReactElement => {
 
     const contacts: Contact[] = data.allMarkdownRemark.edges.map(({ node }) => {
         const {
-            frontmatter: { name, photo },
+            frontmatter: { name, photo, email, phone, telegram },
             id,
         } = node;
 
         return {
             id,
             name,
-            photo
+            photo,
+            email,
+            phone,
+            telegram
         };
     });
     return (
@@ -87,14 +95,17 @@ const ContactsPage = (): ReactElement => {
                         Also you can meet our heads
                     </Typography>
 
-                    <Grid className="speakerContainer" item>
-                        {contacts.map(({ name, photo }) => {
+                    <Grid className='contactCardContainer' item>
+                        {contacts.map(({ name, photo, email, telegram, phone }) => {
                             return (
                                 <Box className='contactCard'>
-                                    <Typography>{name}</Typography>
-                                    <Link className='contactLine' to='mailto:test@test.ru'>test@test.ru</Link>
-                                    <Link className='contactLine' to='telegram.me/@groupname'>@telega</Link>
-                                    <Link className='contactLine' to='tel:351531'>8 800 555 35 35</Link>
+                                    <Img className="contactPhoto" fluid={(photo as any).childImageSharp.fluid} />
+                                    <ul className='contactCardContent'>
+                                        <li><Typography>{name}</Typography></li>
+                                        <li><FontAwesomeIcon icon={faEnvelope} className='contactLine' /><Link className='contactLine' to={'mailto:' + email}>{email}</Link></li>
+                                        <li><FontAwesomeIcon icon={faTelegramPlane} className='contactLine' /><Link className='contactLine' to={'http://telegram.me/' + telegram}>{telegram}</Link></li>
+                                        <li><FontAwesomeIcon icon={faPhone} className='contactLine' /><Link className='contactLine' to={'tel:' + phone}>{phone}</Link></li>
+                                    </ul>
                                 </Box>);
                         })}
                     </Grid>
