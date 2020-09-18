@@ -1,0 +1,102 @@
+.page{
+    height: 100%;
+}
+
+.contacts {
+    text-align: center;
+    width: 100%;
+    display: inline-block;
+}
+
+.text {
+    font-size: 30px;
+    line-height: 35px;
+    text-transform: uppercase;
+}
+
+.contactCardContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.contactCard {
+    box-shadow: 5px 5px 20px #D1D1D1;
+    border-radius: 10px;
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+    flex-basis: 500px;
+    background-color: #FFFFFF;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+.contactPhoto {
+    height: 120px;
+    width: 120px;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.contactCardContent {
+    list-style: none;
+    text-align: left;
+    margin: 10px;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.link {
+    font-weight: bold;
+}
+
+.emailLink {
+    line-height: 50px;
+}
+
+.emailInfo {
+    margin-bottom: 105px;
+}
+
+.socialNetworkText {
+    margin-bottom: 20px;
+}
+
+.socialIconsContainer {
+    display: flex;
+    margin-top: 100px;
+    justify-content: center;
+}
+
+.contactLine {
+    font-size: 15px;
+    line-height: 18px;
+    color: #7F8388;
+    margin-top: 5px;
+    margin-right: 10px;
+    text-align: left;
+}
+
+@media (max-width: 600px) {
+    .page {
+        align-self: center;
+    }
+    .text {
+        font-size: 17px;
+        line-height: 20px;
+    }
+    .socialIconsContainer {
+        display: none;
+    }
+    .emailInfo {
+        display: flex;
+        flex-direction: column;
+    }
+    .emailLink {
+        margin-top: 10px;
+    }
+    .socialNetworkText {
+        margin-bottom: 10px;
+    }
+}

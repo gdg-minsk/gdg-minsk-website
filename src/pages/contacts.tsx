@@ -4,8 +4,6 @@ import classNames from 'classnames';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
-import { makeStyles } from '@material-ui/core/styles';
-
 import Layout from '../components/shared/layout/layout';
 import SEO from '../components/shared/seo';
 import Link from '../components/shared/link';
@@ -14,108 +12,107 @@ import SocialIcons from '../components/shared/social-icons';
 import { useWindowDimensions } from '../hooks/window-size';
 
 import { MobileWidth } from '../constants/window-sizes';
-
-const useStyles = makeStyles(() => ({
-    text: {
-        fontSize: '30px',
-        lineHeight: '35px',
-        textTransform: 'uppercase',
-    },
-    link: {
-        fontWeight: 'bold',
-    },
-    emailLink: {
-        lineHeight: '50px',
-    },
-    emailInfo: {
-        marginBottom: '105px',
-        display: 'inline-block',
-        textAlign: 'center',
-    },
-    socialNetworkText: {
-        marginBottom: '20px',
-    },
-    socialIconsContainer: {
-        marginTop: '100px',
-    },
-    '@media (max-width: 600px)': {
-        page: {
-            alignSelf: 'center',
-        },
-        text: {
-            fontSize: '17px',
-            lineHeight: '20px',
-        },
-        socialIconsContainer: {
-            display: 'none',
-        },
-        emailInfo: {
-            display: 'flex',
-            flexDirection: 'column',
-        },
-        emailLink: {
-            marginTop: '10px',
-        },
-        socialNetworkText: {
-            marginBottom: '10px',
-        },
-    },
-}));
+import './contacts.scss';
+import { graphql, useStaticQuery } from 'gatsby';
+import { Contact } from '../entities/entities';
+import { Grid } from '@material-ui/core';
+import Img from 'gatsby-image/withIEPolyfill';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
+import { faTelegramPlane } from '@fortawesome/free-brands-svg-icons';
 
 const ContactsPage = (): ReactElement => {
-    const classes = useStyles();
-
     const { width } = useWindowDimensions();
 
+    const data = useStaticQuery(graphql`
+    {
+        markdownRemark(frontmatter: { templateKey: { eq: "contacts-page" } }) {
+            frontmatter {
+                pageTitle
+            }
+        }
+        allMarkdownRemark(
+            filter: { fields: { collection: { eq: "contacts" } } }
+            sort: { fields: [frontmatter___name], order: ASC }
+        ) {
+            edges {
+                node {
+                    id
+                    frontmatter {
+                        name
+                        photo {
+                            childImageSharp {
+                                fluid(maxWidth: 400) {
+                                    ...GatsbyImageSharpFluid
+                                }
+                            }
+                        }
+                        email
+                        telegram
+                        phone
+                    }
+                }
+            }
+        }
+    }
+`);
+
+    const contacts: Contact[] = data.allMarkdownRemark.edges.map(({ node }) => {
+        const {
+            frontmatter: { name, photo, email, phone, telegram },
+            id,
+        } = node;
+
+        return {
+            id,
+            name,
+            photo,
+            email,
+            phone,
+            telegram
+        };
+    });
     return (
         <Layout isSocialIconsVisible={width <= MobileWidth}>
-            <SEO title="Contacts" />
+            <SEO title={data.markdownRemark.frontmatter.pageTitle} />
 
-            <Box className={classes.page}>
-                <Box className={classes.emailInfo}>
-                    <Typography className={classes.text} component="p">
-                        Contact us on any questions on our email
+            <Box className='page'>
+                <Box className='contacts'>
+                    <Box className='emailInfo'>
+                        <Typography className='text' component="p">
+                            Contact us on any questions on our email
+                        </Typography>
+
+                        <Link
+                            className={classNames('link', 'text', 'emailLink')}
+                            to="mailto:GDG@gmail.com"
+                        >
+                            GDG@GMAIL.COM
+                        </Link>
+                    </Box>
+
+                    <Typography className='text' component="p" gutterBottom>
+                        Also you can meet our heads
                     </Typography>
 
-                    <Link
-                        className={classNames(classes.link, classes.text, classes.emailLink)}
-                        to="mailto:GDG@gmail.com"
-                    >
-                        GDG@GMAIL.COM
-                    </Link>
-                </Box>
+                    <Grid className='contactCardContainer' item>
+                        {contacts.map(({ name, photo, email, telegram, phone }) => {
+                            return (
+                                <Box className='contactCard'>
+                                    <Img className="contactPhoto" fluid={(photo as any).childImageSharp.fluid} />
+                                    <ul className='contactCardContent'>
+                                        <li><Typography>{name}</Typography></li>
+                                        <li><FontAwesomeIcon icon={faEnvelope} className='contactLine' /><Link className='contactLine' to={'mailto:' + email}>{email}</Link></li>
+                                        <li><FontAwesomeIcon icon={faTelegramPlane} className='contactLine' /><Link className='contactLine' to={'http://telegram.me/' + telegram}>{telegram}</Link></li>
+                                        <li><FontAwesomeIcon icon={faPhone} className='contactLine' /><Link className='contactLine' to={'tel:' + phone}>{phone}</Link></li>
+                                    </ul>
+                                </Box>);
+                        })}
+                    </Grid>
 
-                <Typography className={classNames(classes.socialNetworkText, classes.text)} component="p" gutterBottom>
-                    Join our Telegram group{' '}
-                    <Link className={classes.link} to="https://t.me/gdgminsk" target="blank">
-                        GDG_MINSK
-                    </Link>
-                </Typography>
-
-                <Typography className={classNames(classes.socialNetworkText, classes.text)} component="p" gutterBottom>
-                    Follow us on{' '}
-                    <Link className={classes.link} to="https://www.facebook.com/groups/gdgminsk" target="blank">
-                        FACEBOOK
-                    </Link>{' '}
-                    and{' '}
-                    <Link className={classes.link} to="https://twitter.com/gdgminsk" target="blank">
-                        TWITTER
-                    </Link>
-                </Typography>
-
-                <Typography className={classes.text} variant="h5" component="p">
-                    Our hashtag on social media is{' '}
-                    <Link
-                        className={classes.link}
-                        to="https://www.instagram.com/explore/tags/gdg_minsk/"
-                        target="blank"
-                    >
-                        #GDG_MINSK
-                    </Link>
-                </Typography>
-
-                <Box className={classes.socialIconsContainer} display="flex">
-                    <SocialIcons iconSize={105} />
+                    <Box className='socialIconsContainer'>
+                        <SocialIcons iconSize={105} />
+                    </Box>
                 </Box>
             </Box>
         </Layout>
