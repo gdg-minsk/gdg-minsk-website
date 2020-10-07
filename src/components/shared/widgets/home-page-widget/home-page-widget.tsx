@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import getEventMonth from '../../../../tools/months';
 import { useWindowDimensions } from '../../../../hooks/window-size';
 import { TabletWidth } from '../../../../constants/window-sizes';
+import { CommunityEvent } from '../../../../entities/entities';
 
 const useStyles = makeStyles({
     date: {
@@ -54,8 +55,10 @@ const useStyles = makeStyles({
     },
 });
 
-const HomePageWidget = ({ date, place, eventType, url }): ReactElement => {
+const HomePageWidget = ({communityEvent} : {communityEvent : CommunityEvent}): ReactElement => {
     const styles = useStyles();
+
+    const eventDate = new Date(communityEvent.date);
 
     const { width } = useWindowDimensions();
 
@@ -64,17 +67,17 @@ const HomePageWidget = ({ date, place, eventType, url }): ReactElement => {
             <Box alignItems="center" display="flex" flexGrow={1} padding="15px 0 15px 15px">
                 <Box className={styles.date}>
                     <Typography className={styles.day} align="center" color="textSecondary">
-                        {date.getDate()}
+                        {eventDate.getDate()}
                     </Typography>
                     <Typography className={styles.month} align="center" color="textSecondary">
-                        {getEventMonth(date)}
+                        {getEventMonth(eventDate)}
                     </Typography>
                 </Box>
                 <Box flexGrow={1} margin="0 30px">
                     <Typography className={styles.place} color="textSecondary">
-                        {place}
+                        {communityEvent.place}
                     </Typography>
-                    <Typography className={styles.event}>{eventType}</Typography>
+                    <Typography className={styles.event}>{communityEvent.name}</Typography>
                 </Box>
             </Box>
             {/* <Link href={url} target="blank" className={styles.buttonContainer}>
@@ -85,22 +88,15 @@ const HomePageWidget = ({ date, place, eventType, url }): ReactElement => {
         </Box>
     );
 
-    if (width <= TabletWidth) {
-        return (
-            <Link href={url} target="blank" underline="none">
-                {widget}
-            </Link>
-        );
-    }
+    // if (width <= TabletWidth) {
+    //     return (
+    //         <Link href={url} target="blank" underline="none">
+    //             {widget}
+    //         </Link>
+    //     );
+    // }
 
     return widget;
-};
-
-HomePageWidget.propTypes = {
-    date: PropTypes.instanceOf(Date).isRequired,
-    place: PropTypes.string.isRequired,
-    eventType: PropTypes.string.isRequired,
-    url: PropTypes.string.isRequired,
 };
 
 export default HomePageWidget;

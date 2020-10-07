@@ -13,6 +13,7 @@ import SEO from '../components/shared/seo';
 
 import PhotoGallery from '../components/home/photo-gallery';
 import HomePageWidget from '../components/shared/widgets/home-page-widget/home-page-widget';
+import { CommunityEvent } from '../entities/entities';
 
 const useStyles = makeStyles(() => ({
     pageContainer: {
@@ -49,12 +50,6 @@ const IndexPage = (): ReactElement => {
         query IndexPagePhotos {
             markdownRemark(frontmatter: { templateKey: { eq: "index-page" } }) {
                 frontmatter {
-                    homePageWidget {
-                        date
-                        place
-                        eventType
-                        url
-                    }
                     pageTitle
                     title
                     pageText
@@ -77,16 +72,72 @@ const IndexPage = (): ReactElement => {
                     }
                 }
             }
+            allMarkdownRemark(
+                filter: { fields: { collection: { eq: "events" } } }
+                sort: { fields: [frontmatter___date], order: ASC }
+            ) {
+                edges {
+                    node {
+                        id
+                        frontmatter {
+                            name
+                            date
+                            speaker
+                            description
+                            place
+                            photo {
+                                childImageSharp {
+                                    fluid(maxWidth: 400) {
+                                        ...GatsbyImageSharpFluid
+                                    }
+                                }
+                            }
+                            stream
+                        }
+                    }
+                }
+            }
         }
     `);
 
     const {
         markdownRemark: {
-            frontmatter: { photos, pageText, pageTitle, title, homePageWidget },
+            frontmatter: { photos, pageText, pageTitle, title },
         },
     } = data;
 
-    const eventDate = new Date(homePageWidget.date);
+    const events: CommunityEvent[] = data.allMarkdownRemark.edges.map(
+        ({ node }): CommunityEvent => {
+            const {
+                frontmatter: { name, date, speaker, description, photo, stream, place },
+                id,
+            } = node;
+
+            return {
+                id,
+                name,
+                date,
+                description,
+                speaker,
+                photo,
+                stream,
+                place,
+            };
+        },
+    );
+
+    const firstEvent = events
+        .filter((e)=> new Date(e.date).getTime() > new Date().getTime())
+        .sort((a,b)=> new Date(a.date).getTime() - new Date(b.date).getTime())
+        [0];
+
+    const widgetWrapper = firstEvent?
+         (<Box className={classes.widget}>
+            <HomePageWidget
+                communityEvent={firstEvent}
+            />
+        </Box>)
+        :null;
 
     return (
         <Layout>
@@ -95,14 +146,7 @@ const IndexPage = (): ReactElement => {
             <Grid classes={{ container: classes.pageContainer }} container spacing={3}>
                 <Grid className={classes.gridItem} item>
                     <Box className={classes.pageContent}>
-                        <Box className={classes.widget}>
-                            <HomePageWidget
-                                date={eventDate}
-                                place={homePageWidget.place}
-                                eventType={homePageWidget.eventType}
-                                url={homePageWidget.url}
-                            />
-                        </Box>
+                        {widgetWrapper}
                         <Typography variant="h5" component="h1" gutterBottom color="primary">
                             {title}
                         </Typography>
