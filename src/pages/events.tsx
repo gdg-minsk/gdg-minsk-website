@@ -14,7 +14,7 @@ const INIT_STATE: EventFilter = {
     searchStr: '',
 };
 
-const EventPage = (): ReactElement => {
+const EventsPage = (): ReactElement => {
     const data = useStaticQuery(graphql`
         {
             markdownRemark(frontmatter: { templateKey: { eq: "events-page" } }) {
@@ -60,4 +60,4 @@ const EventPage = (): ReactElement => {
     );
 };
 
-export default EventPage;
+export default EventsPage;

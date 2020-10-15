@@ -22,3 +22,66 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
         });
     }
 };
+
+exports.createPages = async ({graphql, actions }) => {
+    const { createPage } = actions;
+
+    const data = useStaticQuery(graphql`
+        {
+            allMarkdownRemark(
+                filter: { fields: { collection: { eq: "events" } } }
+            ) {
+                edges {
+                    node {
+                        id
+                        frontmatter {
+                            name
+                            date
+                            speaker
+                            description
+                            place
+                            photo {
+                                childImageSharp {
+                                    fluid(maxWidth: 400) {
+                                        ...GatsbyImageSharpFluid
+                                    }
+                                }
+                            }
+                            stream
+                        }
+                    }
+                }
+            }
+        }
+    `);
+
+    const eventTemplate = path.resolve(`src/templates/event.tsx`);
+
+    const events = data.allMarkdownRemark.edges.map(
+        ({ node }) => {
+            const {
+                frontmatter: { name, date, speaker, description, photo, stream, place },
+                id,
+            } = node;
+            return {
+                id,
+                name,
+                date,
+                description,
+                speaker,
+                photo,
+                stream,
+                place,
+            };
+        });
+
+    events.forEach(node => {
+        createPage({
+            path: `/event/${node.id}`,
+            component: eventTemplate,
+            context: {
+                communityEvent: node
+            }
+        });
+    });
+};
