@@ -17,6 +17,7 @@ import { ALL_STREAMS } from '../../constants/streams';
 import './speakers.scss';
 import { useStaticQuery, graphql } from 'gatsby';
 import { Speaker, SpeakerFilter } from '../../entities/entities';
+import { isNotEmpty } from '../../tools/strings';
 
 const getCompanyInfo = (jobTitle: string, companyName: string): string => {
     if (!jobTitle && !companyName) {
@@ -94,13 +95,17 @@ const Speakers = ({ filter }: { filter: SpeakerFilter }): ReactElement => {
     });
 
     useEffect(() => {
-        const results = speakers.filter(({ name, streams }: Speaker) => {
-            if (currentStream === ALL_STREAMS) {
-                return name.toLowerCase().includes(searchStr.toLowerCase());
-            }
-
-            return name.toLowerCase().includes(searchStr.toLowerCase()) && streams.includes(currentStream);
-        });
+        let results = speakers;
+        if (currentStream.toLowerCase() !== ALL_STREAMS) {
+            results = results.filter(({ streams }: Speaker) => {
+                return !streams || streams.includes(currentStream);
+            });
+        }
+        if (isNotEmpty(searchStr)) {
+            results = results.filter(({ name }: Speaker) => {
+                return name?.toLowerCase().includes(searchStr.toLowerCase());
+            });
+        }
 
         setSearchResults(results);
     }, [searchStr, currentStream]);
