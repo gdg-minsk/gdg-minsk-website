@@ -1,0 +1,15 @@
+.not-found-header {
+    text-transform: uppercase;
+    font-size: 200px;
+    font-weight: 900;
+    color: var(--color-primary);
+}
+
+.not-found-text {
+    text-transform: uppercase;
+    font-size: 48px;
+    font-weight: 300;
+    color: var(--color-subheader);
+    width: 640px;
+    line-height: 56px;
+}

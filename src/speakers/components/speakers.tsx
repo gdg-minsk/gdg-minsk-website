@@ -18,6 +18,7 @@ import './speakers.scss';
 import { useStaticQuery, graphql } from 'gatsby';
 import { Speaker, SpeakerFilter } from '../../entities/entities';
 import { isNotEmpty } from '../../tools/strings';
+import NotFound from '../../components/not-found/not-found.component';
 
 const getCompanyInfo = (jobTitle: string, companyName: string): string => {
     if (!jobTitle && !companyName) {
@@ -113,6 +114,7 @@ const Speakers = ({ filter }: { filter: SpeakerFilter }): ReactElement => {
     return (
         <>
             <Grid classes={{ container: 'pageContainer' }} container spacing={3}>
+                {!searchResults.length && <NotFound />}
                 {searchResults.map(({ id, name, company, jobTitle, socialNetworks, photo }) => {
                     const companyInfo = getCompanyInfo(jobTitle, company);
 

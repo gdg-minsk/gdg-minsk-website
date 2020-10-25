@@ -10,5 +10,11 @@ export const onRenderBody = ({ setHeadComponents }) => {
 
         <link rel="preconnect" key="dns-preconnect-google-analytics" href="https://www.google-analytics.com" />,
         <link rel="dns-prefetch" key="dns-prefetch-google-analytics" href="https://www.google-analytics.com" />,
+
+        <link
+            rel="stylesheet"
+            key="labs-styles"
+            href="https://api.mapbox.com/mapbox-assembly/v0.24.0/assembly.min.css"
+        />,
     ]);
 };
