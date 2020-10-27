@@ -7,7 +7,7 @@ import SEO from '../components/shared/seo';
 import { CommunityEvent } from '../entities/entities';
 import { graphql } from 'gatsby';
 
-const EventPage = ({ data } : any): ReactElement => {
+const EventPage = ({ data }: any): ReactElement => {
     const communityEvent: CommunityEvent = data.allMarkdownRemark.nodes.map(
         (node): CommunityEvent => {
             const {
