@@ -55,7 +55,7 @@ const useStyles = makeStyles({
     },
 });
 
-const HomePageWidget = ({communityEvent} : {communityEvent : CommunityEvent}): ReactElement => {
+const HomePageWidget = ({ communityEvent }: { communityEvent: CommunityEvent }): ReactElement => {
     const styles = useStyles();
 
     const eventDate = new Date(communityEvent.date);
@@ -63,7 +63,7 @@ const HomePageWidget = ({communityEvent} : {communityEvent : CommunityEvent}): R
     const { width } = useWindowDimensions();
 
     const widget = (
-        <Link to={"/event/"+communityEvent.id} underline="none">
+        <Link to={'/event/' + communityEvent.id} underline="none">
             <Box display="flex" flexGrow={1} borderRadius="10px" boxShadow="5px 5px 20px #D1D1D1">
                 <Box alignItems="center" display="flex" flexGrow={1} padding="15px 0 15px 15px">
                     <Box className={styles.date}>

@@ -127,17 +127,14 @@ const IndexPage = (): ReactElement => {
     );
 
     const firstEvent = events
-        .filter((e)=> new Date(e.date).getTime() > new Date().getTime())
-        .sort((a,b)=> new Date(a.date).getTime() - new Date(b.date).getTime())
-        [0];
+        .filter(e => new Date(e.date).getTime() > new Date().getTime())
+        .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())[0];
 
-    const widgetWrapper = firstEvent?
-         (<Box className={classes.widget}>
-            <HomePageWidget
-                communityEvent={firstEvent}
-            />
-        </Box>)
-        :null;
+    const widgetWrapper = firstEvent ? (
+        <Box className={classes.widget}>
+            <HomePageWidget communityEvent={firstEvent} />
+        </Box>
+    ) : null;
 
     return (
         <Layout>

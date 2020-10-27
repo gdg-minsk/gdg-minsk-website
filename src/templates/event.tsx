@@ -7,7 +7,7 @@ import SEO from '../components/shared/seo';
 import { CommunityEvent } from '../entities/entities';
 import { graphql } from 'gatsby';
 
-const EventPage = ({ data }): ReactElement => {
+const EventPage = ({ data } : any): ReactElement => {
     const communityEvent: CommunityEvent = data.allMarkdownRemark.nodes.map(
         (node): CommunityEvent => {
             const {
@@ -31,9 +31,7 @@ const EventPage = ({ data }): ReactElement => {
     return (
         <Layout>
             <SEO title="Event" />
-            <Box>
-                {communityEvent.name}
-            </Box>
+            <Box>{communityEvent.name}</Box>
         </Layout>
     );
 };
@@ -41,26 +39,26 @@ const EventPage = ({ data }): ReactElement => {
 export default EventPage;
 
 export const query = graphql`
-query ($eventId: String) {
-  allMarkdownRemark(filter: {fields: {collection: {eq: "events"}}, id: {eq: $eventId}}) {
-    nodes {
-      id
-      frontmatter {
-        name
-        date
-        speaker
-        description
-        place
-        photo {
-          childImageSharp {
-            fluid(maxWidth: 400) {
-              ...GatsbyImageSharpFluid
+    query($eventId: String) {
+        allMarkdownRemark(filter: { fields: { collection: { eq: "events" } }, id: { eq: $eventId } }) {
+            nodes {
+                id
+                frontmatter {
+                    name
+                    date
+                    speaker
+                    description
+                    place
+                    photo {
+                        childImageSharp {
+                            fluid(maxWidth: 400) {
+                                ...GatsbyImageSharpFluid
+                            }
+                        }
+                    }
+                    stream
+                }
             }
-          }
         }
-        stream
-      }
     }
-  }
-}
 `;
