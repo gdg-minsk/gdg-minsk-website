@@ -1,0 +1,52 @@
+.page {
+    height: 100%;
+}
+
+.eventCard {
+    box-shadow: 5px 5px 20px #D1D1D1;
+    border-radius: 10px;
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+    flex-basis: 500px;
+    background-color: #FFFFFF;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+.eventPhoto {
+    height: 120px;
+    width: 120px;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.eventCardContent {
+    list-style: none;
+    text-align: left;
+    margin: 10px;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.eventSpeakerName {
+    color: #427CC1;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.eventSpeakerJobTitle {
+    color: #427CC1;
+    font-size: 18px;
+}
+
+.eventName {
+    color: #427CC1;
+    font-size: 36px;
+    font-weight:bold;
+}
+
+.eventDescription {
+    color: #6D7278;
+    font-size: 18px;
+}
