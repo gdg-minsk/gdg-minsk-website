@@ -12,7 +12,7 @@ import getSocialMediaIcon from '../../tools/social-media';
 import UserIcon from '../../../static/svg/user.svg';
 import Stork from '../../../static/svg/stork.svg';
 
-import { ALL_STREAMS } from '../../constants/streams';
+import { ALL } from '../../constants/streams';
 
 import './speakers.scss';
 import { useStaticQuery, graphql } from 'gatsby';
@@ -97,7 +97,7 @@ const Speakers = ({ filter }: { filter: SpeakerFilter }): ReactElement => {
 
     useEffect(() => {
         let results = speakers;
-        if (currentStream.toLowerCase() !== ALL_STREAMS) {
+        if (currentStream.toLowerCase() !== ALL) {
             results = results.filter(({ streams }: Speaker) => {
                 return !streams || streams.includes(currentStream);
             });

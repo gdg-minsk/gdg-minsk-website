@@ -4,7 +4,7 @@ import { useStaticQuery, graphql } from 'gatsby';
 import Layout from '../components/shared/layout/layout';
 import SEO from '../components/shared/seo';
 import { EventFilter, ListItem } from '../entities/entities';
-import streams from '../constants/streams';
+import streams, { ALL } from '../constants/streams';
 import EventsFilter from '../events/components/eventsFilter';
 import Events from '../events/components/events';
 
@@ -48,7 +48,13 @@ const EventPage = (): ReactElement => {
         },
     );
 
-    INIT_STATE.speaker.options = speakers;
+    INIT_STATE.speaker.options = [
+        {
+            title: 'All',
+            value: ALL,
+        },
+        ...speakers,
+    ];
     const [filter, setFilter] = useState(INIT_STATE);
 
     return (

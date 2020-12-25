@@ -10,7 +10,7 @@ import Link from '../../components/shared/link';
 import UserIcon from '../../../static/svg/user.svg';
 import Stork from '../../../static/svg/stork.svg';
 
-import { ALL_STREAMS } from '../../constants/streams';
+import { ALL } from '../../constants/streams';
 
 import './events.scss';
 import { useStaticQuery, graphql } from 'gatsby';
@@ -83,10 +83,10 @@ const Events = ({ filter }: { filter: EventFilter }): ReactElement => {
                     (name.toLowerCase().includes(filter.searchStr.toLowerCase()) ||
                         description.toLowerCase().includes(filter.searchStr.toLowerCase()));
             }
-            if (filter.stream.current.value !== ALL_STREAMS) {
+            if (filter.stream.current.value !== ALL) {
                 included = included && stream === filter.stream.current.title;
             }
-            if (filter.speaker.current.value !== '') {
+            if (filter.speaker.current.value !== ALL) {
                 included = included && speaker.id === filter.speaker.current.value;
             }
             return included;

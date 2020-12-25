@@ -71,7 +71,7 @@ const DesktopFilters = ({
                 />
             </Box>
 
-            <Box display="flex" alignItems="center">
+            <Box display="flex" alignItems="center" className="px6">
                 <InputLabel className="searchItemLabel searchOptionText" htmlFor="searchByStreamSelect">
                     Speaker
                 </InputLabel>

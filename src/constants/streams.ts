@@ -1,11 +1,11 @@
 import { ListItem } from '../entities/entities';
 
-export const ALL_STREAMS = 'all';
+export const ALL = 'all';
 
 const streams: ListItem[] = [
     {
         title: 'All',
-        value: ALL_STREAMS,
+        value: ALL,
     },
     {
         title: 'Web Meetup',
