@@ -1,15 +1,13 @@
-.pageContainer
-{
+.pageContainer {
     flex-grow: 1;
     justify-content: center;
     font-family: Roboto;
 }
 
-.socialIcon
-{
+.socialIcon {
     width: 40px;
     height: 40px;
-    transition: transform .2s;
+    transition: transform 0.2s;
 
     &:hover {
         transform: scale(1.5);
@@ -17,8 +15,8 @@
 }
 
 .speakerPhotoContainer {
-    width: 280px;
-    height: 310px;
+    width: 210px;
+    height: 232px;
     position: relative;
     overflow: hidden;
 
@@ -31,7 +29,7 @@
         content: '';
         width: 50%;
         height: 100%;
-        background: linear-gradient('to right', rgba(255,255,255,0) 0%, rgba(255,255,255,.3) 100%);
+        background: linear-gradient('to right', rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 100%);
         -webkit-transform: skewX(-25deg);
         transform: skewX(-25deg);
     }
@@ -57,7 +55,7 @@
 .defaultSpeakerPhotoContainer {
     display: flex;
     flex-direction: column;
-    background: #F9F8F8;
+    background: #f9f8f8;
     width: 100%;
     height: 100%;
     border-radius: 10px;
@@ -67,7 +65,6 @@
 .speakerName {
     font-size: 25px;
     line-height: 30px;
-    text-align: center;
     text-transform: capitalize;
     color: #000000;
 }
@@ -75,9 +72,8 @@
 .companyInfo {
     font-size: 15px;
     line-height: 18px;
-    color: #7F8388;
+    color: #7f8388;
     margin-top: 5px;
-    text-align: center;
 }
 
 .filterWrapper {
@@ -126,4 +122,23 @@
             padding-top: 100%;
         }
     }
+}
+
+.flying {
+    position: absolute;
+    left: -20px;
+    top: -20px;
+}
+
+.pl210 {
+  padding: 10px 10px 10px 210px;
+}
+
+.chip {
+  border-radius: 10px;
+  background: #7f8388;
+  color: #fff;
+  padding: 3px;
+  margin-top: 10px;
+  margin-right: 10px;
 }

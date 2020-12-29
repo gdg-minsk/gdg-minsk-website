@@ -34,6 +34,7 @@ export interface Speaker {
     socialNetworks?: SocialNetwork[];
     photo: typeof FluidImage;
     streams: string[];
+    description: string;
 }
 
 export interface CommunityEvent {

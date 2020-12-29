@@ -128,5 +128,6 @@ module.exports = {
         },
         'gatsby-plugin-typescript',
         'gatsby-plugin-sass',
+        'gatsby-plugin-use-query-params',
     ],
 };

@@ -15,22 +15,10 @@ import Stork from '../../../static/svg/stork.svg';
 import { ALL } from '../../constants/streams';
 
 import './speakers.scss';
-import { useStaticQuery, graphql } from 'gatsby';
 import { Speaker, SpeakerFilter } from '../../entities/entities';
-import { isNotEmpty } from '../../tools/strings';
+import { getCompanyInfo, isNotEmpty } from '../../tools/strings';
 import NotFound from '../../components/not-found/not-found.component';
-
-const getCompanyInfo = (jobTitle: string, companyName: string): string => {
-    if (!jobTitle && !companyName) {
-        return null;
-    }
-
-    if (jobTitle && companyName) {
-        return `${jobTitle}@${companyName}`;
-    }
-
-    return jobTitle || companyName;
-};
+import { graphql, useStaticQuery } from 'gatsby';
 
 const Speakers = ({ filter }: { filter: SpeakerFilter }): ReactElement => {
     const {
@@ -78,7 +66,7 @@ const Speakers = ({ filter }: { filter: SpeakerFilter }): ReactElement => {
         }
     `);
 
-    const speakers: Speaker[] = data.allMarkdownRemark.edges.map(({ node }) => {
+    const speakers = data.allMarkdownRemark.edges.map(({ node }) => {
         const {
             frontmatter: { name, company, jobTitle, socialNetworks, photo, streams },
             id,
@@ -121,7 +109,7 @@ const Speakers = ({ filter }: { filter: SpeakerFilter }): ReactElement => {
                     return (
                         <Grid className="speakerContainer" key={id} item>
                             <div className="speakerPhotoContainer">
-                                <Link to="/speaker">
+                                <Link to={`/speaker?speakerId=${id}`}>
                                     {photo ? (
                                         <Img className="speakerPhoto" fluid={photo.childImageSharp.fluid} />
                                     ) : (
@@ -151,10 +139,10 @@ const Speakers = ({ filter }: { filter: SpeakerFilter }): ReactElement => {
                                 </Link>
                             </div>
                             <Box display="flex" flexDirection="column" alignItems="center" m="10px">
-                                <Link className="speakerName" to="/" underline="none">
+                                <Link className="speakerName align-center" to="/" underline="none">
                                     {name}
                                 </Link>
-                                {companyInfo && <span className="companyInfo">{companyInfo}</span>}
+                                {companyInfo && <span className="companyInfo align-center">{companyInfo}</span>}
 
                                 {socialNetworks && (
                                     <Box display="flex" flexWrap="wrap">

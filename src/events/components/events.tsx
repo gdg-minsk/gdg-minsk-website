@@ -132,11 +132,11 @@ const Events = ({ filter }: { filter: EventFilter }): ReactElement => {
                                 </Link>
                             </div>
                             <Box display="flex" flexDirection="column" alignItems="center" m="10px">
-                                <Link className="speakerName" to="/" underline="none">
+                                <Link className="speakerName align-center" to="/" underline="none">
                                     {name}
                                 </Link>
                                 {date && <span className="speakerInfo">{date}</span>}
-                                {description && <span className="companyInfo">{description}</span>}
+                                {description && <span className="companyInfo align-center">{description}</span>}
                                 {speaker && <span className="speakerInfo">{speaker.name}</span>}
                                 {stream && <span className="speakerInfo">{stream}</span>}
                             </Box>
