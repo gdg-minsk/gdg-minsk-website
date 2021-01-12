@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react';
 
 import Box from '@material-ui/core/Box';
-import { makeStyles } from '@material-ui/core/styles';
 
 import Layout from '../components/shared/layout/layout';
 import SEO from '../components/shared/seo';
@@ -16,18 +15,7 @@ import { useQueryParam, StringParam } from 'use-query-params';
 import { graphql, useStaticQuery } from 'gatsby';
 import { getCompanyInfo } from '../tools/strings';
 
-const useStyles = makeStyles(() => ({
-    map: {
-        width: '100%',
-        height: '500px',
-        position: 'relative',
-        marginBottom: 30,
-    },
-}));
-
 const SpeakerPage = (): ReactElement => {
-    const classes = useStyles();
-
     const [speakerId] = useQueryParam('speakerId', StringParam);
 
     const data = useStaticQuery(graphql`
@@ -93,7 +81,7 @@ const SpeakerPage = (): ReactElement => {
         <Layout>
             <SEO title="Speaker" />
 
-            <Box>
+            <Box className="speakerBoxContainer">
                 <Grid className="speakerContainer shadow-darken10 bg-white relative hmin360 pl210 align-l" item>
                     <div className="speakerPhotoContainer flying">
                         {speaker.photo ? (
@@ -132,7 +120,11 @@ const SpeakerPage = (): ReactElement => {
                         {speaker.streams && (
                             <Box display="flex" flexWrap="wrap">
                                 {speaker.streams.map(stream => {
-                                    return <span key={stream} className="chip">{stream}</span>;
+                                    return (
+                                        <span key={stream} className="chip">
+                                            {stream}
+                                        </span>
+                                    );
                                 })}
                             </Box>
                         )}

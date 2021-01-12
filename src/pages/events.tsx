@@ -10,7 +10,13 @@ import Events from '../events/components/events';
 
 const INIT_STATE: EventFilter = {
     stream: { current: streams[0], options: streams },
-    speaker: { current: { value: '', title: '' }, options: [] },
+    speaker: {
+        current: {
+            title: 'All',
+            value: ALL,
+        },
+        options: [],
+    },
     searchStr: '',
 };
 

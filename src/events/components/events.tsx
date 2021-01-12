@@ -36,7 +36,10 @@ const Events = ({ filter }: { filter: EventFilter }): ReactElement => {
                         frontmatter {
                             name
                             date
-                            speaker
+                            talks {
+                                speaker
+                                description
+                            }
                             description
                             place
                             photo {
@@ -57,7 +60,7 @@ const Events = ({ filter }: { filter: EventFilter }): ReactElement => {
     const events: CommunityEvent[] = data.allMarkdownRemark.edges.map(
         ({ node }): CommunityEvent => {
             const {
-                frontmatter: { name, date, speaker, description, photo, stream, place },
+                frontmatter: { name, date, talks, description, photo, stream, place },
                 id,
             } = node;
 
@@ -66,7 +69,7 @@ const Events = ({ filter }: { filter: EventFilter }): ReactElement => {
                 name,
                 date,
                 description,
-                speaker,
+                talks,
                 photo,
                 stream,
                 place,
@@ -75,7 +78,7 @@ const Events = ({ filter }: { filter: EventFilter }): ReactElement => {
     );
 
     useEffect(() => {
-        const results = events.filter(({ name, description, stream, speaker }: CommunityEvent) => {
+        const results = events.filter(({ name, description, stream, talks }: CommunityEvent) => {
             let included = true;
             if (filter.searchStr !== '') {
                 included =
@@ -87,7 +90,7 @@ const Events = ({ filter }: { filter: EventFilter }): ReactElement => {
                 included = included && stream === filter.stream.current.title;
             }
             if (filter.speaker.current.value !== ALL) {
-                included = included && speaker.id === filter.speaker.current.value;
+                included = included && talks.some(t => t.speaker.id === filter.speaker.current.value);
             }
             return included;
         });
@@ -98,11 +101,11 @@ const Events = ({ filter }: { filter: EventFilter }): ReactElement => {
     return (
         <>
             <Grid classes={{ container: 'pageContainer' }} container spacing={3}>
-                {searchResults.map(({ id, name, date, description, speaker, photo, stream }: CommunityEvent) => {
+                {searchResults.map(({ id, name, date, description, talks, photo, stream }: CommunityEvent) => {
                     return (
                         <Grid className="speakerContainer" key={id} item>
                             <div className="speakerPhotoContainer">
-                                <Link to="/event">
+                                <Link to={`/event?eventId=${id}`}>
                                     {photo ? (
                                         <Img className="speakerPhoto" fluid={(photo as any).childImageSharp.fluid} />
                                     ) : (
@@ -137,7 +140,9 @@ const Events = ({ filter }: { filter: EventFilter }): ReactElement => {
                                 </Link>
                                 {date && <span className="speakerInfo">{date}</span>}
                                 {description && <span className="companyInfo align-center">{description}</span>}
-                                {speaker && <span className="speakerInfo">{speaker.name}</span>}
+                                {talks && (
+                                    <div className="speakerInfo">{talks.map(t => t.speaker.name).join(', ')}</div>
+                                )}
                                 {stream && <span className="speakerInfo">{stream}</span>}
                             </Box>
                         </Grid>

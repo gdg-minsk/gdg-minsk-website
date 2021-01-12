@@ -37,13 +37,20 @@ export interface Speaker {
     description: string;
 }
 
+export interface Talk {
+    id: string;
+    speaker: Speaker;
+    description: string;
+    photo: typeof FluidImage;
+}
+
 export interface CommunityEvent {
     id: string;
     name: string;
     description: string;
     place?: string;
     date?: Date;
-    speaker?: Speaker;
+    talks: Talk[];
     photo: typeof FluidImage;
     stream: string;
 }
