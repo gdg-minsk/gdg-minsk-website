@@ -1,0 +1,14 @@
+.slider {
+    background: linear-gradient(270deg, #187BC0 0%, #0A458C 100%);
+    box-shadow: 10px 10px 20px #9E9A9A;
+    border-radius: 25px;
+    font-size: 16px;
+    line-height: 19px;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    position: absolute;
+}
+
+.listerLabel {
+    margin: 0 27px;
+}

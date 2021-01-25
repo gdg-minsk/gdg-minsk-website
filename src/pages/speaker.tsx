@@ -75,75 +75,77 @@ const SpeakerPage = (): ReactElement => {
     });
 
     const speaker = speakers.find(s => s.id === speakerId);
-    const companyInfo = getCompanyInfo(speaker.jobTitle, speaker.company);
+    const companyInfo = !!speaker && getCompanyInfo(speaker.jobTitle, speaker.company);
 
     return (
         <Layout>
             <SEO title="Speaker" />
 
             <Box className="speakerBoxContainer">
-                <Grid className="speakerContainer shadow-darken10 bg-white relative hmin360 pl210 align-l" item>
-                    <div className="speakerPhotoContainer flying">
-                        {speaker.photo ? (
-                            <Img className="speakerPhoto" fluid={speaker.photo.childImageSharp.fluid} />
-                        ) : (
-                            <Box className="defaultSpeakerPhotoContainer">
-                                <Box
-                                    display="flex"
-                                    flexDirection="column"
-                                    position="absolute"
-                                    width="100%"
-                                    height="100%"
-                                >
-                                    <Box display="flex" justifyContent="flex-end">
-                                        <Stork height="40" />
-                                    </Box>
+                {!!speaker && (
+                    <Grid className="speakerContainer shadow-darken10 bg-white relative hmin360 pl210 align-l" item>
+                        <div className="speakerPhotoContainer flying">
+                            {speaker.photo ? (
+                                <Img className="speakerPhoto" fluid={speaker.photo.childImageSharp.fluid} />
+                            ) : (
+                                <Box className="defaultSpeakerPhotoContainer">
+                                    <Box
+                                        display="flex"
+                                        flexDirection="column"
+                                        position="absolute"
+                                        width="100%"
+                                        height="100%"
+                                    >
+                                        <Box display="flex" justifyContent="flex-end">
+                                            <Stork height="40" />
+                                        </Box>
 
-                                    <Box display="flex" justifyContent="center" alignItems="center" flexGrow="1">
-                                        <UserIcon height="155" />
+                                        <Box display="flex" justifyContent="center" alignItems="center" flexGrow="1">
+                                            <UserIcon height="155" />
+                                        </Box>
                                     </Box>
                                 </Box>
-                            </Box>
-                        )}
-                    </div>
-                    <Box display="flex" flexDirection="column" alignItems="left" m="10px">
-                        <h3 className="speakerName">{speaker.name}</h3>
+                            )}
+                        </div>
+                        <Box display="flex" flexDirection="column" alignItems="left" m="10px">
+                            <h3 className="speakerName">{speaker.name}</h3>
 
-                        {companyInfo && <span className="companyInfo">{companyInfo}</span>}
+                            {companyInfo && <span className="companyInfo">{companyInfo}</span>}
 
-                        {speaker.description && (
-                            <Box display="flex" flexWrap="wrap">
-                                {speaker.description}
-                            </Box>
-                        )}
+                            {speaker.description && (
+                                <Box display="flex" flexWrap="wrap">
+                                    {speaker.description}
+                                </Box>
+                            )}
 
-                        {speaker.streams && (
-                            <Box display="flex" flexWrap="wrap">
-                                {speaker.streams.map(stream => {
-                                    return (
-                                        <span key={stream} className="chip">
-                                            {stream}
-                                        </span>
-                                    );
-                                })}
-                            </Box>
-                        )}
+                            {speaker.streams && (
+                                <Box display="flex" flexWrap="wrap">
+                                    {speaker.streams.map(stream => {
+                                        return (
+                                            <span key={stream} className="chip">
+                                                {stream}
+                                            </span>
+                                        );
+                                    })}
+                                </Box>
+                            )}
 
-                        {speaker.socialNetworks && (
-                            <Box display="flex" flexWrap="wrap">
-                                {speaker.socialNetworks.map(({ type, url }) => {
-                                    const Icon = getSocialMediaIcon(type);
+                            {speaker.socialNetworks && (
+                                <Box display="flex" flexWrap="wrap">
+                                    {speaker.socialNetworks.map(({ type, url }) => {
+                                        const Icon = getSocialMediaIcon(type);
 
-                                    return (
-                                        <Link className="socialIcon" to={url} target="blank" key={type}>
-                                            <Icon />
-                                        </Link>
-                                    );
-                                })}
-                            </Box>
-                        )}
-                    </Box>
-                </Grid>
+                                        return (
+                                            <Link className="socialIcon" to={url} target="blank" key={type}>
+                                                <Icon />
+                                            </Link>
+                                        );
+                                    })}
+                                </Box>
+                            )}
+                        </Box>
+                    </Grid>
+                )}
             </Box>
         </Layout>
     );

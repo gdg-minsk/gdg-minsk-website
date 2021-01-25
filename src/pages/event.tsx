@@ -5,17 +5,18 @@ import Box from '@material-ui/core/Box';
 import Layout from '../components/shared/layout/layout';
 import SEO from '../components/shared/seo';
 
-import Link from '../components/shared/link';
-import Img from 'gatsby-image/withIEPolyfill';
-import Stork from '../../static/svg/stork.svg';
-import UserIcon from '../../static/svg/user.svg';
-import getSocialMediaIcon from '../tools/social-media';
+// import Link from '../components/shared/link';
+// import Img from 'gatsby-image/withIEPolyfill';
+// import Stork from '../../static/svg/stork.svg';
+// import UserIcon from '../../static/svg/user.svg';
+// import getSocialMediaIcon from '../tools/social-media';
 import Grid from '@material-ui/core/Grid';
 import { useQueryParam, StringParam } from 'use-query-params';
 import { graphql, useStaticQuery } from 'gatsby';
-import { getCompanyInfo } from '../tools/strings';
+// import { getCompanyInfo } from '../tools/strings';
+import { CommunityEvent, Talk } from '../entities/entities';
 
-const SpeakerPage = (): ReactElement => {
+const EventPage = (): ReactElement => {
     const [eventId] = useQueryParam('eventId', StringParam);
 
     const data = useStaticQuery(graphql`
@@ -36,8 +37,9 @@ const SpeakerPage = (): ReactElement => {
                             name
                             date
                             talks {
-                                speaker
+                                topic
                                 description
+                                speaker
                             }
                             description
                             photo {
@@ -76,26 +78,37 @@ const SpeakerPage = (): ReactElement => {
         };
     });
 
-    const event = events.find(s => s.id === eventId);
+    const event: CommunityEvent = events.find(s => s.id === eventId);
     // const companyInfo = getCompanyInfo(speaker.jobTitle, speaker.company);
 
     return (
         <Layout>
             <SEO title="Event" />
 
-            <Box className="speakerBoxContainer">
-                {event.talks.map(talk => {
-                    return (
-                        <Grid key={talk.id} className="speakerContainer shadow-darken10 bg-white relative hmin360 pl210 align-l" item>
-                            <Box display="flex" flexDirection="column" alignItems="left" m="10px">
-                                <h3 className="speakerName">{talk.name}</h3>
-                            </Box>
-                        </Grid>
-                    );
-                })}
+            <Box display="flex" flexDirection="row" className="h-full">
+                <Box display="flex" flexDirection="column">
+                    {!!event &&
+                        event.talks.map((talk: Talk) => {
+                            console.log(talk.speaker);
+                            return (
+                                <Grid
+                                    // key={talk.speaker.name}
+                                    key={talk.topic}
+                                    className="talkPreview shadow-darken10 bg-white my18"
+                                    item
+                                >
+                                    <Box display="flex" flexDirection="column" alignItems="left" margin="10px">
+                                        <h3 className="talkSpeaker">{talk.speaker.name}</h3>
+                                        <h3 className="talkTopic">{talk.topic}</h3>
+                                    </Box>
+                                </Grid>
+                            );
+                        })}
+                </Box>
+                <Box className="speakerBoxContainer">gggg</Box>
             </Box>
         </Layout>
     );
 };
 
-export default SpeakerPage;
+export default EventPage;

@@ -14,6 +14,7 @@ import chunk from 'lodash-es/chunk';
 import Carousel, { Modal, ModalGateway } from 'react-images';
 
 import { FluidImage } from '../../constants/prop-types';
+import Lister from '../shared/lister/lister';
 
 const useStyles = makeStyles(() => ({
     photoGallery: {
@@ -42,21 +43,6 @@ const useStyles = makeStyles(() => ({
     photoBox_2: { gridColumnStart: '1', gridColumnEnd: '2', gridRowStart: '4', gridRowEnd: '5' },
     photoBox_3: { gridColumnStart: '2', gridColumnEnd: '3', gridRowStart: '2', gridRowEnd: '5' },
     photoBox_4: { gridColumnStart: '1', gridColumnEnd: '3', gridRowStart: '5', gridRowEnd: '7' },
-
-    slider: {
-        background: 'linear-gradient(270deg, #187BC0 0%, #0A458C 100%)',
-        boxShadow: '10px 10px 20px #9E9A9A',
-        borderRadius: '25px',
-        fontSize: '16px',
-        lineHeight: '19px',
-        color: '#FFFFFF',
-        textTransform: 'uppercase',
-        position: 'absolute',
-    },
-
-    photosLabel: {
-        margin: '0 27px',
-    },
 }));
 
 const GRID_IMAGE_SIZE = 5;
@@ -110,31 +96,13 @@ const PhotoGallery = ({ photos }): ReactElement => {
             </div>
 
             {photos.length > GRID_IMAGE_SIZE && (
-                <Box display="flex" alignItems="center" justifyContent="center">
-                    <Box display="flex" alignItems="center" className={classes.slider}>
-                        <IconButton
-                            aria-label="previous image"
-                            color="inherit"
-                            disabled={currentPage === 0}
-                            onClick={() => {
-                                setCurrentPage(currentPage - 1);
-                            }}
-                        >
-                            <NavigateBeforeIcon />
-                        </IconButton>
-                        <span className={classes.photosLabel}>PHOTOS</span>
-                        <IconButton
-                            aria-label="next image"
-                            color="inherit"
-                            disabled={currentPage === photoPages.length - 1}
-                            onClick={() => {
-                                setCurrentPage(currentPage + 1);
-                            }}
-                        >
-                            <NavigateNextIcon />
-                        </IconButton>
-                    </Box>
-                </Box>
+                <Lister
+                    label="PHOTOS"
+                    currentIndex={currentPage}
+                    listLength={photoPages.length}
+                    onNextClick={setCurrentPage}
+                    onPrevClick={setCurrentPage}
+                />
             )}
 
             <ModalGateway>

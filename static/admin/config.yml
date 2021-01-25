@@ -63,46 +63,46 @@ collections:
       slug: '{{year}}-{{month}}-{{day}}_{{name}}'
       identifier_field: 'name'
       fields:
-          fields:
-              - { label: 'Template Key', name: 'templateKey', widget: 'hidden', default: 'event' }
-              - { label: 'Name', name: 'name', widget: 'string' }
-              - {
-                    label: 'Date',
-                    name: 'date',
-                    widget: 'datetime',
-                    timeFormat: 'HH:mm',
-                    dateFormat: 'YYYY-MM-DD',
-                    format: 'LLL',
-                }
-              - {
-                    label: 'Talks',
-                    name: 'talks',
-                    widget: 'list',
-                    fields:
-                        [
-                            {
-                                label: 'Speaker',
-                                name: 'speaker',
-                                widget: 'relation',
-                                collection: 'speakers',
-                                valueField: 'name',
-                                searchFields: 'name',
-                            },
-                            { label: 'Description', name: 'description', widget: 'string', required: false },
-                            { label: 'Photo', name: 'photo', widget: 'image', required: false },
-                        ],
-                }
-              - { label: 'Description', name: 'description', widget: 'string' }
-              - { label: 'Photo', name: 'photo', widget: 'image', required: false }
-              - { label: 'Place', name: 'place', widget: 'string', required: false }
-              - { label: 'Url', name: 'url', widget: 'string' }
-              - {
-                    label: 'Stream',
-                    name: 'stream',
-                    widget: 'select',
-                    multiple: false,
-                    options: ['Web Meetup', 'Mobile Meetup', 'Cloud Meetup'],
-                }
+          - { label: 'Template Key', name: 'templateKey', widget: 'hidden', default: 'event' }
+          - { label: 'Name', name: 'name', widget: 'string' }
+          - {
+                label: 'Date',
+                name: 'date',
+                widget: 'datetime',
+                timeFormat: 'HH:mm',
+                dateFormat: 'YYYY-MM-DD',
+                format: 'LLL',
+            }
+          - { label: 'Description', name: 'description', widget: 'string' }
+          - { label: 'Photo', name: 'photo', widget: 'image', required: false }
+          - { label: 'Place', name: 'place', widget: 'string', required: false }
+          - { label: 'Url', name: 'url', widget: 'string' }
+          - {
+                label: 'Stream',
+                name: 'stream',
+                widget: 'select',
+                multiple: false,
+                options: ['Web Meetup', 'Mobile Meetup', 'Cloud Meetup'],
+            }
+          - {
+                label: 'Talks',
+                name: 'talks',
+                widget: 'list',
+                fields:
+                    [
+                        {
+                            label: 'Speaker',
+                            name: 'speaker',
+                            widget: 'relation',
+                            collection: 'speakers',
+                            valueField: 'name',
+                            searchFields: 'name',
+                        },
+                        { label: 'Topic', name: 'topic', widget: 'string', required: true },
+                        { label: 'Description', name: 'description', widget: 'string', required: false },
+                        { label: 'Photo', name: 'photo', widget: 'image', required: false },
+                    ],
+            }
 
     - name: 'contacts'
       label: 'Contacts'

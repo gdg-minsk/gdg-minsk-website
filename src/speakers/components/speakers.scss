@@ -69,6 +69,21 @@
     color: #000000;
 }
 
+.talkSpeaker {
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 400;
+  color: #000000;
+}
+
+.talkTopic {
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 400;
+  color: #0a458c;
+  text-overflow: ellipsis;
+}
+
 .companyInfo {
     font-size: 15px;
     line-height: 18px;
@@ -149,4 +164,10 @@
   flex-direction: column;
   justify-content: flex-start;
   padding-top: 20px;
+}
+
+.talkPreview {
+  height: 80px;
+  width: 276px;
+  border-radius: 10px;
 }

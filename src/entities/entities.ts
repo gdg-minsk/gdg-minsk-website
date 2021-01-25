@@ -40,6 +40,7 @@ export interface Speaker {
 export interface Talk {
     id: string;
     speaker: Speaker;
+    topic: string;
     description: string;
     photo: typeof FluidImage;
 }
