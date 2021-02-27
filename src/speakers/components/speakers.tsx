@@ -29,72 +29,63 @@ const Speakers = ({ filter }: { filter: SpeakerFilter }): ReactElement => {
     } = filter;
     const [searchResults, setSearchResults] = useState([]);
 
-    const data = useStaticQuery(graphql`
-        {
-            markdownRemark(frontmatter: { templateKey: { eq: "speakers-page" } }) {
-                frontmatter {
-                    pageTitle
-                }
-            }
-            allMarkdownRemark(
-                filter: { fields: { collection: { eq: "speakers" } } }
-                sort: { fields: [frontmatter___name], order: ASC }
-            ) {
-                edges {
-                    node {
-                        id
-                        frontmatter {
-                            name
+    const data = useStaticQuery(
+        graphql`
+            {
+                allContentfulSpeakers {
+                    edges {
+                        node {
                             company
+                            fullName
+                            id
                             jobTitle
-                            photo {
-                                childImageSharp {
-                                    fluid(maxWidth: 400) {
-                                        ...GatsbyImageSharpFluid
-                                    }
+                            speakerPic {
+                                title
+                                file {
+                                    url
                                 }
-                            }
-                            streams
-                            socialNetworks {
-                                type
-                                url
                             }
                         }
                     }
                 }
             }
-        }
-    `);
+        `,
+    );
 
-    const speakers = data.allMarkdownRemark.edges.map(({ node }) => {
+    const speakers = data.allContentfulSpeakers.edges.map(({ node }) => {
         const {
-            frontmatter: { name, company, jobTitle, socialNetworks, photo, streams },
             id,
+            fullName,
+            company,
+            jobTitle,
+            speakerPic: {
+                file: { title, url },
+            },
         } = node;
 
         return {
             id,
-            name,
+            fullName,
             company,
             jobTitle,
-            socialNetworks,
-            photo,
-            streams,
+            title,
+            url,
         };
     });
 
     useEffect(() => {
-        let results = speakers;
-        if (currentStream.toLowerCase() !== ALL) {
-            results = results.filter(({ streams }: Speaker) => {
-                return !streams || streams.includes(currentStream);
-            });
-        }
-        if (isNotEmpty(searchStr)) {
-            results = results.filter(({ name }: Speaker) => {
-                return name?.toLowerCase().includes(searchStr.toLowerCase());
-            });
-        }
+        const results = speakers;
+        // let results = [];
+        // if (currentStream.toLowerCase() !== ALL) {
+        //     results = results.filter(({ streams }: Speaker) => {
+        //         return !streams || streams.includes(currentStream);
+        //     });
+        // }
+        // if (isNotEmpty(searchStr)) {
+        //     results = results.filter(({ name }: Speaker) => {
+        //         return name?.toLowerCase().includes(searchStr.toLowerCase());
+        //     });
+        // }
 
         setSearchResults(results);
     }, [searchStr, currentStream]);
@@ -103,15 +94,15 @@ const Speakers = ({ filter }: { filter: SpeakerFilter }): ReactElement => {
         <>
             <Grid classes={{ container: 'pageContainer' }} container spacing={3}>
                 {!searchResults.length && <NotFound />}
-                {searchResults.map(({ id, name, company, jobTitle, socialNetworks, photo }) => {
+                {searchResults.map(({ id, fullName, company, jobTitle, socialNetworks, url, title }) => {
                     const companyInfo = getCompanyInfo(jobTitle, company);
 
                     return (
                         <Grid className="speakerContainer" key={id} item>
                             <div className="speakerPhotoContainer">
                                 <Link to={`/speaker?speakerId=${id}`}>
-                                    {photo ? (
-                                        <Img className="speakerPhoto" fluid={photo.childImageSharp.fluid} />
+                                    {url ? (
+                                        <img className="speakerPhoto" src={url} alt={title} />
                                     ) : (
                                         <Box className="defaultSpeakerPhotoContainer">
                                             <Box
@@ -140,7 +131,7 @@ const Speakers = ({ filter }: { filter: SpeakerFilter }): ReactElement => {
                             </div>
                             <Box display="flex" flexDirection="column" alignItems="center" m="10px">
                                 <Link className="speakerName align-center" to="/" underline="none">
-                                    {name}
+                                    {fullName}
                                 </Link>
                                 {companyInfo && <span className="companyInfo align-center">{companyInfo}</span>}
 
