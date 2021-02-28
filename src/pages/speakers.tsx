@@ -9,29 +9,36 @@ import Speakers from '../speakers/components/speakers';
 
 import { SpeakersFilter } from '../speakers/components/speakersFilters';
 import { SpeakerFilter } from '../entities/entities';
-import streams from '../constants/streams';
+import stream from '../constants/streams';
 
 const INIT_STATE: SpeakerFilter = {
-    stream: { current: streams[0], options: streams },
+    stream: { current: stream, options: [stream] },
     searchStr: '',
 };
 
 const SpeakersPage = (): ReactElement => {
-    const data = useStaticQuery(graphql`
+    const { allContentfulStreams } = useStaticQuery(graphql`
         {
-            markdownRemark(frontmatter: { templateKey: { eq: "speakers-page" } }) {
-                frontmatter {
-                    pageTitle
+            allContentfulStreams {
+                edges {
+                    node {
+                        label
+                        id
+                    }
                 }
             }
         }
     `);
+    const receivedStreams = allContentfulStreams.edges.map(({ node }) => {
+        return { title: node.label, value: node.label.split(' ')[0] };
+    });
+    INIT_STATE.stream.options = INIT_STATE.stream.options.concat(receivedStreams);
 
     const [filter, setFilter] = useState(INIT_STATE);
 
     return (
         <Layout>
-            <SEO title={data.markdownRemark.frontmatter.pageTitle} />
+            <SEO title="Speakers" />
             <SpeakersFilter filter={filter} setFilter={setFilter} />
             <Speakers filter={filter} />
         </Layout>

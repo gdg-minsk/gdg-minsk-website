@@ -78,7 +78,6 @@ const Speakers = ({ filter }: { filter: SpeakerFilter }): ReactElement => {
 
     useEffect(() => {
         let results = speakers;
-        console.log(speakers);
         if (currentStream.toLowerCase() !== ALL) {
             results = results.filter(({ streams }: Speaker) => {
                 return !streams || streams.includes(currentStream);

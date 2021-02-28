@@ -2,23 +2,9 @@ import { ListItem } from '../entities/entities';
 
 export const ALL = 'all';
 
-const streams: ListItem[] = [
-    {
-        title: 'All',
-        value: ALL,
-    },
-    {
-        title: 'Web Meetup',
-        value: 'WEB',
-    },
-    {
-        title: 'Mobile Meetup',
-        value: 'MOBILE',
-    },
-    {
-        title: 'Cloud Meetup',
-        value: 'CLOUD',
-    },
-];
+const stream: ListItem = {
+    title: 'All',
+    value: ALL,
+};
 
-export default streams;
+export default stream;
