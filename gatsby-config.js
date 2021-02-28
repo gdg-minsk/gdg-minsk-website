@@ -125,5 +125,12 @@ module.exports = {
         'gatsby-plugin-typescript',
         'gatsby-plugin-sass',
         'gatsby-plugin-use-query-params',
+        {
+            resolve: `gatsby-source-contentful`,
+            options: {
+              spaceId: process.env.CONTENTFUL_SPACE_ID,
+              accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+            },
+        }
     ],
 };

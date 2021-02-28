@@ -28,11 +28,11 @@ export interface EventFilter {
 
 export interface Speaker {
     id: string;
-    name: string;
+    fullName: string;
     company?: string;
     jobTitle?: string;
     socialNetworks?: SocialNetwork[];
-    photo: typeof FluidImage;
+    speackerPic?: string;
     streams: string[];
     description: string;
 }
