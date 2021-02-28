@@ -1,7 +1,5 @@
 import React, { useState, useEffect, ReactElement } from 'react';
 
-import Img from 'gatsby-image/withIEPolyfill';
-
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 
@@ -45,6 +43,9 @@ const Speakers = ({ filter }: { filter: SpeakerFilter }): ReactElement => {
                                     url
                                 }
                             }
+                            streams {
+                                label
+                            }
                         }
                     }
                 }
@@ -61,6 +62,7 @@ const Speakers = ({ filter }: { filter: SpeakerFilter }): ReactElement => {
             speakerPic: {
                 file: { title, url },
             },
+            streams,
         } = node;
 
         return {
@@ -70,22 +72,23 @@ const Speakers = ({ filter }: { filter: SpeakerFilter }): ReactElement => {
             jobTitle,
             title,
             url,
+            streams: streams.map(({ label }) => label),
         };
     });
 
     useEffect(() => {
-        const results = speakers;
-        // let results = [];
-        // if (currentStream.toLowerCase() !== ALL) {
-        //     results = results.filter(({ streams }: Speaker) => {
-        //         return !streams || streams.includes(currentStream);
-        //     });
-        // }
-        // if (isNotEmpty(searchStr)) {
-        //     results = results.filter(({ name }: Speaker) => {
-        //         return name?.toLowerCase().includes(searchStr.toLowerCase());
-        //     });
-        // }
+        let results = speakers;
+        console.log(speakers);
+        if (currentStream.toLowerCase() !== ALL) {
+            results = results.filter(({ streams }: Speaker) => {
+                return !streams || streams.includes(currentStream);
+            });
+        }
+        if (isNotEmpty(searchStr)) {
+            results = results.filter(({ fullName }: Speaker) => {
+                return fullName?.toLowerCase().includes(searchStr.toLowerCase());
+            });
+        }
 
         setSearchResults(results);
     }, [searchStr, currentStream]);
