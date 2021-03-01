@@ -46,12 +46,20 @@ const ContactsPage = (): ReactElement => {
     `);
 
     const contacts: Contact[] = data.allContentfulTeam.edges.map(({ node }) => {
-        const { id, fullName, userPic, email, phoneNumber } = node;
+        const {
+            id,
+            fullName,
+            userPic: {
+                file: { title, url },
+            },
+            email,
+            phoneNumber,
+        } = node;
 
         return {
             id,
             fullName,
-            userPic,
+            userPic: { title, url },
             email,
             phoneNumber,
         };
@@ -77,13 +85,13 @@ const ContactsPage = (): ReactElement => {
                     </Typography>
 
                     <Grid className="contactCardContainer" item>
-                        {contacts.map(({ name, photo, email, telegram, phone }) => {
+                        {contacts.map(({ id, fullName, userPic: { url, title }, email, telegram, phoneNumber }) => {
                             return (
-                                <Box className="contactCard" key={name}>
-                                    <Img className="contactPhoto" fluid={(photo as any).childImageSharp.fluid} />
+                                <Box className="contactCard" key={id}>
+                                    <img className="contactPhoto" src={url} alt={title} />
                                     <ul className="contactCardContent">
                                         <li>
-                                            <Typography>{name}</Typography>
+                                            <Typography>{fullName}</Typography>
                                         </li>
                                         <li>
                                             <FontAwesomeIcon icon={faEnvelope} className="contactLine" />
@@ -91,16 +99,16 @@ const ContactsPage = (): ReactElement => {
                                                 {email}
                                             </Link>
                                         </li>
-                                        <li>
+                                        {/* <li>
                                             <FontAwesomeIcon icon={faTelegramPlane} className="contactLine" />
                                             <Link className="contactLine" to={'http://telegram.me/' + telegram}>
                                                 {telegram}
                                             </Link>
-                                        </li>
+                                        </li> */}
                                         <li>
                                             <FontAwesomeIcon icon={faPhone} className="contactLine" />
-                                            <Link className="contactLine" to={'tel:' + phone}>
-                                                {phone}
+                                            <Link className="contactLine" to={'tel:' + phoneNumber}>
+                                                {phoneNumber}
                                             </Link>
                                         </li>
                                     </ul>
