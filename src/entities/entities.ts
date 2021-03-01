@@ -62,7 +62,7 @@ export interface Contact {
     userPic: UserPic;
     email: string;
     telegram: string;
-    phone: string;
+    phoneNumber: string;
 }
 
 export interface UserPic {
