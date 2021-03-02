@@ -15,6 +15,7 @@ import Carousel, { Modal, ModalGateway } from 'react-images';
 
 import { FluidImage } from '../../constants/prop-types';
 import Lister from '../shared/lister/lister';
+import { GaleryPhoto } from '../../entities/entities';
 
 const useStyles = makeStyles(() => ({
     photoGallery: {
@@ -30,6 +31,7 @@ const useStyles = makeStyles(() => ({
         width: '100%',
         height: '100%',
         objectFit: 'cover',
+        objectPosition: '50% 50%',
         cursor: 'pointer',
     },
     photoBox: {
@@ -69,7 +71,7 @@ const PhotoGallery = ({ photos }): ReactElement => {
     return (
         <>
             <div className={classes.photoGallery}>
-                {photoPages[currentPage].map((photoInfo, index) => {
+                {photoPages[currentPage].map((photoInfo: GaleryPhoto, index) => {
                     const openPhoto = (): void => {
                         openLightbox(currentPage * GRID_IMAGE_SIZE + index);
                     };
@@ -79,16 +81,14 @@ const PhotoGallery = ({ photos }): ReactElement => {
                             className={classNames(classes.photoBox, classes[`photoBox_${index}`])}
                             onClick={openPhoto}
                             onKeyPress={openPhoto}
-                            tabIndex="0"
+                            tabIndex={0}
                             role="button"
                         >
-                            <Img
+                            <img
                                 className={classes.photo}
-                                fluid={photoInfo.gridPhoto.childImageSharp.fluid}
-                                objectFit="cover"
-                                objectPosition="50% 50%"
-                                alt={photoInfo.description}
+                                src={photoInfo.file.url}
                                 loading="lazy"
+                                alt={photoInfo.file.fileName}
                             />
                         </div>
                     );

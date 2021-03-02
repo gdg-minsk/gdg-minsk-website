@@ -47,32 +47,14 @@ const IndexPage = (): ReactElement => {
     const classes = useStyles();
 
     const data = useStaticQuery(graphql`
-        query IndexPagePhotos {
-            markdownRemark(frontmatter: { templateKey: { eq: "index-page" } }) {
-                frontmatter {
-                    homePageWidget {
-                        date
-                        place
-                        eventType
-                        url
-                    }
-                    pageTitle
-                    title
-                    pageText
-                    photos {
-                        description
-                        gridPhoto: photo {
-                            childImageSharp {
-                                fluid(maxWidth: 640) {
-                                    ...GatsbyImageSharpFluid_withWebp
-                                }
-                            }
-                        }
-                        fullScreenPhoto: photo {
-                            childImageSharp {
-                                fluid(maxWidth: 1920) {
-                                    ...GatsbyImageSharpFluid_withWebp
-                                }
+        {
+            allContentfulGallery {
+                edges {
+                    node {
+                        photos {
+                            file {
+                                url
+                                fileName
                             }
                         }
                     }
@@ -80,37 +62,39 @@ const IndexPage = (): ReactElement => {
             }
         }
     `);
-
     const {
-        markdownRemark: {
-            frontmatter: { photos, pageText, pageTitle, title, homePageWidget },
+        allContentfulGallery: {
+            edges: [
+                {
+                    node: { photos },
+                },
+            ],
         },
     } = data;
-
-    const eventDate = new Date(homePageWidget.date);
+    const eventDate = new Date();
 
     return (
         <Layout>
-            <SEO title={pageTitle} />
+            <SEO title="Google Developer Group Minsk" />
 
             <Grid classes={{ container: classes.pageContainer }} container spacing={3}>
                 <Grid className={classes.gridItem} item>
                     <Box className={classes.pageContent}>
                         <Box className={classes.widget}>
-                            <HomePageWidget
+                            {/* <HomePageWidget
                                 date={eventDate}
                                 place={homePageWidget.place}
                                 eventType={homePageWidget.eventType}
                                 url={homePageWidget.url}
-                            />
+                            /> */}
                         </Box>
-                        <Typography variant="h5" component="h1" gutterBottom color="primary">
+                        {/* <Typography variant="h5" component="h1" gutterBottom color="primary">
                             {title}
                         </Typography>
 
                         <Typography variant="body1" component="p">
                             {pageText}
-                        </Typography>
+                        </Typography> */}
                     </Box>
                 </Grid>
                 <Grid className={classNames(classes.gridItem, classes.photoBoxColumn)} item>

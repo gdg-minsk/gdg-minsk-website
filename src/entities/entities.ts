@@ -64,3 +64,12 @@ export interface Contact {
     telegram: string;
     phone: string;
 }
+
+export interface GaleryPhoto {
+    file: File;
+}
+
+export interface File {
+    url: string;
+    fileName: string;
+}
