@@ -25,92 +25,99 @@ const ContactsPage = (): ReactElement => {
     const { width } = useWindowDimensions();
 
     const data = useStaticQuery(graphql`
-    {
-        markdownRemark(frontmatter: { templateKey: { eq: "contacts-page" } }) {
-            frontmatter {
-                pageTitle
-            }
-        }
-        allMarkdownRemark(
-            filter: { fields: { collection: { eq: "contacts" } } }
-            sort: { fields: [frontmatter___name], order: ASC }
-        ) {
-            edges {
-                node {
-                    id
-                    frontmatter {
-                        name
-                        photo {
-                            childImageSharp {
-                                fluid(maxWidth: 400) {
-                                    ...GatsbyImageSharpFluid
-                                }
+        {
+            allContentfulTeam {
+                edges {
+                    node {
+                        fullName
+                        email
+                        id
+                        phoneNumber
+                        userPic {
+                            file {
+                                url
+                                fileName
                             }
                         }
-                        email
-                        telegram
-                        phone
                     }
                 }
             }
         }
-    }
-`);
+    `);
 
-    const contacts: Contact[] = data.allMarkdownRemark.edges.map(({ node }) => {
+    const contacts: Contact[] = data.allContentfulTeam.edges.map(({ node }) => {
         const {
-            frontmatter: { name, photo, email, phone, telegram },
             id,
+            fullName,
+            userPic: {
+                file: { title, url },
+            },
+            email,
+            phoneNumber,
         } = node;
 
         return {
             id,
-            name,
-            photo,
+            fullName,
+            userPic: { title, url },
             email,
-            phone,
-            telegram
+            phoneNumber,
         };
     });
     return (
         <Layout isSocialIconsVisible={width <= MobileWidth}>
-            <SEO title={data.markdownRemark.frontmatter.pageTitle} />
+            <SEO title="contacts" />
 
-            <Box className='page'>
-                <Box className='contacts'>
-                    <Box className='emailInfo'>
-                        <Typography className='text' component="p">
+            <Box className="page">
+                <Box className="contacts">
+                    <Box className="emailInfo">
+                        <Typography className="text" component="p">
                             Contact us on any questions on our email
                         </Typography>
 
-                        <Link
-                            className={classNames('link', 'text', 'emailLink')}
-                            to="mailto:GDG@gmail.com"
-                        >
+                        <Link className={classNames('link', 'text', 'emailLink')} to="mailto:GDG@gmail.com">
                             GDG@GMAIL.COM
                         </Link>
                     </Box>
 
-                    <Typography className='text' component="p" gutterBottom>
+                    <Typography className="text" component="p" gutterBottom>
                         Also you can meet our heads
                     </Typography>
 
-                    <Grid className='contactCardContainer' item>
-                        {contacts.map(({ name, photo, email, telegram, phone }) => {
+                    <Grid className="contactCardContainer" item>
+                        {contacts.map(({ id, fullName, userPic: { url, title }, email, telegram, phoneNumber }) => {
                             return (
-                                <Box className='contactCard'>
-                                    <Img className="contactPhoto" fluid={(photo as any).childImageSharp.fluid} />
-                                    <ul className='contactCardContent'>
-                                        <li><Typography>{name}</Typography></li>
-                                        <li><FontAwesomeIcon icon={faEnvelope} className='contactLine' /><Link className='contactLine' to={'mailto:' + email}>{email}</Link></li>
-                                        <li><FontAwesomeIcon icon={faTelegramPlane} className='contactLine' /><Link className='contactLine' to={'http://telegram.me/' + telegram}>{telegram}</Link></li>
-                                        <li><FontAwesomeIcon icon={faPhone} className='contactLine' /><Link className='contactLine' to={'tel:' + phone}>{phone}</Link></li>
+                                <Box className="contactCard" key={id}>
+                                    <img className="contactPhoto" src={url} alt={title} />
+                                    <ul className="contactCardContent">
+                                        <li>
+                                            <Typography>{fullName}</Typography>
+                                        </li>
+                                        <li>
+                                            <FontAwesomeIcon icon={faEnvelope} className="contactLine" />
+                                            <Link className="contactLine" to={'mailto:' + email}>
+                                                {email}
+                                            </Link>
+                                        </li>
+                                        {/* <li>
+                                            <FontAwesomeIcon icon={faTelegramPlane} className="contactLine" />
+                                            <Link className="contactLine" to={'http://telegram.me/' + telegram}>
+                                                {telegram}
+                                            </Link>
+                                        </li> */}
+                                        <li>
+                                            <FontAwesomeIcon icon={faPhone} className="contactLine" />
+                                            <Link className="contactLine" to={'tel:' + phoneNumber}>
+                                                {phoneNumber}
+                                            </Link>
+                                        </li>
                                     </ul>
-                                </Box>);
+                                </Box>
+                            );
                         })}
                     </Grid>
 
-                    <Box className='socialIconsContainer'>
+                    <Box className="socialIconsContainer">
                         <SocialIcons iconSize={105} />
                     </Box>
                 </Box>

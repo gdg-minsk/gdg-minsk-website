@@ -58,9 +58,14 @@ export interface CommunityEvent {
 
 export interface Contact {
     id: string;
-    name: string;
-    photo: typeof FluidImage;
+    fullName: string;
+    userPic: UserPic;
     email: string;
     telegram: string;
-    phone: string;
+    phoneNumber: string;
+}
+
+export interface UserPic {
+    title: string;
+    url: string;
 }
