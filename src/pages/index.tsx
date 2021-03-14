@@ -60,6 +60,16 @@ const IndexPage = (): ReactElement => {
                     }
                 }
             }
+            allContentfulLeadTexts(filter: { pageRef: { eq: "home" } }) {
+                edges {
+                    node {
+                        body {
+                            raw
+                        }
+                        header
+                    }
+                }
+            }
         }
     `);
     const {
@@ -70,9 +80,19 @@ const IndexPage = (): ReactElement => {
                 },
             ],
         },
+        allContentfulLeadTexts: {
+            edges: [
+                {
+                    node: {
+                        body: { raw },
+                        header,
+                    },
+                },
+            ],
+        },
     } = data;
     const eventDate = new Date();
-
+    const value = JSON.parse(raw).content[0].content[0].value;
     return (
         <Layout>
             <SEO title="Google Developer Group Minsk" />
@@ -88,13 +108,13 @@ const IndexPage = (): ReactElement => {
                                 url={homePageWidget.url}
                             /> */}
                         </Box>
-                        {/* <Typography variant="h5" component="h1" gutterBottom color="primary">
-                            {title}
+                        <Typography variant="h5" component="h1" gutterBottom color="primary">
+                            {header}
                         </Typography>
 
                         <Typography variant="body1" component="p">
-                            {pageText}
-                        </Typography> */}
+                            {value}
+                        </Typography>
                     </Box>
                 </Grid>
                 <Grid className={classNames(classes.gridItem, classes.photoBoxColumn)} item>
