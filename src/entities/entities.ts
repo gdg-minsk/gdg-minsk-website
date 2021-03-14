@@ -69,3 +69,12 @@ export interface UserPic {
     title: string;
     url: string;
 }
+
+export interface GaleryPhoto {
+    file: File;
+}
+
+export interface File {
+    url: string;
+    fileName: string;
+}

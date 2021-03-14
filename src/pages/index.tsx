@@ -47,69 +47,73 @@ const IndexPage = (): ReactElement => {
     const classes = useStyles();
 
     const data = useStaticQuery(graphql`
-        query IndexPagePhotos {
-            markdownRemark(frontmatter: { templateKey: { eq: "index-page" } }) {
-                frontmatter {
-                    homePageWidget {
-                        date
-                        place
-                        eventType
-                        url
-                    }
-                    pageTitle
-                    title
-                    pageText
-                    photos {
-                        description
-                        gridPhoto: photo {
-                            childImageSharp {
-                                fluid(maxWidth: 640) {
-                                    ...GatsbyImageSharpFluid_withWebp
-                                }
-                            }
-                        }
-                        fullScreenPhoto: photo {
-                            childImageSharp {
-                                fluid(maxWidth: 1920) {
-                                    ...GatsbyImageSharpFluid_withWebp
-                                }
+        {
+            allContentfulGallery {
+                edges {
+                    node {
+                        photos {
+                            file {
+                                url
+                                fileName
                             }
                         }
                     }
                 }
             }
+            allContentfulLeadTexts(filter: { pageRef: { eq: "home" } }) {
+                edges {
+                    node {
+                        body {
+                            raw
+                        }
+                        header
+                    }
+                }
+            }
         }
     `);
-
     const {
-        markdownRemark: {
-            frontmatter: { photos, pageText, pageTitle, title, homePageWidget },
+        allContentfulGallery: {
+            edges: [
+                {
+                    node: { photos },
+                },
+            ],
+        },
+        allContentfulLeadTexts: {
+            edges: [
+                {
+                    node: {
+                        body: { raw },
+                        header,
+                    },
+                },
+            ],
         },
     } = data;
-
-    const eventDate = new Date(homePageWidget.date);
-
+    const eventDate = new Date();
+    const value = JSON.parse(raw).content[0].content[0].value;
     return (
         <Layout>
-            <SEO title={pageTitle} />
+            <SEO title="Google Developer Group Minsk" />
 
             <Grid classes={{ container: classes.pageContainer }} container spacing={3}>
                 <Grid className={classes.gridItem} item>
                     <Box className={classes.pageContent}>
                         <Box className={classes.widget}>
-                            <HomePageWidget
+                            {/* <HomePageWidget
                                 date={eventDate}
                                 place={homePageWidget.place}
                                 eventType={homePageWidget.eventType}
                                 url={homePageWidget.url}
-                            />
+                            /> */}
                         </Box>
                         <Typography variant="h5" component="h1" gutterBottom color="primary">
-                            {title}
+                            {header}
                         </Typography>
 
                         <Typography variant="body1" component="p">
-                            {pageText}
+                            {value}
                         </Typography>
                     </Box>
                 </Grid>
