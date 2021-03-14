@@ -11,11 +11,12 @@ export interface ListerProps {
     listLength: number;
     onNextClick: (indexToSelect: number) => void;
     onPrevClick: (indexToSelect: number) => void;
+    className?: string;
 }
 
-const Lister = ({ label, onNextClick, onPrevClick, currentIndex, listLength }: ListerProps): ReactElement => {
+const Lister = ({ label, onNextClick, onPrevClick, currentIndex, listLength, className }: ListerProps): ReactElement => {
     return (
-        <Box display="flex" alignItems="center" justifyContent="center">
+        <Box display="flex" alignItems="center" justifyContent="center" className={className}>
             <Box display="flex" alignItems="center" className="slider">
                 <IconButton
                     aria-label="previous"

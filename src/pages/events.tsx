@@ -4,12 +4,12 @@ import { useStaticQuery, graphql } from 'gatsby';
 import Layout from '../components/shared/layout/layout';
 import SEO from '../components/shared/seo';
 import { EventFilter, ListItem } from '../entities/entities';
-import streams, { ALL } from '../constants/streams';
+import { ALL, allStreamsItem } from '../constants/streams';
 import EventsFilter from '../events/components/eventsFilter';
 import Events from '../events/components/events';
 
 const INIT_STATE: EventFilter = {
-    stream: { current: streams[0], options: streams },
+    stream: { current: allStreamsItem, options: [allStreamsItem] },
     speaker: {
         current: {
             title: 'All',

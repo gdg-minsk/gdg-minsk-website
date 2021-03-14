@@ -2,9 +2,7 @@ import { ListItem } from '../entities/entities';
 
 export const ALL = 'all';
 
-const stream: ListItem = {
+export const allStreamsItem: ListItem = {
     title: 'All',
     value: ALL,
 };
-
-export default stream;

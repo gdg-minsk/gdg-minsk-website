@@ -1,14 +1,9 @@
 import React, { useState, useEffect, ReactElement } from 'react';
 
-import Img from 'gatsby-image/withIEPolyfill';
-
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 
 import Link from '../../components/shared/link';
-
-import UserIcon from '../../../static/svg/user.svg';
-import Stork from '../../../static/svg/stork.svg';
 
 import { ALL } from '../../constants/streams';
 
@@ -74,6 +69,7 @@ const Events = ({ filter }: { filter: EventFilter }): ReactElement => {
                 photo,
                 stream,
                 place,
+                photoUrl: undefined,
             };
         },
     );
@@ -117,7 +113,7 @@ const Events = ({ filter }: { filter: EventFilter }): ReactElement => {
                                 {date && <span className="speakerInfo">{date}</span>}
                                 {description && <span className="companyInfo align-center">{description}</span>}
                                 {talks && (
-                                    <div className="speakerInfo">{talks.map(t => t.speaker.name).join(', ')}</div>
+                                    <div className="speakerInfo">{talks.map(t => t.speaker.fullName).join(', ')}</div>
                                 )}
                                 {stream && <span className="speakerInfo">{stream}</span>}
                             </Box>

@@ -9,10 +9,10 @@ import Speakers from '../speakers/components/speakers';
 
 import { SpeakersFilter } from '../speakers/components/speakersFilters';
 import { SpeakerFilter } from '../entities/entities';
-import stream from '../constants/streams';
+import { allStreamsItem } from '../constants/streams';
 
 const INIT_STATE: SpeakerFilter = {
-    stream: { current: stream, options: [stream] },
+    stream: { current: allStreamsItem, options: [allStreamsItem] },
     searchStr: '',
 };
 
