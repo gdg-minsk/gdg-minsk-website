@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react';
 import Box from '@material-ui/core/Box';
-import './lister.css';
 import Stork from '../../../static/svg/stork.svg';
 import UserIcon from '../../../static/svg/user.svg';
 

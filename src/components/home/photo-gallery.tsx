@@ -1,14 +1,7 @@
 import React, { useState, useCallback, useMemo, ReactElement } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-
-import Img from 'gatsby-image/withIEPolyfill';
-
 import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
-import IconButton from '@material-ui/core/IconButton';
-import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
-import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import chunk from 'lodash-es/chunk';
 
 import Carousel, { Modal, ModalGateway } from 'react-images';
