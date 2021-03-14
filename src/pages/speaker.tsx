@@ -14,6 +14,7 @@ import Grid from '@material-ui/core/Grid';
 import { useQueryParam, StringParam } from 'use-query-params';
 import { graphql, useStaticQuery } from 'gatsby';
 import { getCompanyInfo } from '../tools/strings';
+import Photo from '../components/shared/photo';
 
 const SpeakerPage = (): ReactElement => {
     const [speakerId] = useQueryParam('speakerId', StringParam);
@@ -85,27 +86,7 @@ const SpeakerPage = (): ReactElement => {
                 {!!speaker && (
                     <Grid className="speakerContainer shadow-darken10 bg-white relative hmin360 pl210 align-l" item>
                         <div className="speakerPhotoContainer flying">
-                            {speaker.photo ? (
-                                <Img className="speakerPhoto" fluid={speaker.photo.childImageSharp.fluid} />
-                            ) : (
-                                <Box className="defaultSpeakerPhotoContainer">
-                                    <Box
-                                        display="flex"
-                                        flexDirection="column"
-                                        position="absolute"
-                                        width="100%"
-                                        height="100%"
-                                    >
-                                        <Box display="flex" justifyContent="flex-end">
-                                            <Stork height="40" />
-                                        </Box>
-
-                                        <Box display="flex" justifyContent="center" alignItems="center" flexGrow="1">
-                                            <UserIcon height="155" />
-                                        </Box>
-                                    </Box>
-                                </Box>
-                            )}
+                            <Photo photoUrl={speaker.speackerPic} />
                         </div>
                         <Box display="flex" flexDirection="column" alignItems="left" m="10px">
                             <h3 className="speakerName">{speaker.name}</h3>

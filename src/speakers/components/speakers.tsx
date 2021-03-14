@@ -17,6 +17,7 @@ import { Speaker, SpeakerFilter } from '../../entities/entities';
 import { getCompanyInfo, isNotEmpty } from '../../tools/strings';
 import NotFound from '../../components/not-found/not-found.component';
 import { graphql, useStaticQuery } from 'gatsby';
+import Photo from '../../components/shared/photo';
 
 const Speakers = ({ filter }: { filter: SpeakerFilter }): ReactElement => {
     const {
@@ -103,32 +104,7 @@ const Speakers = ({ filter }: { filter: SpeakerFilter }): ReactElement => {
                         <Grid className="speakerContainer" key={id} item>
                             <div className="speakerPhotoContainer">
                                 <Link to={`/speaker?speakerId=${id}`}>
-                                    {url ? (
-                                        <img className="speakerPhoto" src={url} alt={title} />
-                                    ) : (
-                                        <Box className="defaultSpeakerPhotoContainer">
-                                            <Box
-                                                display="flex"
-                                                flexDirection="column"
-                                                position="absolute"
-                                                width="100%"
-                                                height="100%"
-                                            >
-                                                <Box display="flex" justifyContent="flex-end">
-                                                    <Stork height="40" />
-                                                </Box>
-
-                                                <Box
-                                                    display="flex"
-                                                    justifyContent="center"
-                                                    alignItems="center"
-                                                    flexGrow="1"
-                                                >
-                                                    <UserIcon height="155" />
-                                                </Box>
-                                            </Box>
-                                        </Box>
-                                    )}
+                                    <Photo photoUrl={url} alt={title} />
                                 </Link>
                             </div>
                             <Box display="flex" flexDirection="column" alignItems="center" m="10px">

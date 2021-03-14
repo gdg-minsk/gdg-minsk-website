@@ -15,6 +15,7 @@ import { ALL } from '../../constants/streams';
 import './events.scss';
 import { useStaticQuery, graphql } from 'gatsby';
 import { CommunityEvent, EventFilter } from '../../entities/entities';
+import Photo from '../../components/shared/photo';
 
 const Events = ({ filter }: { filter: EventFilter }): ReactElement => {
     const [searchResults, setSearchResults] = useState([]);
@@ -101,37 +102,12 @@ const Events = ({ filter }: { filter: EventFilter }): ReactElement => {
     return (
         <>
             <Grid classes={{ container: 'pageContainer' }} container spacing={3}>
-                {searchResults.map(({ id, name, date, description, talks, photo, stream }: CommunityEvent) => {
+                {searchResults.map(({ id, name, date, description, talks, photoUrl, stream }: CommunityEvent) => {
                     return (
                         <Grid className="speakerContainer" key={id} item>
                             <div className="speakerPhotoContainer">
                                 <Link to={`/event?eventId=${id}`}>
-                                    {photo ? (
-                                        <Img className="speakerPhoto" fluid={(photo as any).childImageSharp.fluid} />
-                                    ) : (
-                                        <Box className="defaultSpeakerPhotoContainer">
-                                            <Box
-                                                display="flex"
-                                                flexDirection="column"
-                                                position="absolute"
-                                                width="100%"
-                                                height="100%"
-                                            >
-                                                <Box display="flex" justifyContent="flex-end">
-                                                    <Stork height="40" />
-                                                </Box>
-
-                                                <Box
-                                                    display="flex"
-                                                    justifyContent="center"
-                                                    alignItems="center"
-                                                    flexGrow="1"
-                                                >
-                                                    <UserIcon height="155" />
-                                                </Box>
-                                            </Box>
-                                        </Box>
-                                    )}
+                                    <Photo photoUrl={photoUrl} />
                                 </Link>
                             </div>
                             <Box display="flex" flexDirection="column" alignItems="center" m="10px">

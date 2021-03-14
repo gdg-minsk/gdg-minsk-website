@@ -42,7 +42,7 @@ export interface Talk {
     speaker: Speaker;
     topic: string;
     description: string;
-    photo: typeof FluidImage;
+    photo?: typeof FluidImage;
 }
 
 export interface CommunityEvent {
@@ -53,6 +53,7 @@ export interface CommunityEvent {
     date?: Date;
     talks: Talk[];
     photo: typeof FluidImage;
+    photoUrl: string;
     stream: string;
 }
 
