@@ -70,6 +70,17 @@ const IndexPage = (): ReactElement => {
                     }
                 }
             }
+            allContentfulEvents(limit: 5, sort: { fields: date, order: DESC }, filter: { status: { eq: true } }) {
+                edges {
+                    node {
+                        status
+                        url
+                        title
+                        location
+                        date(formatString: "YYYY-MM-DD HH:mm")
+                    }
+                }
+            }
         }
     `);
     const {
@@ -90,9 +101,10 @@ const IndexPage = (): ReactElement => {
                 },
             ],
         },
+        allContentfulEvents,
     } = data;
-    const eventDate = new Date();
     const value = JSON.parse(raw).content[0].content[0].value;
+    const nearestEvent = allContentfulEvents.edges[0].node;
     return (
         <Layout>
             <SEO title="Google Developer Group Minsk" />
@@ -101,12 +113,12 @@ const IndexPage = (): ReactElement => {
                 <Grid className={classes.gridItem} item>
                     <Box className={classes.pageContent}>
                         <Box className={classes.widget}>
-                            {/* <HomePageWidget
-                                date={eventDate}
-                                place={homePageWidget.place}
-                                eventType={homePageWidget.eventType}
-                                url={homePageWidget.url}
-                            /> */}
+                            <HomePageWidget
+                                date={nearestEvent.date}
+                                place={nearestEvent.location}
+                                url={nearestEvent.url}
+                                eventName={nearestEvent.title}
+                            />
                         </Box>
                         <Typography variant="h5" component="h1" gutterBottom color="primary">
                             {header}
