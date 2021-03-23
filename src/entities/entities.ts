@@ -47,27 +47,26 @@ export interface Talk {
 
 export interface CommunityEvent {
     id: string;
-    name: string;
+    title: string;
     description: string;
-    place?: string;
+    location?: string;
     date?: Date;
-    talks: Talk[];
-    photo: typeof FluidImage;
-    photoUrl: string;
-    stream: string;
+    photo: Pic;
+    streams: any;
+    status: boolean;
 }
 
 export interface Contact {
     id: string;
     fullName: string;
-    userPic: UserPic;
+    userPic: Pic;
     email: string;
     telegram: string;
     phoneNumber: string;
 }
 
-export interface UserPic {
-    title: string;
+export interface Pic {
+    fileName: string;
     url: string;
 }
 

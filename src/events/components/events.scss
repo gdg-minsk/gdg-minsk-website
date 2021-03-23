@@ -3,6 +3,7 @@
     flex-grow: 1;
     justify-content: center;
     font-family: Roboto;
+    padding-top: 15px;
 }
 
 .socialIcon
@@ -83,6 +84,12 @@
     top: 0;
     z-index: 2;
     background: #fff;
+}
+.eventContainer {
+    width: 50%;
+    max-height: 360px;
+    display: flex;
+
 }
 
 @media (max-width: 600px) {

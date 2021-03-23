@@ -2,14 +2,15 @@ import React, { ReactElement } from 'react';
 import Box from '@material-ui/core/Box';
 import Stork from '../../../static/svg/stork.svg';
 import UserIcon from '../../../static/svg/user.svg';
+import { Pic } from '../../entities/entities';
 
 export interface PhotoProps {
-    photoUrl?: string;
+    photoUrl?: Pic;
     className?: string;
     alt?: string;
 }
 
-const Photo = ({ photoUrl, className = 'speakerPhoto', alt }: PhotoProps): ReactElement => {
+const Photo = ({ photoUrl, alt, className = 'speakerPhoto' }: PhotoProps): ReactElement => {
     return !!photoUrl ? (
         <img className={className} src={photoUrl} alt={alt} />
     ) : (
