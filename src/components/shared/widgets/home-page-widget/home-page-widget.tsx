@@ -2,13 +2,11 @@ import React, { ReactElement } from 'react';
 import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/styles';
-import Link from '@material-ui/core/Link';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-
+import { Box, Link, Typography, Button } from '@material-ui/core';
 import getEventMonth from '../../../../tools/months';
 import { useWindowDimensions } from '../../../../hooks/window-size';
 import { TabletWidth } from '../../../../constants/window-sizes';
+import Arrow from '../../../../../static/svg/arrow.svg';
 
 const useStyles = makeStyles({
     date: {
@@ -33,6 +31,9 @@ const useStyles = makeStyles({
         height: '100%',
         borderRadius: '0 10px 10px 0',
     },
+    buttonContainer: {
+        display: 'block',
+    },
 
     '@media (max-width: 960px)': {
         event: {
@@ -54,34 +55,34 @@ const useStyles = makeStyles({
     },
 });
 
-const HomePageWidget = ({ date, place, eventType, url }): ReactElement => {
+const HomePageWidget = ({ date, place, eventName, url }): ReactElement => {
     const styles = useStyles();
 
     const { width } = useWindowDimensions();
-
+    const d = new Date(date);
     const widget = (
         <Box display="flex" flexGrow={1} borderRadius="10px" boxShadow="5px 5px 20px #D1D1D1">
             <Box alignItems="center" display="flex" flexGrow={1} padding="15px 0 15px 15px">
                 <Box className={styles.date}>
                     <Typography className={styles.day} align="center" color="textSecondary">
-                        {date.getDate()}
+                        {d.getDate()}
                     </Typography>
                     <Typography className={styles.month} align="center" color="textSecondary">
-                        {getEventMonth(date)}
+                        {getEventMonth(d)}
                     </Typography>
                 </Box>
                 <Box flexGrow={1} margin="0 30px">
                     <Typography className={styles.place} color="textSecondary">
                         {place}
                     </Typography>
-                    <Typography className={styles.event}>{eventType}</Typography>
+                    <Typography className={styles.event}>{eventName}</Typography>
                 </Box>
             </Box>
-            {/* <Link href={url} target="blank" className={styles.buttonContainer}>
+            <Link href={url} target="blank" className={styles.buttonContainer}>
                 <Button className={styles.button} variant="contained" color="primary">
-                    <ArrowForwardIosIcon />
+                    <Arrow />
                 </Button>
-            </Link> */}
+            </Link>
         </Box>
     );
 
@@ -97,9 +98,9 @@ const HomePageWidget = ({ date, place, eventType, url }): ReactElement => {
 };
 
 HomePageWidget.propTypes = {
-    date: PropTypes.instanceOf(Date).isRequired,
+    date: PropTypes.string.isRequired,
     place: PropTypes.string.isRequired,
-    eventType: PropTypes.string.isRequired,
+    eventName: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
 };
 
