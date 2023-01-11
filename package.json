@@ -26,7 +26,7 @@
         "gatsby-remark-relative-images": "^0.3.0",
         "gatsby-source-filesystem": "^2.1.50",
         "gatsby-theme-material-ui": "^1.0.8",
-        "gatsby-transformer-remark": "^2.6.55",
+        "gatsby-transformer-remark": "^5.25.1",
         "gatsby-transformer-sharp": "^2.3.17",
         "google-maps-react": "^2.0.2",
         "lodash": "^4.17.15",
